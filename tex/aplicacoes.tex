@@ -1,3 +1,80 @@
+Neste capítulo serão descritas algumas aplicações utilizando geradores ótimos e
+imagens de persistência.
+% se der tempo mapper.
+
 \section{Geradores ótimos em classificadores de imagens}
+
+Utilizando imagens e rótulos associados a elas é possível criar classificadores,
+algoritmos que decidem os rótulos dada uma imagem. Alguns deles são Redes Neurais
+~\cite{McCulloch1943}, SVM~\cite{Cortes1995}, Redes Neurais Convolucionais
+(abreviado por CNN, sigla em inglês)~\cite{LeCun1989} e \textit{Generative Adversarial
+Networks (GAN)}~\cite{Goodfellow2014}.
+
+Nesta seção será descrito as redes neurais convolucionais e como obteve-se um
+classificador de imagens utilizando-as. Além disso, será descrito como outros
+classificadores foram gerados utilizando informações disponibilizadas
+pelos geradores ótimos para obter-se um classificador com melhor acurácia
+do que a rede neural convolucional original.
+
+\subsection{Redes Neurais Convolucionais (CNN)}
+
+O algoritmo de redes neurais artificiais é o precurso da CNN. Um rede neural
+artificial é uma composição de funções $f_n$ que tem como contra domínio algum
+$\mathbb{R}^m$. O seu domínio é dado pela dimensão dos dados disponíveis, por
+exemplo, se temos uma imagem de tamanho $10x10$, a dimensão do domínio é $100$.
+Logo, a rede neural pode ser descrita como uma função $Ann:\mathbb{R}^p \to
+\mathbb{R}^m$
+\begin{equation}
+  Ann(x) = f_n(...f_2(A_2 * f_1(A_1*x + b_1) + b_2),
+\end{equation}
+onde $A_i$ é uma matrix de tamanho arbitrário e $b_i \in \mathbb{R}$.
+Na Figura~\ref{fig:Ann}, temos uma imagem clássica para redes neurais.
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[
+        plain/.style={
+          draw=none,
+          fill=none,
+          },
+        net/.style={
+          matrix of nodes,
+          nodes={
+            draw,
+            circle,
+            inner sep=10pt
+            },
+          nodes in empty cells,
+          column sep=2cm,
+          row sep=-9pt
+          },
+        >=latex
+        ]
+        \matrix[net] (mat)
+        {
+        |[plain]| \parbox{1.8cm}{\centering Camada\\entrada} & |[plain]| \parbox{1.8cm}{\centering Camada\\escondida} & |[plain]| \parbox{1.8cm}{\centering Camada\\de saída} \\
+        & |[plain]| \\
+        |[plain]| & \\
+        & |[plain]| \\
+          |[plain]| & |[plain]| \\
+        & & \\
+          |[plain]| & |[plain]| \\
+        & |[plain]| \\
+          |[plain]| & \\
+        & |[plain]| \\    };
+        \foreach \ai [count=\mi ]in {2,4,...,10}
+          \draw[<-] (mat-\ai-1) -- node[above] {Entrada \mi} +(-2.5cm,0);
+        \foreach \ai in {2,4,...,10}
+        {\foreach \aii in {3,6,9}
+          \draw[->] (mat-\ai-1) -- (mat-\aii-2);
+        }
+        \foreach \ai in {3,6,9}
+          \draw[->] (mat-\ai-2) -- (mat-6-3);
+        \draw[->] (mat-6-3) -- node[above] {Saída} +(2cm,0);
+    \end{tikzpicture}
+    %\includegraphics[width=.7\textwidth]{redeneural.png}
+    \caption{Esquema de uma rede neural artificial. O número de vértices
+    na camada escondida é determinado pelo tamanho da matriz $A_i$}
+    \label{fig:Ann}
+\end{figure}
 
 \section{Imagens de persistência aplicadas a proteínas}

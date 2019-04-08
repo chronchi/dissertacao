@@ -40,6 +40,27 @@
 \idioma{PT} % Idioma principal do documento (PT = português / EN = inglês)
 % ---
 
+% include necessary packages
+\usepackage{pgf,tikz}           % Pacote para o uso do tikz
+\usetikzlibrary{matrix,chains,positioning,decorations.pathreplacing,arrows}
+
+% Comandos matemáticos
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{MnSymbol}
+\newtheorem{theorem}{\scshape Teorema}[section]
+\newtheorem{teo}[theorem]{\scshape Teorema}
+\newtheorem{lem}[theorem]{\scshape Lema}
+\newtheorem{cor}[theorem]{\scshaé Corol\'ario}
+\newtheorem{propo}[theorem]{\scshape Proposi\c{c}\~ao}
+\newtheorem{defi}{\scshape Defini\c{c}\~ao}[section]
+\newtheorem{ex}{\scshape Exemplo}[section]
+\newtheorem{obs}{Observação}[section]
+\usepackage{listings}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
 
 % ---
 % RESUMOS
