@@ -1,6 +1,6 @@
 %%
-%% Customizacoes do abnTeX2 (http://abnTeX2.googlecode.com) para o 
-%% Instituto de Ciencias Matematicas e de Computacao, Universidade 
+%% Customizacoes do abnTeX2 (http://abnTeX2.googlecode.com) para o
+%% Instituto de Ciencias Matematicas e de Computacao, Universidade
 %% de Sao Paulo
 %%
 %% This work may be distributed and/or modified under the
@@ -12,11 +12,11 @@
 %% version 2005/12/01 or later.
 %%
 %% This work has the LPPL maintenance status `maintained'.
-%% 
-%% The Current Maintainer of this work is Humberto Lidio Antonelli, 
+%%
+%% The Current Maintainer of this work is Humberto Lidio Antonelli,
 %% Contact: humbertoantonelli@usp.br
 %%
-%% Further information about abnTeX2 are available on 
+%% Further information about abnTeX2 are available on
 %% http://abntex2.googlecode.com/
 %%
 
@@ -74,7 +74,7 @@
     \renewcommand{\colorlinks}{false}
 }
 
-% Repassa demais opcoes a abntex	
+% Repassa demais opcoes a abntex
 \DeclareOption*{%
   \PassOptionsToClass{\CurrentOption}{abntex2}%
 }
@@ -92,13 +92,13 @@
 	12pt,				% tamanho da fonte
 	openright,			% capitulos comecam em pagina impar (insere pagina vazia caso preciso)
 	twoside,			% para impressao em verso e anverso. Oposto a oneside
-	a4paper,			% tamanho do papel. 
+	a4paper,			% tamanho do papel.
 	chapter=TITLE		% titulos de capitulos convertidos em letras maiusculas
 	]{abntex2}
-	
+
 
 %================================================================================
-% Pacotes fundamentais 
+% Pacotes fundamentais
 %================================================================================
 \RequirePackage{morewrites}     % Resolve o erro “No room for a new \write”
 \RequirePackage{cmap}			% Mapear caracteres especiais no PDF
@@ -249,10 +249,10 @@
 
 % Configuracao do pacote nomencl
 % Tamanho da Label da sigla
-\setlength{\nomlabelwidth}{0.15\hsize} 
+\setlength{\nomlabelwidth}{0.15\hsize}
 % Separa as abreviaturas de suas definicoes com pontos (....)
 \renewcommand{\nomlabel}[1]{#1 \hfill}
-\setlength{\nomitemsep}{-.05in} 
+\setlength{\nomitemsep}{-.05in}
 % Comando necessario para a criacao da lista de abreviaturas
 \makenomenclature
 % Traduz o titulo da lista de abreviaturas
@@ -261,7 +261,7 @@
 % Comando para criacao de abreviaturas e siglas
 \def\sigla{\@ifstar\@sigla\@@sigla}
 % Apenas faz o registro na tabela de siglas
-\def\@sigla#1#2{\nomenclature{#1}{#2}}          % \sigla*{}{} 
+\def\@sigla#1#2{\nomenclature{#1}{#2}}          % \sigla*{}{}
 % Faz o registro na tabela de siglas e insere os dados no corpo do documento
 \def\@@sigla#1#2{#2 (#1)\nomenclature{#1}{#2}}  % \sigla{}{}
 
@@ -396,7 +396,7 @@
 
 % Comando para definicao do nome e sobrenome do autor
 \renewcommand\autor[2][Nome para Referencia]{
-    
+
     \StrCount{#2}{\space}[\nbmatch]%
     \StrCut[\nbmatch]{#2}{\space}\strfirstautor\strsecondautor
 
@@ -424,7 +424,7 @@
 
     \StrCount{#3}{\space}[\nbmatch]%
     \StrCut[\nbmatch]{#3}{\space}\strfirstorientador\strsecondorientador
-    
+
     \addto\captionsbrazil{% portugues-brasil
         \renewcommand{\imprimirorientadorRotulo}{#1}
     }
@@ -441,7 +441,7 @@
 
     \StrCount{#3}{\space}[\nbmatch]%
     \StrCut[\nbmatch]{#3}{\space}\strfirstcoorientador\strsecondcoorientador
-    
+
     \addto\captionsbrazil{% portugues-brasil
         \renewcommand{\imprimircoorientadorRotulo}{#1}
     }
@@ -535,7 +535,7 @@
                     }
                     \addto\captionsenglish{% ingles
                         \area{Professional Master Degree Program in Mathematics in National Network}
-                        \especialidade{in Science} 
+                        \especialidade{in Science}
                         \programa{PROFMAT}{Professional Master's Program in Mathematics in National Network}
                     }
                 }{
@@ -787,7 +787,7 @@
     \renewcommand{\sourcecodeautorefname}{Source code}
 }
 
-% Altera o nome padrao do rotulo 
+% Altera o nome padrao do rotulo
 \renewcommand{\lstlistingname}{\codigoname}
 % Altera o rotulo a ser usando no elemento pre-textual "Lista de codigos"
 \renewcommand{\lstlistlistingname}{\listcodigoname}
@@ -810,7 +810,7 @@
    \oldlstlistoflistings%
    \endgroup%
 }
-   
+
 \def\lst@numbersymbol{}
 \lst@Key{numbersymbol}{}{\def\lst@numbersymbol{#1}}
 \lst@Key{numbers}{none}{%
@@ -831,12 +831,12 @@
     }{\PackageError{Listings}{Numbers #1 unknown}\@ehc}
 }
 
-% Cria um ambiente "codigo" estilizando o ambiente "lstlisting" 
+% Cria um ambiente "codigo" estilizando o ambiente "lstlisting"
 \newcounter{countcodigo}
 \setcounter{countcodigo}{1}
 \lstnewenvironment{codigo}[1][]
   {\lstset{basicstyle=\ttfamily\ABNTEXfontereduzida,
-            numbers=left, 
+            numbers=left,
             numbersep=6pt,
             numberstyle=\ABNTEXfontereduzida,
             frame=tb,
@@ -915,7 +915,7 @@
 % Comando para definicao da dedicatoria
 \def\textodedicatoria{\@ifstar\@textodedicatoria\@@textodedicatoria}
 % Inclui texto de um arquivo como dedicatoria
-\def\@textodedicatoria#1{\gdef\@dedicatoria{\input{#1}}} % \textodedicatoria*{}{} 
+\def\@textodedicatoria#1{\gdef\@dedicatoria{\input{#1}}} % \textodedicatoria*{}{}
 % Inclui o texto como dedicatoria
 \def\@@textodedicatoria#1{\gdef\@dedicatoria{#1}}       % \textodedicatoria{}{}
 
@@ -962,7 +962,7 @@
 % Comando para definicao da epigafe
 \def\textoepigrafe{\@ifstar\@textoepigrafe\@@textoepigrafe}
 % Inclui texto de um arquivo como epigafe
-\def\@textoepigrafe#1{\gdef\@epigrafe{\input{#1}}}      % \textoepigrafe*{}{} 
+\def\@textoepigrafe#1{\gdef\@epigrafe{\input{#1}}}      % \textoepigrafe*{}{}
 % Inclui o texto como epigafe
 \def\@@textoepigrafe#1{\gdef\@epigrafe{#1}}             % \textoepigrafe{}{}
 % Criacao da epigafe
@@ -974,8 +974,8 @@
 	  \begin{flushright}
 		\textit{\@epigrafe}
 	  \end{flushright}
-    \end{epigrafe}	 
-    
+    \end{epigrafe}
+
   }
 }
 
@@ -1065,14 +1065,14 @@
 % Contador das palavras-chave
 \newcounter{count}
 \setcounter{count}{0}
-  
+
   \whileboolexpr
     { test {\ifnumcomp{\value{count}}{<}{\thenumresumo}} }%
     {
         \stepcounter{count}
-        
+
         \renewcommand{\imprimirlanguage}{\csuse{res-language-\thecount}}
-        
+
         \if@openright\cleardoublepage\else\clearpage\fi
         \phantomsection
         \begin{resumo}[\csuse{res-title-\csuse{res-language-\thecount}}]
@@ -1083,13 +1083,13 @@
                     \@year. \pageref{LastPage} p. \imprimirtipotrabalho~(\tipodocurso~\imprimirespecialidade) -- Instituto de Ci{\^e}ncias Matem{\'a}ticas e de Computa{\c c}{\~a}o, Universidade de S\~ao Paulo, \imprimirlocal, \@year.
                     \end{otherlanguage}
                 \end{SingleSpace}
-                
+
                 \vskip 20pt
                 \begin{xotherlanguage}{\imprimirlanguage}
                     \csuse{res-text-\thecount}
-                    
+
                     \vspace{\onelineskip}
-                    
+
                     \noindent
                     \textbf{\csuse{res-label-keywords-\csuse{res-language-\thecount}}:}
                     \@tempswafalse
@@ -1181,7 +1181,7 @@
         BoldFont        = *bd,
         ItalicFont      = *i,
         BoldItalicFont  = *bi]{arial}
-    
+
     \newcommand\@icmcTitulo{\arial\bfseries}
     \newcommand\@icmcAutorCapa{\@icmcFont{14}\arial\bfseries}
     \newcommand\@icmcPrograma{\@icmcFont{11}\arial}
@@ -1197,7 +1197,7 @@
     % Configuracao da fonte para a compilacao por pdfLaTeX
     \RequirePackage[T1]{fontenc}	    	% Selecao de codigos de fonte.
     \RequirePackage[utf8]{inputenc}		% Codificacao do documento (conversao automatica dos acentos)
-      
+
     \newcommand\@icmcTitulo{\selectfont\usefont{T1}{phv}{b}{n}}
     \newcommand\@icmcAutorCapa{\fontsize{14pt}{1em}\selectfont\usefont{T1}{phv}{b}{n}}
     \newcommand\@icmcPrograma{\fontsize{11pt}{1em}\selectfont\usefont{T1}{phv}{m}{n}}
@@ -1240,7 +1240,7 @@
     \expandafter\parindent0pt\begin{minipage}[c][47mm][c]{144mm}\usebox{0}\end{minipage}
   \fi
 }
-  
+
 % alterando a capa
 \renewcommand{\imprimircapa}{%
   \begin{capa}%
@@ -1264,15 +1264,15 @@
               \nohyphens{%
                 \color{blue-capa}%
                 \maxsizebox{125mm}{5mm}{\@icmcAutorCapa\imprimirautor}%
-                
+
                 \vspace{3mm}%
-                
+
                 \ifthenelse{\boolean{opt-qualificacao}}{%
                     \@icmcPrograma Qualifica{\c c}{\~a}o de \tipodocurso~do \imprimirprograma~(\imprimirsiglaprograma)%
                 }{%
                     \@icmcPrograma\imprimirtipotrabalho~de \tipodocurso~do \imprimirprograma~(\imprimirsiglaprograma)%
                 }%
-                
+
               }
             \end{flushleft}
           \end{SingleSpace}
@@ -1282,7 +1282,7 @@
 
     \AddToShipoutPictureBG*{\includegraphics[height=\paperheight]{packages/capa}}
     ~
-    
+
   \end{capa}
 }
 
@@ -1298,12 +1298,12 @@
         \parbox{7.2cm}{
           \vspace{0.3cm}
           \makebox[\linewidth][c]{\@icmcSVPG{SERVI{\c C}O DE P{\'O}S-GRADUA{\c C}{\~A}O DO ICMC-USP}}
-          
+
           {
             \@icmcCarimbo
             \vspace{12pt}
             \hspace{2pt} Data de Dep{\'o}sito:
-              
+
             \vspace{9pt}
             \hspace{2pt} Assinatura: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
             \vspace{9pt}
@@ -1331,10 +1331,10 @@
       \begin{minipage}{8.4cm}
         \begin{Spacing}{0.9}
           {\@icmcPreambulo\imprimirpreambulo}%
-        
+
           \vspace{5pt}
           {\@icmcPreambulo\arealabel: \nohyphens{\imprimirarea}}%
-        
+
           \vspace{5pt}
           {\@icmcOrientador\imprimirorientadorRotulo: \titulacaoorientador{} \nohyphens{\imprimirorientador}}%
           \abntex@ifnotempty{\imprimircoorientador}{%
@@ -1348,12 +1348,12 @@
 
     {
       \@icmcLocalData
-      \imprimiruniversidade~-- S{\~a}o Carlos\\ 
+      \imprimiruniversidade~-- S{\~a}o Carlos\\
       \IfLangPortuguese{\Monthname[\@month] de \@year\\}{\Monthname[\@month]~\@year\\}
     }
     \vspace*{1.2cm}
   \end{center}
-  
+
 } %folha de rosto
 
 
@@ -1362,8 +1362,8 @@
 %================================================================================
 
 \makechapterstyle{icmc}{%
-  \renewcommand{\chapterheadstart}{} 
-  
+  \renewcommand{\chapterheadstart}{}
+
   % Secao secundaria (Section) Caixa baixa, Negrito
   \renewcommand*{\cftsectionfont}{\bfseries}
   % Secao terciaria (Subsection) Caixa baixa, Negrito, italico
@@ -1373,40 +1373,40 @@
   % Secao quinquenaria (Subsubsubsection) Caixa baixa
   \renewcommand*{\cftparagraphfont}{\normalsize}
 
-  % tamanhos de fontes de chapter e part	
+  % tamanhos de fontes de chapter e part
   \setlength{\beforechapskip}{0pt}
   \renewcommand{\ABNTEXchapterfontsize}{\LARGE}
   \renewcommand{\chaptitlefont}{\ABNTEXchapterfont\bfseries\ABNTEXchapterfontsize}
-  
+
   % tamanhos de fontes de section, subsection, subsubsection e subsubsubsection
   \setsecheadstyle{\ABNTEXsectionfont\ABNTEXsectionfontsize\bfseries\ABNTEXsectionupperifneeded}
   \setsubsecheadstyle{\ABNTEXsubsectionfont\ABNTEXsubsectionfontsize\bfseries\itshape\ABNTEXsubsectionupperifneeded}
   \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\itshape\ABNTEXsubsubsectionupperifneeded}
   \setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
- 
+
   % impressao do numero do capitulo
   \renewcommand{\chapternamenum}{}
-  
+
   % impressao do nome do capitulo
   \renewcommand{\printchaptername}{}
-    
+
   % impressao do titulo do capitulo
   \def\printchaptertitle##1{%
-    
+
     \setboolean{ABNTEXupperchapter}{true}
-    
+
     \ifthenelse{\boolean{abntex@innonumchapter}}{
         \vskip 0ex \hrulefill\chaptitlefont\bfseries\ABNTEXchapterupperifneeded{##1}
-        \vskip -0.6ex\hfill\rule{.8\textwidth}{0.5pt} 
+        \vskip -0.6ex\hfill\rule{.8\textwidth}{0.5pt}
         \vskip -2.8ex\hfill\rule{.8\textwidth}{2pt}
         \vskip 1.5ex
-    
+
     }{% else
         {\hrulefill
         {\renewcommand{\arraystretch}{1.5} %  1 is the default, change whatever you need
         \begin{tabular}{|c|}
             \rowcolor{black}\color{white}\normalsize\ABNTEXchapterfont
-              \ifthenelse{\boolean{abntex@apendiceousecao}}{\MakeTextUppercase{\appendixname}}{\MakeTextUppercase{\chaptername}}  \\ 
+              \ifthenelse{\boolean{abntex@apendiceousecao}}{\MakeTextUppercase{\appendixname}}{\MakeTextUppercase{\chaptername}}  \\
             \vspace{-1.5ex}\\ %coloquei para aumentar o espaco entre o titulo e o numero
             \resizebox{!}{1.1cm}{\ABNTEXchapterfont\thechapter}
             \\[2.5ex]
@@ -1416,15 +1416,15 @@
         \vskip -0.6ex\hfill\rule{.8\textwidth}{0.5pt} \\
         \vskip -2.8ex\hfill\rule{.8\textwidth}{2pt} \\
         \vskip 1.5ex
-	}    
+	}
   }
 
-  % impressao do numero do capitulo     	
+  % impressao do numero do capitulo
   \renewcommand{\printchapternum}{%
     \setboolean{abntex@innonumchapter}{false}%
   }
   \renewcommand{\afterchapternum}{}
-  
+
   % impressao do capitulo nao numerado
   \renewcommand\printchapternonum{%
     \setboolean{abntex@innonumchapter}{true}%
@@ -1440,11 +1440,11 @@
 % informacoes do PDF
 \hypersetup{
         unicode=true, % Codificacao dos caracteres especiais no Bookmark
-		pdftitle={\@title}, 
+		pdftitle={\@title},
 		pdfauthor={\@author},
     	pdfsubject={\imprimirpreambulo},
 	    pdfcreator={LaTeX with abnTeX2/ICMC-USP (v1.3.6)},
-		pdfkeywords={\palavraschave}, 
+		pdfkeywords={\palavraschave},
 		colorlinks={\colorlinks},   % colored links
     	linkcolor=blue,          	% color of internal links
     	citecolor=blue,        		% color of links to bibliography
@@ -1549,22 +1549,22 @@
         \selectlanguage{english}
         \bibliographystyle{packages/abntexalfenglish}
     }{}
-    
+
     % Centraliza o caption das tabelas do IBGE, conforme recomendacao da USP
     \renewcommand{\configurecaptions}{\captionstyle[singlelinecheck=on]{}}
-    
+
     % suporte a alguns sequencias comuns do LaTeX, como -- para travessao
     \ifxetex
         \defaultfontfeatures{Mapping=tex-text}
     \else
         \ifluatex
             \defaultfontfeatures{Mapping=tex-text}
-            \setmainfont[Ligatures=TeX, SmallCapsFont={* Caps}]{Latin Modern Roman} 
+            \setmainfont[Ligatures=TeX, SmallCapsFont={* Caps}]{Latin Modern Roman}
         \fi
     \fi
-    
+
     \pretextual
-    
+
     % Capa
     \ifthenelse{\boolean{opt-impressao}}{}{
         \imprimircapa
@@ -1579,7 +1579,7 @@
     }{
         \imprimirfolhaderosto{}
     }
-    
+
     \setboolean{carimbo-folha-rosto}{false}
     \IfLangPortuguese{
         \begin{otherlanguage}{english}
@@ -1601,7 +1601,7 @@
 
     % Insere as Listas que forem setadas no documento
     \inserelistadefiguras
-    \inserelistadequadros    
+    \inserelistadequadros
     \inserelistadealgoritmos
     \inserelistadecodigos
     \inserelistadetabelas
@@ -1611,19 +1611,19 @@
 	\pdfbookmark[0]{\contentsname}{toc}
     \tableofcontents*
     \cleardoublepage
-    
+
     % Configuracao dos caracteres especiais utilizados no pacote <listings>
     \lstset{%
         frame=top,
         frame=bottom,
-        breakatwhitespace=false,         
-        breaklines=true,                 
-        keepspaces=true,                 
-        numbers=left,                    
-        numbersep=5pt,                  
-        showspaces=false,                
+        breakatwhitespace=false,
+        breaklines=true,
+        keepspaces=true,
+        numbers=left,
+        numbersep=5pt,
+        showspaces=false,
         showstringspaces=false,
-        showtabs=false,                  
+        showtabs=false,
         tabsize=2,
         inputencoding=utf8,
         extendedchars=true,
@@ -1660,11 +1660,11 @@
         {Ü}{{\"U}}1
         {ü}{{\"u}}1
     }
-    
+
     % Numeracao continua do elementos do presentes no documento
     \counterwithout{quadro}{chapter}
     \counterwithout{lstlisting}{chapter}
-    
+
     \mainmatter
 
     % Retira espaco extra obsoleto entre as frases.
