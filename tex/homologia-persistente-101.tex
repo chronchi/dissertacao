@@ -42,7 +42,7 @@ A~\autoref{fig:pipeline_hp} mostra os passos para utilizar esta ferramenta em um
 \end{figure}
 
 
-\section{Filtrações e espaços vetoriais}
+\section{Filtrações}
 A filtração de um conjunto de dados é o primeiro passo na nossa sequência apresentada
 na~\autoref{fig:pipeline_hp}.
 Dado um conjunto de dados precisamos construir um objeto combinatorial de forma
@@ -55,8 +55,8 @@ primeiro objeto combinatorial que é a base da filtração.
 
 \begin{defi}
   Sejam $v_0, v_1, \dots, v_k \in \mathbb{R}^n$ linearmente afins, ou seja $\{v_1 - v_0, \dots, v_k - v_0\}$
-  é um conjunto linearmente independente. O k-simplexo definido pelos pontos acima
-  definidos, chamados de vértices também, é o conjunto
+  é um conjunto linearmente independente. O k-simplexo definido pelos pontos acima,
+  chamados de vértices, é o conjunto
 
   \begin{equation*}
     \Set{\sum_{i=0}^k \lambda_i v_i \ | \ \sum_{i=0}^k \lambda_i = 1 \text{ e }
@@ -90,7 +90,9 @@ Tendo definido os $k$-simplexos, podemos definir o complexo simplicial.
     \end{itemize}
 \end{defi}
 A segunda condição é necessária para evitar casos patológicos como mostrado na
-\autoref{fig:simp_path}
+\autoref{fig:simp_path}. Dizemos que a dimensão do complexo simplicial $K$ é a maior dimensão dentre os
+simplexos em $K$. Podemos definir agora a filtração de um complexo simplicial.
+
 
 \begin{figure}
   \centering
@@ -98,8 +100,6 @@ A segunda condição é necessária para evitar casos patológicos como mostrado
   \caption{Exemplo em que a interseção de dois simplexos não é um simplexo.}
   \label{fig:simp_path}
 \end{figure}
-Dizemos que a dimensão do complexo simplicial $K$ é a maior dimensão dentre os
-simplexos em $K$. Podemos definir agora a filtração de um complexo simplicial.
 
 \begin{defi}
   Seja $K$ um complexo simplicial. Definimos uma filtração de $K$ sendo uma
@@ -119,9 +119,12 @@ simplicial.
   \label{fig:filtracao_exemplo}
 \end{figure}
 
-A pergunta que temos agora é como construir uma filtração dado um conjunto
-de dados? E felizmente temos várias respostas para isso.
 
+\subsection{Filtração de Čech}
+
+\subsection{Filtração de Vietoris-Rips}
+
+\subsection{Filtração \textit{Alpha Shape}}
 
 \section{A matriz de bordo $\partial$}
 
