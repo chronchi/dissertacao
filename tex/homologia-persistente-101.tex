@@ -15,7 +15,7 @@ pode ser estudado através da homologia persistente e assim obtemos informaçõe
 topológicas do objeto em estudo.
 
 O pipeline da análise topológica de dados pode ser divido nos seguintes passos:
-\begin{itemize}
+\begin{enumerate}
   \item A entrada do algoritmo pode ser um conjunto de pontos ou alguma matriz
   de distância/similaridade do conjunto de dados.
   \item A construção de um objeto combinatorial em cima do conjunto de dados ou
@@ -25,7 +25,7 @@ O pipeline da análise topológica de dados pode ser divido nos seguintes passos
   componentes conexas, como um algoritmo de Clustering.
   \item Por fim a interpretação dos dados obtidos e possível pós processamento
   para a utilização em outros algoritmos, como os de classificação ou regressão.
-\end{itemize}
+\end{enumerate}
 
 Neste capítulo descrevemos de forma ingênua a homologia persistente, começando com
 filtrações, passando pelos espaços vetoriais associados
@@ -151,24 +151,17 @@ sem preenchimento, como é mostrado na~\autoref{fig:abs_real}.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.7\textwidth]{images/placeholder.png}
+  \includegraphics[width=0.7\textwidth]{images/abs_real.png}
   \caption{Exemplo de um complexo simplicial abstrato e sua realização geométrica}
   \label{fig:abs_real}
 \end{figure}
 Observe que se o nosso conjunto $X$ for um subconjunto finito de $\mathbb{R}^d$,
 podemos ter simplexos de dimensão maiores do que $d$, ou seja, não podem ser
 realizados (ou visualizados) em $\mathbb{R}^d$ necessariamente. Um exemplo dessa
-situação pode ser visto na~\autoref{fig:abs_nonembed} com o conjunto
-$X=\Set{x_1, x_2, \dots, x_n} \subset \mathbb{R}^2$ e $n>3$.
+situação pode ser visto no complexo simplicial final da \autoref{fig:filtracao_exemplo},
+considerando que os pontos vermelhos são a realização geométrica dos pontos de $X$,
+onde $X$ é um subconjunto do $\mathbb{R}^2$.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.7\textwidth]{images/placeholder.png}
-  \caption{Cada ponto na imagem corresponde a realização geométrica dos pontos
-  de X. Note que temos um tetraedro neste caso, apesar de estarmos com pontos em
-  $\mathbb{R}^2$.}
-  \label{fig:abs_nonembed}
-\end{figure}
 Essa é uma grande diferença entre os complexos simpliciais geométricos e abstratos.
 Uma vez tendo definido os complexos simpliciais abstratos, podemos definir o
 \textit{complexo de \v{C}ech}.
@@ -191,8 +184,7 @@ temos um exemplo do complexo simplicial de \v{C}ech.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
-  \caption{Exemplo de um complexo de \v{C}ech para um raio $r$ fixado. Note que
-  temos um tetraedro, apesar dos pontos estarem no plano.}
+  \caption{Exemplo de um complexo de \v{C}ech para um raio $r$ fixado.}
   \label{fig:cech_ex}
 \end{figure}
 
@@ -205,7 +197,7 @@ porém computacionalmente é um método mais barato, já que analisa apenas dist
 entre pontos dois a dois.
 \begin{defi}
   Seja $X$ um conjunto de pontos $\Set{x_1, \dots, x_n}$ em $\mathbb{R}^d$. O complexo
-  de Vietoris-Rips de X para um valor real $r>0$ é o conjunto $C^r(X)$, onde o simplexo
+  de Vietoris-Rips de X para um valor real $r>0$ é o conjunto $V^r(X)$, onde o simplexo
   $\sigma = <x_{i_1}, \dots, x_{i_k}> \in V^r(X)$ se, e somente se vale a seguinte
   condição
   \begin{equation*}
@@ -215,9 +207,9 @@ entre pontos dois a dois.
 A \autoref{fig:viet_ex} é um exemplo do complexo de Vietoris-Rips. Uma das diferenças
 que a construção dos dois complexos já definidos nos dá é que no caso do complexo
 de \v{C}ech temos triângulos preenchidos, e isso não ocorre para Vietoris-Rips.
-\begin{figure}
+\begin{figure}[htb]
   \centering
-  \includegraphics{images/placeholder.png}
+  \includegraphics[width=0.7\textwidth]{images/placeholder.png}
   \caption{Exemplo do complexo de Vietoris-Rips com os mesmos pontos utilizados
   para a construção na \autoref{fig:cech_ex}.}
   \label{fig:viet_ex}
@@ -226,13 +218,15 @@ de \v{C}ech temos triângulos preenchidos, e isso não ocorre para Vietoris-Rips
 Mesmo com as regras diferentes para a construção de complexos, temos a relação mostrada
 na \autoref{eq:viet_cech}.
 \begin{equation}
+  \label{eq:viet_cech}
   C^r(X) \subset V^r(X) \subset C^{2r}(X)
 \end{equation}
 \subsection{Complexo \textit{Alpha Shape}}
 E como uma terceira opção para a construção de um complexo simplicial através
 de pontos no $\mathbb{R}^n$, temos o complexo Alpha Shape. A construção é similar
-ao complexo de \v{C}ech, porém as bolas são uma interseção de bolas no $\mathbb{R}^n$
-com conjuntos convexos especiais, as células de Voronoi.
+ao complexo de \v{C}ech, porém os conjuntos centrados nos pontos são uma
+interseção de bolas no $\mathbb{R}^n$ com conjuntos convexos especiais,
+as células de Voronoi.
 
 O diagrama de Voronoi é um tipo especial de decomposição de um espaço métrico,
 um conjunto que possui uma distância associada a ele, em especial o $\mathbb{R}^n$.
@@ -241,8 +235,163 @@ definimos a célula de Voronoi associada ao ponto $x_i$ sendo o seguinte conjunt
 \begin{equation*}
   V_i = \Set{x\in \mathbb{R}^n | d(x_i, x) \leq d(x_j, x), \ \forall j \in {1,\dots,k}},
 \end{equation*}
-em que $d$ é a distância euclidiana usual. 
+em que $d$ é a distância euclidiana usual. A \autoref{fig:vor_ex} mostra um
+exemplo de diagram de Voronoi para três pontos no $\mathbb{R}^2$. Podemos agora
+definir o complexo simplicial Alpha Shape.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/placeholder.png}
+  \caption{Diagrama de Voronoi de três pontos no plano.}
+  \label{fig:vor_ex}
+\end{figure}
+
+\begin{defi}
+  Seja $X$ um conjunto de pontos $\Set{x_1, \dots, x_n}$ em $\mathbb{R}^d$. O complexo
+  de Vietoris-Rips de X para um valor real $r>0$ é o conjunto $A^r(X)$, onde o simplexo
+  $\sigma = <x_{i_1}, \dots, x_{i_k}> \in A^r(X)$ se, e somente se vale a seguinte
+  condição
+  \begin{equation*}
+    \bigcap_{j=1}^k R(x_{i_j},r) \neq \emptyset,
+  \end{equation*}
+  onde $R(x_{i_j},r) = B(x_{i_j}, r) \cap V_{i_j}$, para todo $j \in \Set{1,\dots,k}$.
+\end{defi}
+
+Na \autoref{fig:alph_ex} temos o exemplo de um complexo Alpha Shape. É interessante
+notar que o Alpha Shape é um subcomplexo do complexo de \v{C}ech, ou seja,
+para $r > 0$, $A^r(X) \subset C^r(X)$. Além disso esse complexo herda uma propriedade
+importante dos diagramas de Voronoi, a realização geométrica no espaço em que os pontos
+se encontram, isto é, se os pontos em $\mathbb{R}^d$ satisfazem a condição de
+posição geral, então o complexo simplicial abstrato Alpha Shape pode ser
+realizado geometricamente no $\mathbb{R}^d$, ou seja o complexo simplicial geométrico pode ser construído
+no $\mathbb{R}^d$! Isso é fundamental computacionalmente, já que diminui a complexidade
+dos cálculos e aumenta a velocidade para obtenção do complexo.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/placeholder.png}
+  \caption{Complexo Alpha Shape para um conjunto de pontos no plano.}
+  \label{fig:alph_ex}
+\end{figure}
+
+Uma variação muito importante do Alpha Shape é o Alpha Shape com peso. Ao invés
+de considerar um raio fixo para cada bola ao redor de um ponto, podemos dar
+um \textit{peso} para cada ponto. Seja $X=\Set{x_1, \dots, x_n}$ e
+$\Set{w_1, \dots, w_n}$ conjunto de valores maiores ou iguais a zero. Para
+cada $x_i$, ao invés de associar a bola usual do complexo de Alpha Shape, associamos
+a seguinte bola.
+\begin{equation*}
+  R_{w_i}(x_i, r) = B(x_i, r + w_i^2) \cap V_i
+\end{equation*}
+Esse é um complexo muito usado em aplicações biomoleculares, em que o conjunto de pontos
+são átomos de uma molécula e o peso para cada átomo é o seu respectivo raio de
+Van der Waals.
 
 \section{A matriz de bordo $\partial$}
+Agora vamos para o terceiro passo descrito na lista anteriormente.
+Uma vez com os dados, podemos construir uma filtração de um complexo simplicial
+criado a partir deles que irá capturar diversas informações, como os buracos
+que um conjunto de dados tem e o quanto eles persistem na nossa filtração.
 
-\section{Redução da matriz}
+A ferramenta matemática utilizada para extrair essas informações da filtração
+são os grupos de homologia. Para uma filtração $K_1 \subset \dots \subset K_m=K$ e um
+$p$ fixo, a $p$-ésima homologia persistente de $K$ é o par
+\begin{equation}
+  \label{eq:seq_hom}
+  \left( \{H_p(K_i)\}_{1\leq i \leq m}, \{f_{i,j}\}_{1\leq i \leq j \leq m} \right),
+\end{equation}
+em que para todo $i,j \in \Set{1,\dots,m}$, $f_{i,j}$ são aplicações lineares
+entre os espaços vetoriais $H_p(K_i)$ e $H_p(K_j)$.
+
+A homologia persistente dá informações topológicas sobre a filtração do complexo simplicial.
+Os elementos das bases de cada $H_p(K_i)$ correspondem a ciclos $p$-dimensionais,
+podendo ser buracos. No caso $p=0$, temos que cada elemento da base corresponde
+à uma componente conexa, $p=1$ cada elemento corresponde a um buraco.
+Portanto, considere os elementos da base de $H_p(K_i)$. Para cada um deles,
+desenhe um ponto. Se $f_{i,i+1}(u)=0$, então desenhe um intervalo que termina
+em $i+1$. Se $f_{i,i+1}=v$, onde $v$ é um elemento da base de $H_p(K_{i+1})$,
+então desenhe uma reta que liga $u$ ao ponto que representa $v$ no próximo passo
+da filtração. Dessa forma vamos anotando os ciclos, que são os elementos da base,
+ao longo da filtração. Na \autoref{fig:ex_ciclos} temos um exemplo para uma filtração.
+
+Podemos falar também que $u\in H_p(K_i)$ nasceu no tempo $i$ da filtração se
+$u$ não é imagem de nenhum elemento de $H_p(K_{i-1})$ sobre $f_{i-1,i}$.
+Dizemos também que $u \in H_p(K_j)$ morreu em $j$ se $j$ é o menor índice tal que
+$f_{i,j}(u) = 0$, onde $j>i$. A persistência do ponto $u$ pode ser representada pelo intervalo
+$[i,j)$. Além disso, se $u$ nasce no tempo $i$ e nunca morre, denotamos o intervalo
+associado à essa informação como $[i, +\infty)$.
+
+Existem duas formas de visualizar esses intervalos, através dos
+\textit{barcodes} ou dos \textit{diagramas de persistência (PD)}. No barcode
+desenhamos uma barra do comprimento do intervalo $[i,j)$. Já no diagrama de
+persistência representamos com um ponto $(i,j)$ no plano. A \autoref{fig:ex_ciclos}
+possui o barcode e o diagrama de persistência para o conjunto de dados associado.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/placeholder.png}
+  \caption{Exemplo da filtração de um complexo simplicial e o barcode e diagramas
+  de persistência associados.}
+  \label{fig:ex_ciclos}
+\end{figure}
+
+Tendo essa ferramenta, como podemos traduzi-la para o contexto dos dados, e
+como calcular os pares dos diagramas de persistência? Abaixo segue uma lista
+dos primeiros passos que devem ser feitos para a obtenção do diagrama de persistência.
+
+\begin{enumerate}
+  \item Dado um conjunto de dados, determinar alguma filtração;
+  \item Listar todos os simplexos na filtração;
+  \item Ordenar os simplexos satisfazendo duas regras:
+  \begin{enumerate}
+    \item A face um simplexo o precede na ordenação;
+    \item Um simplexo no complexo $K_i$ precede os simplexos em $K_j$, $j > i$,
+    que não pertencem a $K_i$;
+  \end{enumerate}
+  \item Construir a matriz de bordo.
+\end{enumerate}
+
+A matriz de bordo é quem vai armazenar as informações topológicas importantes
+das quais iremos extrair mais tarde.
+\begin{defi}
+  Seja $K$ um complexo simplicial, $K_1 \subset \dots \subset K_m$ uma filtração
+  e $\sigma_1, \dots, \sigma_n$ uma ordenação dos simplexos de $K$ satisfazendo as
+  regras acima mencionadas. A \textit{matriz de bordo} de $K$, denotada por $\partial$,
+  é uma matriz de tamanho $n \times n$, em que cada entrada tem o seguinte valor
+  \begin{equation*}
+    \delta(i,j) =
+      \begin{cases}
+        1, & \text{se o simplexo} \ \sigma_i \ \text{é face de} \ \sigma_j
+        \text{ e} \ \text{dim}(\sigma_j) = \text{dim}(\sigma_i) + 1 \\
+        0, & \text{caso contrário.}
+    \end{cases}
+  \end{equation*}
+\end{defi}
+Com a matriz construída, podemos utilizar um método de eliminação de Gauss
+para a redução da matriz.
+
+\section{Redução da matriz $\partial$}
+O algoritmo que será descrito aqui é conhecido como algoritmo \textit{standard}
+para a redução da matriz $\partial$~\cite{Edelsbrunner2000}. Estamos trabalhando
+sobre $\mathbb{Z}_2$, ou seja, $1+1 = 0$. Durante o processo de redução da matriz
+será apenas necessário somar colunas.
+
+Dado $j \in \Set{1,\dots\,n}$, denotamos por $low(j)$ o maior inteiro
+$i \in \Set{1,\dots\,n} $ tal que $\delta(i,j)=1$. Note que $i < j$, pois segundo
+as regras de construção da matriz de bordo, temos que $\delta(i,j) = 1$ só
+quando $\sigma_i$ é face de codimensão $1$ de $\sigma_j$. Assim temos o
+\autoref{alg:red_bordo} para reduzir a matriz de bordo.
+
+\begin{algorithm}[htb]
+  \caption{Redução da matriz bordo $\partial$.}
+  \label{alg:red_bordo}
+  \begin{algorithmic}[1]
+    \State Dados os simplexos $\sigma_1, \dots, \sigma_n$ e a matriz de bordo
+    $\partial$ correspondente.
+    \For{$j \in \Set{1,\dots,n}$}
+      \While{existe $i$ tal que $low(i) = low(j)$}
+        \State Some a coluna $i$ a coluna $j$.
+      \EndWhile
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}

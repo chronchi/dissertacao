@@ -65,6 +65,16 @@
 \usepackage{braket}
 
 \usepackage{hyperref} % Pacote para o uso de autoref
+\usepackage{algorithm} % pacote para o uso de algoritmos
+\usepackage{algpseudocode} % pacote para o uso de algoritmos
+% altera palavras chaves dos algoritmos para português
+%\renewcommand{\ALG@name}{Algoritmo}
+\renewcommand{\algorithmicwhile}{\textbf{enquanto}}
+\renewcommand{\algorithmicdo}{\textbf{faça}}
+\renewcommand{\algorithmicend}{\textbf{fim}}
+\renewcommand{\algorithmicfor}{\textbf{para}}
+\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
+
 % ---
 % RESUMOS
 % ---

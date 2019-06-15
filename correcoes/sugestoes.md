@@ -6,6 +6,9 @@ Arquivo de sugestões, críticas e correções da dissertação e TODO.
 - [ ] Desenhar Vietoris Complex
 - [ ] Desenhar Alpha Shape Complex
 - [ ] Desenhar uma figura com os 3 complexos
+- [ ] Desenhar diagrama de voronoi 
+- [ ] Desenhar complexo alpha shape
+- [ ] Desenhar filtração com barcode e diagrama de persistencia
 
 ### Sugestões e correções
 
