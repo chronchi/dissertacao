@@ -6,7 +6,7 @@ Arquivo de sugestões, críticas e correções da dissertação e TODO.
 - [ ] Desenhar Vietoris Complex
 - [ ] Desenhar Alpha Shape Complex
 - [ ] Desenhar uma figura com os 3 complexos
-- [ ] Desenhar diagrama de voronoi 
+- [ ] Desenhar diagrama de voronoi
 - [ ] Desenhar complexo alpha shape
 - [ ] Desenhar filtração com barcode e diagrama de persistencia
 
@@ -18,3 +18,15 @@ Arquivo de sugestões, críticas e correções da dissertação e TODO.
 | Quando vc define um simplexo, vc da a definicao como a soma convexa, mas nao fala que isso te da a envoltoria convexa. Ai quando vc define uma face vc fala em envoltoria convexa. Acho que vc pode ou falar que o que vc esta definindo como um complexo e' a envoltoria convexa e ai definir face como vc esta definindo, ou entao vc pode denotar a sua definicao de complexo por algo do tipo: <v0, v1, ..., vk> e usando [ ... ] e ai depois so usar esta notacao para definir face. Isso so para ficar claro que sao a mesma coisa. Senao a primeira vista pode parecer que sao coisas diferentes. | Marcio | Sim | 08/06/2019 |
 |Eu tambem usaria sempre o mesmo tipo de letra para denotar simplexo. Vc usou S e depois sigma, tau, etc. Use so letras gregas como sigma, tau, etc. | Marcio | Sim | 08/06/2019 |
 | Note que vc esta definindo um complexo simplicial geometrico, isto e', seu simplexos sao objetos geometricos no R^n. Se definir assim, ao invez de definir um complexo abstrato, vc precisa ter cuidade depois se for definir complexos de Vietoris-Rips, pois neste caso dada uma colecao de pontos em R^2 pore exemplo, vc nao obtem um complexo no R^2 (pois vc tera simplexos de diemsnao maior que 3 e os simplexos vao se intersectar da forma nao permitida), mas sim um complexo simplicial abstrato. | Marcio | Sim | 08/06/2019 |
+| Na sua definicao de Cech e Rips complex, quando vc denota o sigma acho que vc esta usando < e > para denotar as chaves do sigma. Fazendo assim a fonte fica ruim e o espacamento fica ruim. Vc deve usar \rangle e \langle | Marcio | Não | 15/06/2019 |
+| Alem disso, nestas definicoes (Cech e Rips) vc usa a notacao < ... > sem falar que isso quer dizer. Vc acabou de definir complexos abstratos e falou que sao colecoes de subconjuntos, mas nunca definiu a notacao < ... >. Precisa definir esta notacao para o caso de complexo abstrato.| Marcio | Não | 15/06/2019 |
+| A equacao (2.2) vc deve ou citar de onde sai, ou explicar por que e' verdade, ou falar que e' obvio. | Marcio | Não | 15/06/2019 |
+| Quando vc vai definir uma equacao, como a (2.1) e a (2.2), nao e' usual se referir a equacao pelo numero na hora de defini-la. A gente so fala na equacao (e ai define a equacao). So usamos o numero para referir a equacao posteriormente. | Marcio | Não | 15/06/2019 |
+| Quando for referir uma equacao acho melhor usar \eqref{} para o numero da equacao ja sair em parenteses e nao escrever Equacao em maiusculo como parte do nome da equacao (a nao ser que isso seja exigido pelo formato do ICMC). Usamos o nome em maisculo so para figuras, teroemas, lemas, etc, pois nestes o nome e', por exemplo, Figura 3. Para equacao o nome e' so, por exemplo, (2.1). | Marcio | Não | 15/06/2019 |
+| No Alpha shape, o complexo chama so Complexo Alpha. Alpha Shape se refere a borda do complexo Alpha que da o shape do seu conjunto de pontos. | Marcio | Não | 15/06/2019 |
+| Acho que sua definicao da alpha complex esta correta, mas seria bom por alguma referencia de onde saiu a definicao. E tambem por referencias para os outros complexos. Nao precisa por referencias em cada definicao, pode por so referencias no inicio do capitulo ou da secao. No caso do alpha complexo eu colocaria uma referencia logo antes da definicao | Marcio | Não | 15/06/2019 |
+| Quando vc comeca falar de alpha complexo, vc fala que pode ser em um espacao metrico mas em seguida define em R^n. Acho que nao tem problema fazer isso, mas talvez ser um pouco mais claro na escrita. Vc poderia escrever algo do tipo: "O diagrama de Voronoi pode ser definido em qualquer espaco metrico, um espaco que possui uma distancia associada a ele, e e' um tipo especial de decomposicao deste espaco. Contudo vamos apresentar a definicao para o caso particular do R^n com a norma euclidiana usual." | Marcio | Não | 15/06/2019 |
+| Quando vc fala de alpha shapes com peso, vc podia ser um pouco mais claro.
+Algo do tipo: "Dado um conjunto X, consideramos um conjunto de pesos
+{w1, ..., wk}, onde cada wk e' nao negativo (ou onde wk >= 0)". Se bem que vc fala basicamente isso, mas a palavra peso esta na frase anterior. Ai o leitor tem que "advinhar" que os wi sao os pesos. | Marcio | Não | 15/06/2019 |
+Por ultimo, nao sei se era para olhar na secao de homologia, mas vc define homologia persistente mas nao define homologia. Vc deve definir ou pelo manos falar que H denota os grupos de homologia e dar uma referencia. | Marcio | Não | 15/06/2019 |
