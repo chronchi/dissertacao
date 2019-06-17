@@ -39,6 +39,7 @@ A \autoref{fig:pipeline_hp} mostra os passos para utilizar esta ferramenta em um
   \caption{Representação do pipeline para a utilização da homologia persistente
           com um conjunto de dados.}
   \label{fig:pipeline_hp}
+  \fautor
 \end{figure}
 
 
@@ -62,7 +63,7 @@ primeiro objeto combinatorial que é a base da filtração.
     \Set{\sum_{i=0}^k \lambda_i v_i \ | \ \sum_{i=0}^k \lambda_i = 1 \text{ e }
           \lambda_i \ge 0, \ \forall i}.
   \end{equation}
-  Denotamos o $k$-simplexo por $\rangle v_0, \dots, v_k \langle$.
+  Denotamos o $k$-simplexo por $\langle v_0, \dots, v_k \rangle$.
 \end{defi}
 
 Note que para $k = 0$, temos um único vértice. Para $k=1$, temos uma reta, já
@@ -76,6 +77,7 @@ de um simplexo $\sigma$ é chamado de face de $\sigma$.
   \includegraphics[width=0.7\textwidth]{images/ksimpl.png}
   \caption{Exemplos de $k$-simplexos para $k \in \Set{0,1,2,3}$.}
   \label{fig:ksimpl}
+  \fautor
 \end{figure}
 
 Tendo definido os $k$-simplexos, podemos definir o complexo simplicial.
@@ -101,6 +103,7 @@ agora a filtração de um complexo simplicial.
   \includegraphics[width=0.7\textwidth]{images/simp_path.png}
   \caption{Exemplo em que a interseção de dois simplexos não é um simplexo.}
   \label{fig:simp_path}
+  \fautor
 \end{figure}
 \begin{defi}
   Seja $K$ um complexo simplicial. Definimos uma filtração de $K$ sendo uma
@@ -118,6 +121,7 @@ simplicial.
   \includegraphics[width=0.7\textwidth]{images/filtracao_exemplo.png}
   \caption{Exemplo de filtração para um complexo simplicial $K$.}
   \label{fig:filtracao_exemplo}
+  \fautor
 \end{figure}
 
 
@@ -158,6 +162,7 @@ sem preenchimento, como é mostrado na~\autoref{fig:abs_real}.
   \includegraphics[width=0.7\textwidth]{images/abs_real.png}
   \caption{Exemplo de um complexo simplicial abstrato e sua realização geométrica}
   \label{fig:abs_real}
+  \fautor
 \end{figure}
 Observe que se o nosso conjunto $X$ for um subconjunto finito de $\mathbb{R}^d$,
 podemos ter simplexos de dimensão maiores do que $d$, ou seja, não podem ser
@@ -190,6 +195,7 @@ temos um exemplo do complexo simplicial de \v{C}ech.
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
   \caption{Exemplo de um complexo de \v{C}ech para um raio $r$ fixado.}
   \label{fig:cech_ex}
+  \fautor
 \end{figure}
 
 Da mesma forma que definimos a filtração para um complexo simplicial geométrico,
@@ -217,6 +223,7 @@ de \v{C}ech temos triângulos preenchidos, e isso não ocorre para Vietoris-Rips
   \caption{Exemplo do complexo de Vietoris-Rips com os mesmos pontos utilizados
   para a construção na \autoref{fig:cech_ex}.}
   \label{fig:viet_ex}
+  \fautor
 \end{figure}
 
 Mesmo com as regras diferentes para a construção de complexos, temos a seguinte
@@ -253,6 +260,7 @@ definir o complexo simplicial Alpha.
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
   \caption{Diagrama de Voronoi de três pontos no plano.}
   \label{fig:vor_ex}
+  \fautor
 \end{figure}
 
 \begin{defi}
@@ -280,6 +288,7 @@ no $\mathbb{R}^d$! Isso é fundamental computacionalmente, já que diminui a com
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
   \caption{Complexo Alpha para um conjunto de pontos no plano.}
   \label{fig:alph_ex}
+  \fautor
 \end{figure}
 
 Uma variação muito importante do complexo Alpha é a versão com peso. Ao invés
@@ -345,6 +354,7 @@ possui o barcode e o diagrama de persistência para o conjunto de dados associad
   \caption{Exemplo da filtração de um complexo simplicial e o barcode e diagramas
   de persistência associados.}
   \label{fig:ex_ciclos}
+  \fautor
 \end{figure}
 
 Tendo essa ferramenta, como podemos traduzi-la para o contexto dos dados, e
@@ -366,7 +376,7 @@ dos primeiros passos que devem ser feitos para a obtenção do diagrama de persi
 A matriz de bordo é quem vai armazenar as informações topológicas importantes
 das quais iremos extrair mais tarde.
 \begin{defi}
-  Seja $K$ um complexo simplicial, $K_1 \subset \dots \subset K_m$ uma filtração
+  Seja $K$ um complexo simplicial, $K_{1} \subset \dots \subset K_{m}$ uma filtração
   e $\sigma_1, \dots, \sigma_n$ uma ordenação dos simplexos de $K$ satisfazendo as
   regras acima mencionadas. A \textit{matriz de bordo} de $K$, denotada por $\partial$,
   é uma matriz de tamanho $n \times n$, em que cada entrada tem o seguinte valor
@@ -408,5 +418,78 @@ quando $\sigma_i$ é face de codimensão $1$ de $\sigma_j$. Assim temos o
   \end{algorithmic}
 \end{algorithm}
 
-Uma vez com a matriz reduzida, podemos extrair as informações topológicas a partir
-dela. Denotamos por $R$ a matriz reduzida de $\partial$.
+Dizemos que a matriz está reduzida quando $low(j) \neq low(j_0)$ para quaisquer
+colunas $j,j_0$ não nulas. Observe que uma coluna $j$ pode ser zerada, dizemos
+então que $low(j)$ é indefinido. Além disso, a matriz reduzida, denotada por
+$R$, é escrita como a multiplicação de duas matrizes.
+\begin{equation}
+  \label{eq:red_matrix}
+  R = \partial \cdot V
+\end{equation}
+A matriz $V$ é uma matriz triangular superior que acumula a informação dos
+ciclos. Uma vez com a matriz $\partial$ reduzida a $R$, podemos interpretar as
+colunas de $R$ da seguinte forma.
+\begin{enumerate}
+  \item A coluna $j$ é nula. Dizemos que o simplexo $\sigma_j$
+  é \textit{positivo}, pois dá vida a um ciclo.
+  \item A coluna $j$ é não-nula. Seja $i$ tal que $low(j)=i$.
+  Dizemos então que $\sigma_j$ é um simplexo \textit{negativo}, pois quando
+  ele é adicionado temos a morte de um ciclo. Ainda mais, esse ciclo nasceu com
+  a adição do simplexo $\sigma_i$.
+\end{enumerate}
+A nomenclatura de simplexos positivos e negativos vêm da teoria clássica de homologia
+que estuda propriedades homológicas de um complexo simplicial ao invés de toda
+a filtração. Para mais detalhes, consulte~\cite{edelsbrunner2010computational}.
+
+Agora podemos construir o diagrama de persistência para a filtração dada
+utilizando a matriz de redução. Denotamos por $Dgm_p$ o $p$-ésimo diagrama
+de persistência, com $p \in \Set{0,\dots,k-1}$ onde $k$ é a maior dimensão
+dentre os simplexos $\sigma_i$. Cada $p$ representa a dimensão dos grupos de
+homologia descritos anteriormente. Se $p=0$, então o diagrama de persistência
+nos dirá quais componentes conexas apareceram na filtração e o quão persistente
+elas são. Para $p=1$, teremos buracos $1$-dimensionais, por exemplo, um círculo
+vazado tem um buraco. Já um toro, tem dois buracos, um visível e outro por
+dentro da superfície.
+
+Seja $p$ fixado e $\sigma_j$ um simplexo de dimensão $p+1$ tal que $low(j)=i$.
+Dessa forma, adicionamos o ponto $(a_i, a_j)$ ao multiconjunto $Dgm_p$, em que
+$a_i$ e $a_j$ são os menores índices tais que $\sigma_i \in K_{a_i}$ e $\sigma_j
+\in K_{a_j}$, por exemplo, se $\sigma_i$ é adicionado na filtração em $K_l$ e
+$\sigma_j$ é adicionado em $K_q$, então $a_i = l$ e $a_j = q$. Se tivermos um
+simplexo $\sigma_i$ de dimensão $p$ tal que $low(i)$ é indefinido, então
+adicionamos o ponto $(a_i, +\infty)$ à $Dgm_p$. Observe na~\autoref{fig:ex_dgm}
+os diagramas de persistência de dimensão $0$ e $1$ da respectiva filtração.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/placeholder.png}
+  \caption{$0-$ e $1-$ Diagramas de Persistência da~\autoref{fig:filtracao_exemplo}.}
+  \label{fig:ex_dgm}
+  \fautor
+\end{figure}
+
+\section{Calculando a homologia persistente}
+Nesta seção iremos calcular a homologia persistente de uma filtração já dada,
+além disso apresentaremos uma implementação para redução da matriz $\partial$
+em Julia.
+
+Considere a filtração da~\autoref{fig:fil_ph}. Observe que temos $4$ vértices
+$(\sigma_1,\dots,\sigma_4)$, $5$ arestas $(\sigma_5,\dots,\sigma_9)$
+e $1$ triângulo $(\sigma_10)$ ao total, temos ao total $10$ simplexos.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/placeholder.png}
+  \caption{Filtração de um complexo simplicial.}
+  \label{fig:fil_ph}
+  \fautor
+\end{figure}
+Diretamente da figura já podemos extrair os diagrams de persistência de dimensão
+$0$ e $1$. Note que no primeiro passo da filtração temos $2$ componentes conexas,
+sendo que uma delas morre no terceiro passo e a outra sobrevive até o final.
+Temos portanto dois intervalos e logo pontos $0$-diagrama de persistência:
+\begin{align*}
+  & [1,+\infty),\\
+  & [1,3).
+\end{align*}
+Quando temos um intervalo infinito, geralmente se representa o acima dos
+índices da filtração no momento em que ele nasceu, como pode ser visto na
+~\autoref{fig:persdiag_ex}.
