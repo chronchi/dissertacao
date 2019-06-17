@@ -54,15 +54,15 @@ e qual o seu papel na análise topológica de dados. Começamos definindo um sim
 primeiro objeto combinatorial que é a base da filtração.
 
 \begin{defi}
-  Sejam $v_0, v_1, \dots, v_k \in \mathbb{R}^n$ linearmente afins, ou seja $\{v_1 - v_0, \dots, v_k - v_0\}$
+  Sejam $v_0, v_1, \dots, v_k \in \mathbb{R}^n$ linearmente afins, ou seja $\Set{v_1 - v_0, \dots, v_k - v_0}$
   é um conjunto linearmente independente. O $k$-simplexo definido pelos pontos acima,
-  chamados de vértices, é a envoltória convexa, definida na~\autoref{eq:envconv}.
+  chamados de vértices, é a envoltória convexa, definida na abaixo.
   \begin{equation}
     \label{eq:envconv}
     \Set{\sum_{i=0}^k \lambda_i v_i \ | \ \sum_{i=0}^k \lambda_i = 1 \text{ e }
           \lambda_i \ge 0, \ \forall i}.
   \end{equation}
-  Denotamos o $k$-simplexo por $<v_0, \dots, v_k>$.
+  Denotamos o $k$-simplexo por $\rangle v_0, \dots, v_k \langle$.
 \end{defi}
 
 Note que para $k = 0$, temos um único vértice. Para $k=1$, temos uma reta, já
@@ -90,9 +90,12 @@ Tendo definido os $k$-simplexos, podemos definir o complexo simplicial.
       $\sigma \cap \tau \subset \tau$.
     \end{itemize}
 \end{defi}
-A segunda condição é necessária para evitar casos patológicos como mostrado na
-\autoref{fig:simp_path}. Dizemos que a dimensão do complexo simplicial $K$ é a maior dimensão dentre os
-simplexos em $K$. Podemos definir agora a filtração de um complexo simplicial.
+Nessa definição utilizamos o símbolo $\subset$ para indicar que uma face.
+Usaremos esse símbolo com essa denotação quando falarmos sobre simplexos e
+faces. A segunda condição é necessária para evitar casos patológicos como
+mostrado na \autoref{fig:simp_path}. Dizemos que a dimensão do complexo
+simplicial $K$ é a maior dimensão dentre os simplexos em $K$. Podemos definir
+agora a filtração de um complexo simplicial.
 \begin{figure}
   \centering
   \includegraphics[width=0.7\textwidth]{images/simp_path.png}
@@ -122,7 +125,8 @@ simplicial.
 Para construir complexos simpliciais a partir dos dados, precisamos abstrair
 a noção de um simplexo simplicial. Na definição dada anteriormente, temos uma
 representação geométrica do que é um simplexo, mas podemos abstrair tal noção
-dando origem aos \textit{complexos simpliciais abstratos}.
+dando origem aos \textit{complexos simpliciais abstratos}. As definições para
+os complexos definidos nesta seção e nas próximas foram retiradas de~\cite{edelsbrunner2010computational}.
 \begin{defi}
   Seja $X$ um conjunto finito com pontos quaisquer. Seja $F$ um conjunto de
   subconjuntos não-vazios de $X$. Dizemos que $F$ é um complexo simplicial abstrato de
@@ -131,7 +135,7 @@ dando origem aos \textit{complexos simpliciais abstratos}.
     \item Se para todo $\sigma \in F$, temos que para todo subconjunto
           $\sigma' \subset \sigma$ está em $F$ também.
   \end{itemize}
-  Cada elemento $\sigma \in F$ é chamado de simplexo.
+  Cada elemento $\sigma \in F$ é chamado de simplexo. Denotamos um $k$-simplexo $\sigma$ por $\langle x_{i_0}, \dots, x_{i_k} \rangle$, onde $x_{i_j}$ são elementos de $X$.
 \end{defi}
 
 \begin{ex}
@@ -169,7 +173,7 @@ Uma vez tendo definido os complexos simpliciais abstratos, podemos definir o
 \begin{defi}
   Seja $X$ um conjunto de pontos $\Set{x_1, \dots, x_n}$ em $\mathbb{R}^d$. O complexo
   de \v{C}ech de X para um valor real $r>0$ é o conjunto $C^r(X)$, onde
-  $\sigma = <x_{i_1}, \dots, x_{i_k}> \in C^r(X)$ se, e somente se vale a seguinte
+  $\sigma = \langle x_{i_1}, \dots, x_{i_k} \rangle \in C^r(X)$ se, e somente se vale a seguinte
   condição
   \begin{equation*}
     \bigcap_{j=1}^k B(x_{i_j},r) \neq \emptyset.
@@ -198,7 +202,7 @@ entre pontos dois a dois.
 \begin{defi}
   Seja $X$ um conjunto de pontos $\Set{x_1, \dots, x_n}$ em $\mathbb{R}^d$. O complexo
   de Vietoris-Rips de X para um valor real $r>0$ é o conjunto $V^r(X)$, onde o simplexo
-  $\sigma = <x_{i_1}, \dots, x_{i_k}> \in V^r(X)$ se, e somente se vale a seguinte
+  $\sigma = \langle x_{i_1}, \dots, x_{i_k} \rangle \in V^r(X)$ se, e somente se vale a seguinte
   condição
   \begin{equation*}
     d(x_{i_k}, x_{i_j}) < r \ \forall j,l \in{1,\dots,k}.
@@ -215,21 +219,26 @@ de \v{C}ech temos triângulos preenchidos, e isso não ocorre para Vietoris-Rips
   \label{fig:viet_ex}
 \end{figure}
 
-Mesmo com as regras diferentes para a construção de complexos, temos a relação mostrada
-na \autoref{eq:viet_cech}.
+Mesmo com as regras diferentes para a construção de complexos, temos a seguinte
+relação entre os dois complexos.
 \begin{equation}
   \label{eq:viet_cech}
   C^r(X) \subset V^r(X) \subset C^{2r}(X)
 \end{equation}
-\subsection{Complexo \textit{Alpha Shape}}
+A primeira inclusão segue do fato que se $k$ bolas se intersectam então elas se
+intersectam dois a dois com a mesma distância. A segunda inclusão segue da
+desigualdade triangular da métrica sendo usada e o fato que as bolas se
+intersectam duas a duas.
+
+\subsection{Complexo \textit{Alpha}}
 E como uma terceira opção para a construção de um complexo simplicial através
-de pontos no $\mathbb{R}^n$, temos o complexo Alpha Shape. A construção é similar
+de pontos no $\mathbb{R}^n$, temos o complexo Alpha. A construção é similar
 ao complexo de \v{C}ech, porém os conjuntos centrados nos pontos são uma
 interseção de bolas no $\mathbb{R}^n$ com conjuntos convexos especiais,
-as células de Voronoi.
+as células de Voronoi. Nesta subseção utilizaremos o $\mathbb{R}^n$ para as definições, porém elas podem ser generalizadas para qualquer espaço métrico.
 
 O diagrama de Voronoi é um tipo especial de decomposição de um espaço métrico,
-um conjunto que possui uma distância associada a ele, em especial o $\mathbb{R}^n$.
+um conjunto que possui uma distância associada a ele.
 Dado um subconjunto $X \subset \mathbb{R}^n$ finito, onde $X=\Set{x_1, \dots, x_k}$,
 definimos a célula de Voronoi associada ao ponto $x_i$ sendo o seguinte conjunto
 \begin{equation*}
@@ -237,7 +246,7 @@ definimos a célula de Voronoi associada ao ponto $x_i$ sendo o seguinte conjunt
 \end{equation*}
 em que $d$ é a distância euclidiana usual. A \autoref{fig:vor_ex} mostra um
 exemplo de diagram de Voronoi para três pontos no $\mathbb{R}^2$. Podemos agora
-definir o complexo simplicial Alpha Shape.
+definir o complexo simplicial Alpha.
 
 \begin{figure}[htb]
   \centering
@@ -248,8 +257,8 @@ definir o complexo simplicial Alpha Shape.
 
 \begin{defi}
   Seja $X$ um conjunto de pontos $\Set{x_1, \dots, x_n}$ em $\mathbb{R}^d$. O complexo
-  de Vietoris-Rips de X para um valor real $r>0$ é o conjunto $A^r(X)$, onde o simplexo
-  $\sigma = <x_{i_1}, \dots, x_{i_k}> \in A^r(X)$ se, e somente se vale a seguinte
+  Alpha de X para um valor real $r>0$ é o conjunto $A^r(X)$, onde o simplexo
+  $\sigma = \langle x_{i_1}, \dots, x_{i_k} \rangle \in A^r(X)$ se, e somente se vale a seguinte
   condição
   \begin{equation*}
     \bigcap_{j=1}^k R(x_{i_j},r) \neq \emptyset,
@@ -257,28 +266,28 @@ definir o complexo simplicial Alpha Shape.
   onde $R(x_{i_j},r) = B(x_{i_j}, r) \cap V_{i_j}$, para todo $j \in \Set{1,\dots,k}$.
 \end{defi}
 
-Na \autoref{fig:alph_ex} temos o exemplo de um complexo Alpha Shape. É interessante
-notar que o Alpha Shape é um subcomplexo do complexo de \v{C}ech, ou seja,
+Na \autoref{fig:alph_ex} temos o exemplo de um complexo Alpha. É interessante
+notar que o Alpha é um subcomplexo do complexo de \v{C}ech, ou seja,
 para $r > 0$, $A^r(X) \subset C^r(X)$. Além disso esse complexo herda uma propriedade
 importante dos diagramas de Voronoi, a realização geométrica no espaço em que os pontos
 se encontram, isto é, se os pontos em $\mathbb{R}^d$ satisfazem a condição de
-posição geral, então o complexo simplicial abstrato Alpha Shape pode ser
+posição geral, então o complexo simplicial abstrato Alpha pode ser
 realizado geometricamente no $\mathbb{R}^d$, ou seja o complexo simplicial geométrico pode ser construído
-no $\mathbb{R}^d$! Isso é fundamental computacionalmente, já que diminui a complexidade
-dos cálculos e aumenta a velocidade para obtenção do complexo.
+no $\mathbb{R}^d$! Isso é fundamental computacionalmente, já que diminui a complexidade dos cálculos e aumenta a velocidade para obtenção do complexo.
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
-  \caption{Complexo Alpha Shape para um conjunto de pontos no plano.}
+  \caption{Complexo Alpha para um conjunto de pontos no plano.}
   \label{fig:alph_ex}
 \end{figure}
 
-Uma variação muito importante do Alpha Shape é o Alpha Shape com peso. Ao invés
+Uma variação muito importante do complexo Alpha é a versão com peso. Ao invés
 de considerar um raio fixo para cada bola ao redor de um ponto, podemos dar
-um \textit{peso} para cada ponto. Seja $X=\Set{x_1, \dots, x_n}$ e
-$\Set{w_1, \dots, w_n}$ conjunto de valores maiores ou iguais a zero. Para
-cada $x_i$, ao invés de associar a bola usual do complexo de Alpha Shape, associamos
+um \textit{peso} para cada ponto. Seja $X=\Set{x_1, \dots, x_n}$ o nosso
+conjunto de pontos finitos e $\Set{w_1, \dots, w_n}$ conjunto de valores
+maiores ou iguais a zero, que serão os pesos associados a cada ponto. Para
+cada $x_i$, ao invés de associar a bola usual do complexo Alpha, associamos
 a seguinte bola.
 \begin{equation*}
   R_{w_i}(x_i, r) = B(x_i, r + w_i^2) \cap V_i
@@ -301,7 +310,10 @@ $p$ fixo, a $p$-ésima homologia persistente de $K$ é o par
   \left( \{H_p(K_i)\}_{1\leq i \leq m}, \{f_{i,j}\}_{1\leq i \leq j \leq m} \right),
 \end{equation}
 em que para todo $i,j \in \Set{1,\dots,m}$, $f_{i,j}$ são aplicações lineares
-entre os espaços vetoriais $H_p(K_i)$ e $H_p(K_j)$.
+entre os espaços vetoriais $H_p(K_i)$ e $H_p(K_j)$. Mais especificamente,
+os espaços vetoriais $H_p(K_i)$ são grupos de homologia com coeficientes
+em um espaço vetorial. No nosso caso usamos o espaço vetorial $\mathbb{Z}_2$.
+Consulte \cite{edelsbrunner2010computational} para uma introdução à teoria de homologia nesse contexto.
 
 A homologia persistente dá informações topológicas sobre a filtração do complexo simplicial.
 Os elementos das bases de cada $H_p(K_i)$ correspondem a ciclos $p$-dimensionais,
@@ -397,4 +409,4 @@ quando $\sigma_i$ é face de codimensão $1$ de $\sigma_j$. Assim temos o
 \end{algorithm}
 
 Uma vez com a matriz reduzida, podemos extrair as informações topológicas a partir
-dela. Denote por $R$ a matriz reduzida de $\partial$. 
+dela. Denotamos por $R$ a matriz reduzida de $\partial$.
