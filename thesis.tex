@@ -45,10 +45,6 @@
 \usetikzlibrary{matrix,chains,positioning,decorations.pathreplacing,arrows}
 
 % Comandos matemáticos
-\usepackage{amsthm}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{amsmath}
 \usepackage{MnSymbol}
 \newtheorem{teo}{\scshape Teorema}[chapter]
 \newtheorem{lem}[teo]{\scshape Lema}
@@ -62,16 +58,12 @@
 \newcommand{\lp}{\{}
 \newcommand{\rp}{\}}
 \usepackage{braket}
+\usepackage{packages/kbordermatrix}
+\renewcommand{\kbldelim}{(}% Left delimiter
+\renewcommand{\kbrdelim}{)}% Right delimiter
+\usepackage{packages/jlcode}
 
 \usepackage{hyperref} % Pacote para o uso de autoref
-\usepackage{algorithm} % pacote para o uso de algoritmos
-\usepackage{algpseudocode} % pacote para o uso de algoritmos
-% altera palavras chaves dos algoritmos para português
-%\renewcommand{\ALG@name}{Algoritmo}
-\renewcommand{\algorithmicwhile}{\textbf{enquanto}}
-\renewcommand{\algorithmicdo}{\textbf{faça}}
-\renewcommand{\algorithmicend}{\textbf{fim}}
-\renewcommand{\algorithmicfor}{\textbf{para}}
 \newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
 
 % ---
@@ -195,17 +187,13 @@
 % ---
 % Inicia os apêndices
 % ---
-%\begin{apendicesenv}
+\begin{apendicesenv}
 
-%    \chapter{Documento básico usando a classe \textit{icmc}}
-%    \label{chapter:documento-basico}
-%    \input{tex/appendix/documento-basico}
+   \chapter{Algoritmo \textit{standard} e funções auxiliares}
+   \label{an:std_alg}
+   \input{tex/appendix/algoritmos}
 
-%    \chapter{Configuração do programa JabRef}
-%    \label{chapter:configuracao-jabref}
-%    \input{tex/appendix/configuracao-jabref}
-
-%\end{apendicesenv}
+\end{apendicesenv}
 % ---
 
 

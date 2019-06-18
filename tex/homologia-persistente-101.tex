@@ -326,7 +326,8 @@ Consulte \cite{edelsbrunner2010computational} para uma introdução à teoria de
 
 A homologia persistente dá informações topológicas sobre a filtração do complexo simplicial.
 Os elementos das bases de cada $H_p(K_i)$ correspondem a ciclos $p$-dimensionais,
-podendo ser buracos. No caso $p=0$, temos que cada elemento da base corresponde
+podendo ser buracos. Ciclos são os nomes dados aos representantes dos elementos da base
+do espaço vetorial em questão. No caso $p=0$, temos que cada elemento da base corresponde
 à uma componente conexa, $p=1$ cada elemento corresponde a um buraco.
 Portanto, considere os elementos da base de $H_p(K_i)$. Para cada um deles,
 desenhe um ponto. Se $f_{i,i+1}(u)=0$, então desenhe um intervalo que termina
@@ -474,7 +475,7 @@ em Julia.
 
 Considere a filtração da~\autoref{fig:fil_ph}. Observe que temos $4$ vértices
 $(\sigma_1,\dots,\sigma_4)$, $5$ arestas $(\sigma_5,\dots,\sigma_9)$
-e $1$ triângulo $(\sigma_10)$ ao total, temos ao total $10$ simplexos.
+e $1$ triângulo $(\sigma_{10})$ ao total, temos ao total $10$ simplexos.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
@@ -486,10 +487,97 @@ Diretamente da figura já podemos extrair os diagrams de persistência de dimens
 $0$ e $1$. Note que no primeiro passo da filtração temos $2$ componentes conexas,
 sendo que uma delas morre no terceiro passo e a outra sobrevive até o final.
 Temos portanto dois intervalos e logo pontos $0$-diagrama de persistência:
-\begin{align*}
-  & [1,+\infty),\\
-  & [1,3).
-\end{align*}
+$[1,+\infty)$ e $[1,3)$.
+
 Quando temos um intervalo infinito, geralmente se representa o acima dos
 índices da filtração no momento em que ele nasceu, como pode ser visto na
-~\autoref{fig:persdiag_ex}.
+~\autoref{fig:persdiag_ex}. Já para $p=1$, constatamos dois intervalos,
+que representam os dois buracos unidimensionais que surgiram. O primeiro buraco
+é o que aparece no passo $2$ da filtração com a introdução dos simplexos
+$\sigma_3$ e $\sigma_6$ e não morre, ou seja, se mantém até o final da filtração,
+enquanto o segundo buraco surge no passo $3$ da filtração com a introdução
+dos simplexos $\sigma_8$ e $\sigma_9$ e morre no passo $4$ com o nascimento
+do triângulo $\sigma_{10}$. Logo, nossos intervalos são $[2, +\infty)$ e $[3,4)$.
+
+Sendo assim, podemos construir os dois diagramas de persistência, que podem
+ser vistos na~\autoref{fig:persdiag_ex}.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/placeholder.png}
+  \caption{$0-$ e $1-$ diagramas de persistência da filtração mostrada na
+  \autoref{fig:fil_ph}.}
+  \label{fig:persdiag_ex}
+  \fautor
+\end{figure}
+
+Agora que calculamos intituitivamente os diagramas de persistência, vamos
+construir a matriz de bordo $\partial$ da filtração mostrada na
+\autoref{fig:fil_ph} e utilizar implementações no \textit{Julia} para verificar
+os resultados. A matriz de bordo pode ser visualizada abaixo, note que as regras
+para construção da matriz são satisfeitas.
+
+\begin{equation}
+  \partial = \kbordermatrix{
+               & \sigma_1 & \sigma_2 & \sigma_3 & \sigma_4 & \sigma_5 & \sigma_6 & \sigma_7 & \sigma_8 & \sigma_9 & \sigma_{10} \\
+    \sigma_1   &    0     &    0     &    0     &     0    &     1    &     1    &     0    &     0    &     0    &     0       \\
+    \sigma_2   &    0     &    0     &    0     &     0    &     1    &     0    &     1    &     1    &     0    &     0       \\
+    \sigma_3   &    0     &    0     &    0     &     0    &     0    &     0    &     0    &     1    &     1    &     0       \\
+    \sigma_4   &    0     &    0     &    0     &     0    &     0    &     1    &     1    &     0    &     1    &     0       \\
+    \sigma_5   &    0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     0       \\
+    \sigma_6   &    0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     0       \\
+    \sigma_7   &    0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     1       \\
+    \sigma_8   &    0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     1       \\
+    \sigma_9   &    0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     1       \\
+    \sigma_{10}&    0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     0       \\
+  }
+\end{equation}
+Para reduzir vamos realizar as seguintes operações:
+\begin{enumerate}
+  \item somar a coluna $7$ com a coluna $6$,
+  \item somar a coluna $7$ com a coluna $5$, assim zerando a coluna $7$,
+  \item somar a coluna $9$ com a coluna $6$,
+  \item somar a coluna $9$ com a coluna $8$,
+  \item somar a coluna $9$ com a coluna $5$, assim zerando a coluna $9$.
+\end{enumerate}
+Note então que após esses passos a matriz $\partial$ está reduzida e com
+a seguinte forma.
+\begin{equation}
+  R = \begin{pmatrix}
+                   0     &    0     &    0     &     0    &     1    &     1    &     0    &     0    &     0    &     0       \\
+                   0     &    0     &    0     &     0    &     1    &     0    &     0    &     1    &     0    &     0       \\
+                   0     &    0     &    0     &     0    &     0    &     0    &     0    &     1    &     0    &     0       \\
+                   0     &    0     &    0     &     0    &     0    &     1    &     0    &     0    &     0    &     0       \\
+                   0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     0       \\
+                   0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     0       \\
+                   0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     1       \\
+                   0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     1       \\
+                   0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     1       \\
+                   0     &    0     &    0     &     0    &     0    &     0    &     0    &     0    &     0    &     0       \\
+  \end{pmatrix}
+\end{equation}
+Vamos interpretar a matriz agora, para isso temos que parear os simplexos.
+Utilizando as regras de pareamento descritas anteriormente, temos os pares:
+\begin{itemize}
+  \item $\sigma_5$ com $\sigma_2$,
+  \item $\sigma_6$ com $\sigma_4$,
+  \item $\sigma_8$ com $\sigma_3$,
+  \item $\sigma_{10}$ com $\sigma_9$.
+\end{itemize}
+Além disso, existem simplexos que não foram pareados, como os simplexos $\sigma_1$
+e $\sigma_7$. Note que eles representam o nascimento de $p$-ciclos que não morrem
+ao longo da filtração, ou seja, $\sigma_1$ corresponde à componente conexa que
+nasce no primeiro passo da filtração e não morre e $\sigma_7$ corresponde ao
+buraco que nasce no segundo passo e não morre até o final da filtração.
+Portanto, temos os seguintes intervalos:
+\begin{itemize}
+  \item $[a_2,a_5) = [1,1)$, que não seria adicionado ao diagrama,
+  \item $[a_4,a_6) = [2,2)$, que não seria adicionado ao diagrama,
+  \item $[a_3,a_8) = [1,3)$,
+  \item $[a_9,a_10) = [3,4)$,
+  \item $[a_1,+\infty) = [1,+\infty)$,
+  \item $[a_7,+\infty) = [2,+\infty)$,
+\end{itemize}
+Logo, $Dgm_0 = \Set{(1,3), (1,+\infty)} \cup \Delta$ e $Dgm_1 = \Set{(3,4),
+(2,+\infty)} \cup \Delta$, onde $\Delta = \Set{(x,x) | x \in \mathbb{R}^+}$.
+Note que obtemos o mesmo resultado, como esperado! O algoritmo \textit{standard}
+está implementado e pode ser visto no \autoref{an:std_alg}.
