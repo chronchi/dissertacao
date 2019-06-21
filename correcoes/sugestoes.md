@@ -2,12 +2,11 @@ Arquivo de sugestões, críticas e correções da dissertação e TODO.
 ---
 
 ### TODO
-- [ ] Desenhar Cech Complex
-- [ ] Desenhar Vietoris Complex
+- [x] Desenhar Cech Complex
+- [x] Desenhar Vietoris Complex
+- [ ] Desenhar diagrama de voronoi
 - [ ] Desenhar Alpha Shape Complex
 - [ ] Desenhar uma figura com os 3 complexos
-- [ ] Desenhar diagrama de voronoi
-- [ ] Desenhar complexo alpha shape
 - [ ] Desenhar filtração com barcode e diagrama de persistencia
 
 ### Sugestões e correções
