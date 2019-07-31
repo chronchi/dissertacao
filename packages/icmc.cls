@@ -128,7 +128,7 @@
 \RequirePackage[absolute]{textpos} % Pacote para posicionamento do texto
 \RequirePackage{eso-pic}        % Pacote para incluir imagem de fundo
 \RequirePackage{adjustbox}      % Pacote para ajuste do tamanho do nome do autor na capa
-
+\RequirePackage{titlesec}       % Pacote para ajuste do numbering da subsubsubsection
 
 %================================================================================
 % Comando para configuracao do tipo de trabalho
@@ -1372,7 +1372,7 @@
   \renewcommand*{\cftsubsubsectionfont}{\itshape}
   % Secao quinquenaria (Subsubsubsection) Caixa baixa
   \renewcommand*{\cftparagraphfont}{\normalsize}
-
+  
   % tamanhos de fontes de chapter e part
   \setlength{\beforechapskip}{0pt}
   \renewcommand{\ABNTEXchapterfontsize}{\LARGE}

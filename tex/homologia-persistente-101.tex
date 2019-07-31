@@ -33,7 +33,7 @@ aos complexos simpliciais e chegando ao algoritmo de homologia persistente.
 Mostraremos também como interpretar os resultados obtidos.
 A \autoref{fig:pipeline_hp} mostra os passos para utilizar esta ferramenta em um conjunto de dados.
 
-\begin{figure}
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/pipeline_hp.png}
   \caption{Representação do pipeline para a utilização da homologia persistente
@@ -72,7 +72,7 @@ simplexos podem ser vistos na~\autoref{fig:ksimpl}. Além disso, dizemos que a d
 do $k$-simplexo é $k$. A envoltória convexa de qualquer subconjunto dos vértices
 de um simplexo $\sigma$ é chamado de face de $\sigma$.
 
-\begin{figure}
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/ksimpl.png}
   \caption{Exemplos de $k$-simplexos para $k \in \Set{0,1,2,3}$.}
@@ -98,7 +98,7 @@ faces. A segunda condição é necessária para evitar casos patológicos como
 mostrado na \autoref{fig:simp_path}. Dizemos que a dimensão do complexo
 simplicial $K$ é a maior dimensão dentre os simplexos em $K$. Podemos definir
 agora a filtração de um complexo simplicial.
-\begin{figure}
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/simp_path.png}
   \caption{Exemplo em que a interseção de dois simplexos não é um simplexo.}
@@ -116,7 +116,7 @@ agora a filtração de um complexo simplicial.
 Na~\autoref{fig:filtracao_exemplo} temos um exemplo de filtração para um complexo
 simplicial.
 
-\begin{figure}[hbt]
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/filtracao_exemplo.png}
   \caption{Exemplo de filtração para um complexo simplicial $K$.}
@@ -157,7 +157,7 @@ um simplexo geométrico. Por exemplo, se adotarmos o complexo simplicial abstrat
 $F$ acima mostrado, teriamos que sua realização geométrica seria um triângulo
 sem preenchimento, como é mostrado na~\autoref{fig:abs_real}.
 
-\begin{figure}
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/abs_real.png}
   \caption{Exemplo de um complexo simplicial abstrato e sua realização geométrica}
@@ -190,7 +190,7 @@ abstrato, o que seria apenas o conjunto desses pontos. Geometricamente falando,
 se duas bolas se intersectam, adicionamos uma aresta. Se três bolas se intersectam,
 adicionamos um triângulo preenchido, e assim por diante. Na~\autoref{fig:cech_ex}
 temos um exemplo do complexo simplicial de \v{C}ech.
-\begin{figure}[htb]
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.6\textwidth]{images/ComplexCech.png}
   \caption{Exemplo de um complexo de \v{C}ech para um raio $r$ fixado.}
@@ -217,7 +217,8 @@ entre pontos dois a dois.
 A \autoref{fig:viet_ex} é um exemplo do complexo de Vietoris-Rips. Uma das diferenças
 que a construção dos dois complexos já definidos nos dá é que no caso do complexo
 de \v{C}ech temos triângulos preenchidos, e isso não ocorre para Vietoris-Rips.
-\begin{figure}[htb]
+\begin{figure}[!htpb]
+htb]
   \centering
   \includegraphics[width=0.6\textwidth]{images/ComplexRips.png}
   \caption{Exemplo do complexo de Vietoris-Rips com os mesmos pontos utilizados
@@ -255,7 +256,7 @@ em que $d$ é a distância euclidiana usual. A \autoref{fig:vor_ex} mostra um
 exemplo de diagram de Voronoi para três pontos no $\mathbb{R}^2$. Podemos agora
 definir o complexo simplicial Alpha.
 
-\begin{figure}[htb]
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
   \caption{Diagrama de Voronoi de três pontos no plano.}
@@ -283,7 +284,7 @@ posição geral, então o complexo simplicial abstrato Alpha pode ser
 realizado geometricamente no $\mathbb{R}^d$, ou seja o complexo simplicial geométrico pode ser construído
 no $\mathbb{R}^d$! Isso é fundamental computacionalmente, já que diminui a complexidade dos cálculos e aumenta a velocidade para obtenção do complexo.
 
-\begin{figure}[htb]
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
   \caption{Complexo Alpha para um conjunto de pontos no plano.}
@@ -349,7 +350,7 @@ desenhamos uma barra do comprimento do intervalo $[i,j)$. Já no diagrama de
 persistência representamos com um ponto $(i,j)$ no plano. A \autoref{fig:ex_ciclos}
 possui o barcode e o diagrama de persistência para o conjunto de dados associado.
 
-\begin{figure}
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
   \caption{Exemplo da filtração de um complexo simplicial e o barcode e diagramas
@@ -405,7 +406,7 @@ as regras de construção da matriz de bordo, temos que $\delta(i,j) = 1$ só
 quando $\sigma_i$ é face de codimensão $1$ de $\sigma_j$. Assim temos o
 \autoref{alg:red_bordo} para reduzir a matriz de bordo.
 
-\begin{algorithm}[htb]
+\begin{algorithm}[!htpb]
   \caption{Redução da matriz bordo $\partial$.}
   \label{alg:red_bordo}
   \begin{algorithmic}[1]
@@ -460,7 +461,7 @@ $\sigma_j$ é adicionado em $K_q$, então $a_i = l$ e $a_j = q$. Se tivermos um
 simplexo $\sigma_i$ de dimensão $p$ tal que $low(i)$ é indefinido, então
 adicionamos o ponto $(a_i, +\infty)$ à $Dgm_p$. Observe na~\autoref{fig:ex_dgm}
 os diagramas de persistência de dimensão $0$ e $1$ da respectiva filtração.
-\begin{figure}[htb]
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
   \caption{$0-$ e $1-$ Diagramas de Persistência da~\autoref{fig:filtracao_exemplo}.}
@@ -476,7 +477,7 @@ em Julia.
 Considere a filtração da~\autoref{fig:fil_ph}. Observe que temos $4$ vértices
 $(\sigma_1,\dots,\sigma_4)$, $5$ arestas $(\sigma_5,\dots,\sigma_9)$
 e $1$ triângulo $(\sigma_{10})$ ao total, temos ao total $10$ simplexos.
-\begin{figure}[htb]
+\begin{figure}[bht]
   \centering
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
   \caption{Filtração de um complexo simplicial.}
@@ -501,7 +502,7 @@ do triângulo $\sigma_{10}$. Logo, nossos intervalos são $[2, +\infty)$ e $[3,4
 
 Sendo assim, podemos construir os dois diagramas de persistência, que podem
 ser vistos na~\autoref{fig:persdiag_ex}.
-\begin{figure}[htb]
+\begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/placeholder.png}
   \caption{$0-$ e $1-$ diagramas de persistência da filtração mostrada na
