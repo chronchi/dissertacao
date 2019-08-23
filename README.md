@@ -12,4 +12,4 @@ Com isso instalado basta executar o seguinte comando no terminal
 mkdir .output # só é necessário rodar esse comando uma única vez. 
 bash bashtex.tex
 ```
-com isso um pdf abrirá automaticamente (caso tenho o evince instalado).  
+e o pdf abrirá automaticamente (caso tenha o evince instalado).  
