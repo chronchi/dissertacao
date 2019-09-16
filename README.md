@@ -12,4 +12,12 @@ Com isso instalado basta executar o seguinte comando no terminal
 mkdir .output # só é necessário rodar esse comando uma única vez. 
 bash bashtex.tex
 ```
-e o pdf abrirá automaticamente (caso tenha o evince instalado).  
+e o pdf abrirá automaticamente (caso tenha o evince instalado). 
+
+Existem dois modos da dissertação: draft e normal. No draft as imagens não são 
+compiladas juntamente. Draft é o default. Caso queira compilar o modo normal
+execute o comando abaixo.
+
+```bash
+bash bashtex.tex false
+```

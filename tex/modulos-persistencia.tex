@@ -1,0 +1,165 @@
+A homologia persistence teve seu ínicio em uma intersecção entre as ciências da computação 
+e a matemática. Os primeiros artigos mostravam algoritmos sobre espaços topológicos simples,
+como esferas \cite{Edelsbrunner2000}. No entanto, a teoria foi se desenvolvendo 
+ao longo dos anos ao ponto em que as linguagens utilizadas para tratar da homologia persistente 
+é a teoria de categorias conjuntamente com a teoria de representações \cite{Chazal2016}.
+
+Neste capítulo tratamos do desenvolvimento da homologia persistente sob a luz dessas linguagens. 
+Na primeira seção definimos o que são os módulos de persistência e suas relações com os diagramas de 
+persistência. Na segunda seção descrevemos a medida retangular, usada para abstrair o conceito 
+de diagrama de persistência e poder estudar o quão \textit{tame} ele o é. Apresentamos na terceira seção
+alguns exemplos do comportamento dos módulos de persistência e exemplos. A quarta seção é fundamental,
+pois mostramos como comparar dois módulos de persistência, através do \textit{interleaving}. E finalmente,
+apresentamos o teoria de isometria e mostramos uma das implicações com a teoria desenvolvido neste capítulo. 
+
+\section{Módulos de persistência e decomposições}
+Nesta seção iremos definir os módulos de persistência, apresentar teoremas de decomposição dos módulos 
+e introduzir a notação de quiver, que será utilizada para as próximas seções e demonstrações de 
+outros resultados. 
+
+Fixaremos aqui o corpo $\mathbf{k}$ para todos os espaços vetoriais apresentados neste texto. 
+
+\begin{defi}
+    Um módulo de persistência $\mathfrak{V}$ sobre os números reais $\mathbb{R}$ é uma família indexada 
+    sobre $\mathbb{R}$ de espaços vetoriais 
+    \begin{equation*}
+        (V_t \mid t \in \mathbb{R}), 
+    \end{equation*} 
+    e uma família de aplicações lineares duplamente indexadas
+    \begin{equation*}
+        (v_t^s \colon V_s \to V_t \mid s \leq t) 
+    \end{equation*}
+    que satisfazem a seguinte relação de composição
+    \begin{equation*}
+        v_t^s \circ v_s^r = v_t^r,
+    \end{equation*} 
+    em que a função $v^r_r$ é considerada a função identidade. 
+\end{defi}
+
+O módulo de persistência pode ser visto como um funtor entre a categoria dos números reais com o morfismo
+$s \to t$, em que $s \leq t$ e a categoria de espaços vetoriais. 
+
+Vamos dar um exemplo de módulo de persistência que se encontra no contexto de análise topológica de dados. 
+Seja $X$ um espaço vetorial e $f \colon X \to \mathbb{R}$ uma função, não necessariamente contínua e 
+considere os conjuntos de nível
+\begin{equation*}
+    X^t = (X,f)^t = \Set{x \in X \mid f(x) \leq t}.
+\end{equation*}
+
+Temos uma sequência de conjuntos encaixados, $X^t$ com $t \in \mathbb{R}$, ou seja, existe uma função 
+inclusão $\iota_t^s \colon X^s \hookrightarrow X^t$ que satisfaz trivialmente a lei de composição e 
+existe uma função identidade. Chamamos esta sequência de conjuntos e funções de filtração de subníveis
+de $(X,f)$, denotada por $\mathfrak{X}_{sub}$ ou $\mathfrak{X}^f_{sub}$.
+
+Dada a sequência acima, podemos transforma-la em um módulo de persistência utilizando qualquer funtor
+da categoria de espaços topológicos para a categoria de espaços vetoriais. Neste caso utilizamos 
+o funtor de homologia $H = H_k(-, \mathbf{k})$ de dimensão $k$ com coeficientes em $\mathbf{k}$. Assim,
+podemos definir o seguinte módulo de persistência $\mathfrak{V}$
+
+\begin{equation*}
+    V_t = H(X^t) \qquad v^s_t = H(\iota_t^s) \colon V_s \to V_t.
+\end{equation*}
+Podemos também escrever $\mathfrak{V} = H(\mathfrak{X}_{sub})$. 
+
+Um exemplo na análise topológica de dados é quando $X$ é um complexo simmplicial finito e $X^t$ é um 
+subcomplexo. Devido as propriedades dos complexos, existem finitos valores críticos onde há mudanças 
+em $X$. Suponha que os valores sejam $a_1 < \dots < a_n$. Entao toda a informação do módulo de 
+persistência é dada pela seguinte sequência de espaços vetoriais de dimensão finita
+
+\begin{equation*}
+    H(X^{a_1}) \to \dots \to H(X^{a_n}).
+\end{equation*}
+
+Neste caso, $H(\mathfrak{X}_{sub})$ admite uma descrição compacta, existe um algoritmo eficiente para 
+o seu calculo e por último, a descrição é contínua com relação a $f$, ou seja, é estável sob uma 
+métrica. 
+
+A descrição mencionada acima é o diagrama de persistência ou barcode. A estrutura é dada por uma 
+lista de intervalos da forma $[b,d) = [a_i, a_j)$ ou $[a_i, +\infty)$. Cada intervalo representa
+um ciclo, uma propriedade, que nasce em $b$ e morre em $d$. 
+
+Iremos mostrar aqui que é possível associar um diagram de persistência para módulos de 
+persistência $\mathfrak{V}$ \textit{q-tame}. Um módulo de persistência é \textit{q-tame} 
+se 
+\begin{equation*}
+    r_t^s = \text{rank}(v_t^s) < \infty \text{ para } s < t.
+\end{equation*}
+Intuitivamente falando, um módulo é \textit{q-tame} se para todo quadrante que pegamos com a origem
+na diagonal, existem finitos pontos do diagram de persistência neste quadrante como pode ser visto
+na \autoref{fig:quad_finito}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/placeholder.png}
+    \caption{Exemplo de um diagram de persistência de um módulo de 
+            persistência \textit{q-tame} com um quadrante em destaque.}
+    \label{fig:quad_finito}
+\end{figure}
+
+\subsection{Indíces e posets} 
+No início desta seção definimos o módulo de persistência com o conjunto de indíces sendo os reais. No 
+entanto, é possível definir utilizando quaisquer conjuntos parcialmente ordenados da mesma forma que 
+com os reais. Seja $\mathbf{T}$ um poset, a coleção de espaços vetoriais e aplicações lineares que 
+satisfazem as leis de composição e identidade é chamada de $\mathbf{T}$-módulo de persistência, ou 
+módulo de persistência sobre $\mathbf{T}$. 
+
+Além disso, podemos restringir o poset $\mathbf{T}$ para um subconjunto $\mathbf{S} \subset \mathbf{T}$
+de forma a obter o $\mathbf{S}$-módulo de persistência, que são os espaços vetoriais e aplicações lineares
+cujos indíces são elementos de $\mathbf{S}$. Esta é a restrição de $\mathfrak{V}$ em $\mathbf{S}$ e pode
+ser denotada por $\mathfrak{V}_S$ ou $\left.\mathfrak{V}\right|_S$. 
+
+\subsection{Categoria de módulos}
+
+\subsection{Módulos Intervalares}
+
+\subsection{Decomposição em módulos intervalares} 
+
+\begin{propo}
+    Seja $\mathfrak{I} = \mathbf{k}^J_T$ um módulo intervalor sobre $\mathbf{T} \subset \mathbb{R}$. 
+    Então $\text{End}(\mathfrak{I}) = \mathbf{k}$. 
+\end{propo}
+\begin{proof}
+
+\end{proof}
+
+\begin{propo}
+    Módulos intervalares são indecomponíveis. 
+\end{propo}
+\begin{proof}
+
+\end{proof}
+
+\begin{teo}{(Krull-Remak-Schmidt-Azumaya)}
+    Suponha que um módulo de persistência $\mathbf{T} \subset \mathbb{R}$ pode ser escrito como soma 
+    direta de módulos intervalores de duas formas diferentes
+    \begin{equation*}
+        \mathfrak{V} \simeq \bigoplus_{l \in L} \mathbf{k}^{J_l} \simeq \bigoplus_{m \in M} \mathbf{k}^{K_m},
+    \end{equation*}
+    então existe uma bijeção $\sigma \colon L \to M$ tal que $J_l = K_{\sigma(l)}$ para todo $l \in L$. 
+\end{teo}
+\begin{proof}
+
+\end{proof}
+
+\begin{teo}{(Gabriel, Auslander, Ringel-Tachikawa, Webb, Crawley-Boevey)}
+    Seja $\mathfrak{V}$ um módulo de persistência sobre $\mathbf{T} \subset \mathbb{R}$. Então $\mathfrak{V}$
+    pode ser decomposto como um soma direta de módulos intervalares sob as seguintes condições:
+    \begin{itemize} 
+        \item $\mathbf{T}$ é um conjunto finito;
+        \item cada $V_t$ é um espaço vetorial de dimensão finita. 
+    \end{itemize}
+    Por outro lado, existe um módulo de persistência sob $\mathbb{Z}$ que não admite uma decomposição intervalar. 
+\end{teo}  
+\begin{proof}
+    Detalhes podem ser vistos em \cite{Chazal2016}, página 22, \textbf{Teorema} 2.8.
+\end{proof}
+
+\subsection{Diagrama de persistência e decomposição}
+
+\section{Medidas retangulares}
+
+\section{Comportamento de módulos e exemplos}
+
+\section{\textit{Interleaving}} 
+
+\section{O teorema de isometria}
