@@ -674,7 +674,7 @@
 \providecommand*{\exemploname}{Example}
 \providecommand*{\observacaoname}{Note}
 \providecommand*{\definicaoname}{Definition}
-\providecommand*{\demonstracaoname}{Demonstration}
+\providecommand*{\demonstracaoname}{Proof}
 
 \addto\captionsbrazil{% portugues-brasil
     \renewcommand{\theoremaname}{Teorema}
@@ -696,6 +696,28 @@
 \newtheorem{observacao}{\observacaoname}
 \newtheorem{definicao}{\definicaoname}
 \newenvironment{demonstracao}{\begin{proof}[\demonstracaoname]}{\end{proof}}
+
+% comandos para quiver calculation 
+\newcommand{\qlen}{1em}
+\newcommand{\Qlen}{1.5em}
+\newcommand{\QQlen}{3em}
+
+\newcommand{\qem}{\makebox[\qlen]{---}}
+
+% short
+\newcommand{\qno}{\makebox[\qlen]{---}}  
+\newcommand{\qon}[1]{\makebox[\qlen]{$_{\phantom{}}\bullet_{#1}$}}
+\newcommand{\qoff}[1]{\makebox[\qlen]{$_{\phantom{}}\circ_{#1}$}}
+
+% medium
+\newcommand{\Qno}{\makebox[\Qlen]{--{}--{}--}}
+\newcommand{\Qon}[1]{\makebox[\Qlen]{$_{\phantom{}}\bullet_{#1}$}}
+\newcommand{\Qoff}[1]{\makebox[\Qlen]{$_{\phantom{}}\circ_{#1}$}}
+
+% long
+\newcommand{\QQno}{\makebox[\QQlen]{--{}--{}--{}--{}--{}--}}
+\newcommand{\QQon}[1]{\makebox[\QQlen]{$_{\phantom{}}\bullet_{#1}$}}
+\newcommand{\QQoff}[1]{\makebox[\QQlen]{$_{\phantom{}}\circ_{#1}$}}
 
 
 %================================================================================

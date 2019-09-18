@@ -48,14 +48,15 @@
 \usepackage{MnSymbol}
 \newtheorem{teo}{\scshape Teorema}[chapter]
 \newtheorem{lem}[teo]{\scshape Lema}
-\newtheorem{cor}[teo]{\scshaé Corol\'ario}
+\newtheorem{cor}[teo]{\scshape Corol\'ario}
 \newtheorem{propo}[teo]{\scshape Proposi\c{c}\~ao}
-\newtheorem{defi}{\scshape Defini\c{c}\~ao}[chapter]
-\newtheorem{ex}{\scshape Exemplo}[chapter]
+\newtheorem{defi}[teo]{\scshape Defini\c{c}\~ao}
+\newtheorem{ex}[teo]{\scshape Exemplo}
 \newtheorem{obs}{Observação}[chapter]
 \usepackage{listings}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\innerproduct}[1]{\left\langle#1\right\rangle}
 \newcommand{\lp}{\{}
 \newcommand{\rp}{\}}
 \usepackage{braket}

@@ -349,7 +349,81 @@ frequência em exemplos práticos de análise de dados. Para a definição da di
 mais importante. 
 
 \subsection{Cálculos com quivers}
-TODO: DEFINIR REPRESENTAÇÃO DE QUIVER E COMO FAZER OS CALCULOS. PROVAR AS PROPOSIÇÕES
+
+Vamos agora definir uma notação para trabalhar com módulos de persistência sobre conjuntos de índices 
+finitos. 
+Um módulo de persistência $\mathfrak{V}$ sobre um conjunto finito de índices
+\begin{equation*}
+    \mathbf{T} : \qquad a_1 < \dots < a_n 
+\end{equation*} 
+da reta real pode ser visto como um diagrama de $n$ espaços vetoriais e $n-1$ aplicações lineares, como
+mostrado abaixo
+\begin{equation*}
+    \mathfrak{V} : \quad V_{a_1} \longrightarrow \dots \longrightarrow V_{a_n}.
+\end{equation*}
+O diagrama acima é a representação do seguinte \textbf{quiver}:
+\begin{equation*}
+    \bullet \longrightarrow \bullet \longrightarrow \dots \longrightarrow \bullet
+\end{equation*}
+
+Vimos que podemos decompor alguns módulos de persistência em módulos intervalares. Para estes podemos representa-los 
+com quivers da seguinte forma. 
+\begin{ex}
+    Seja $a < b < c$. Existem $6$ módulos intervalares diferentes sobre este intervalo.
+\begin{equation*} 
+    \begin{matrix}
+        \mathbf{k}[a,a] = \qon{a} \qem \qoff{b} \qem \qoff{c} & \mathbf{k}[a,b] = \qon{a} \qem \qon{b} \qem \qoff{c}& 
+                            \mathbf{k}[a,c] = \qon{a} \qem \qoff{b} \qem \qon{c}\\
+        \mathbf{k}[b,b] = \qoff{a} \qem \qon{b} \qem \qoff{c}& \mathbf{k}[b,c] = \qoff{a} \qem \qon{b} \qem \qon{c}& \\
+        \mathbf{k}[c,c] = \qoff{a} \qem \qoff{b} \qem \qon{c}& & & 
+    \end{matrix}
+\end{equation*}
+\end{ex}
+
+Os círculos $\bullet$ representam uma cópia do espaço vetorial $\mathbf{k}$ unidimensional. O círculo $\circ$ representa o 
+espaço vetorial nulo. A aplicação linear entre dois $\bullet$ é a identidade e qualquer aplicação contendo $\circ$ é a
+nula.
+
+Esta notação pode ser usada para representar a multiplicidade dos módulos intervalares da decomposição
+de um módulo de persistência sobre um conjunto de índices finito, essa quando existe. Seja $\mathfrak{V}$
+um módulo de persistência sobre o conjunto $\mathbf{T} = \Set{a_1, \dots, a_n}$. Definimos a multiplicidade
+de $[a_i, a_j] \subseteq \mathbf{T}$ em $\mathfrak{V}_{\mathbf{T}}$ como o número de cópias do módulo
+$\mathbf{k}[a_i,a_j]$ na decomposição de $\mathfrak{V}_{\mathbf{T}}$. 
+
+\begin{ex}
+    Seja $\mathfrak{V}$ módulo de persistência sobre $\mathbf{T} = \Set{a,b,c}$. Escrevemos
+    \begin{equation*}
+        \innerproduct{[b,c] \mid \mathfrak{V}_{\mathbf{T}}} \text{ ou } \innerproduct{\qoff{a} \qem \qon{b} 
+        \qem \qon{c} \mid \mathfrak{V}}
+    \end{equation*}
+    para representar a multiplicidade de $\qoff{a} \qem \qon{b} \qem \qon{c}$ no seguinte módulo de $3$ termos
+    \begin{equation*}
+        \mathfrak{V} : \quad V_{a_1} \longrightarrow \dots \longrightarrow V_{a_n}.
+    \end{equation*}
+\end{ex}
+
+\begin{ex}
+    Considere o módulo com dois espaços vetoriais e uma única aplicação linear $\mathfrak{V} : \quad 
+    V_a \xrightarrow{\mu} V_b$. Então os invariantes de $\mu$ são
+    \begin{align*}
+        \text{rank}(\mu)       & = \innerproduct{\qon{a} \qem \qon{b} \mid \mathfrak{V}}, \\
+        \text{nulidade}(\mu)   & = \innerproduct{\qon{a} \qem \qoff{b} \mid \mathfrak{V}}, \\
+        \text{conulidade}(\mu) & = \innerproduct{\qoff{a} \qem \qon{b} \mid \mathfrak{V}}.
+    \end{align*}
+    Basta notar que para $V_a, V_b$ espaços de dimensão finita, existe uma decomposição das suas bases 
+    \begin{equation*}
+        e_1, \dots, e_r, f_1, \dots, f_n \text{   e   } g_1, \dots, g_r, h_1, \dots, h_m
+    \end{equation*}
+    tais que $\mu(e_i) = g_i$, $\mu(f_j) = 0$ para todo $i,j$. Assim, os espaços vetoriais unidimensionais
+    gerados pelos elementos das bases geram uma decomposição do módulo $\mathfrak{V}$ nos seguintes intervalos
+    \[\begin{array}{ccccc}
+        (&\text{span}(e_i) & \rightarrow &\text{span}(g_i)&) \\
+        (&\text{span}(f_j) & \rightarrow &0               &) \\
+        (& 0               & \rightarrow &\text{span}(h_k)&)
+    \end{array}\]
+    que são isomorfos respectivamente à $\qon{a} \qem \qon{b}$, $\qon{a} \qem \qoff{b}$ e 
+    $\qoff{a} \qem \qon{b}$. 
+\end{ex}
 
 \begin{propo}
     Suponha que podemos decompor um módulo de persistência $\mathfrak{V}$ como uma soma direta
@@ -364,22 +438,56 @@ TODO: DEFINIR REPRESENTAÇÃO DE QUIVER E COMO FAZER OS CALCULOS. PROVAR AS PROP
     para qualquer conjunto de índices $\mathbf{T} = \Set{a_1, \dots, a_n}$ e intervalos $[a_i, a_j] \subseteq \mathbf{T}$.
 \end{propo}
 \begin{proof}
-
+    Segue do fato que a decomposição intervalar de $\mathfrak{V}_{\mathbf{T}}$ é a soma direta das decomposições intervalares 
+    de cada $\mathfrak{V}^l_{\mathbf{T}}$ para todo $l \in L$. 
 \end{proof}
 
-\begin{propo}
+\begin{propo}{(Princípio da restrição)}
     Sejam $\mathbf{S}, \mathbf{T}$ conjuntos de índices com $\mathbf{S} \subset \mathbf{T}$. Então
     \begin{equation*}
-        \langle \mathfrak{I} \mid \mathfrak{V}_{\mathbf{S}} \rangle = 
-        \sum_{\mathfrak{J}} \langle \mathfrak{J} \mid \mathfrak{V}_{\mathfrak{J}} \rangle,
+        \langle I \mid \mathfrak{V}_{\mathbf{S}} \rangle = 
+        \sum_{J} \langle J \mid \mathfrak{V}_{J} \rangle,
     \end{equation*}
-    onde a soma é sobre todos os intervalos $\mathfrak{J} \subseteq \mathbf{T}$ que se restringe a 
-    $\mathfrak{I}$ sobre $\mathbf{S}$. 
+    onde a soma é sobre todos os intervalos $J \subseteq \mathbf{T}$ que se restringe a 
+    $I$ sobre $\mathbf{S}$. 
 \end{propo}
 \begin{proof}   
-    
+    Tome uma decomposição intervalar arbitrária de $\mathfrak{V}_{\mathbf{T}}$. Então uma decomposição
+    intervalar é induzida em $\mathfrak{V}_{\mathbf{S}}$. Note agora que para $I \subseteq \mathbf{S}$,
+    temos diversos intervalos $J \subseteq \mathbf{T}$ tais que $J \cap \mathbf{S} = I$. Devido a 
+    linearidade da soma direta, temos que os intervalos de $\mathfrak{V}_{\mathbf{S}}$ do tipo $I$ 
+    são os intervalos de $\mathfrak{V}_{\mathbf{T}}$ do tipo $J$ acima. 
 \end{proof}
+\begin{ex}
+    Seja $a < p < b < q < c$. Então temos os seguintes exemplos para os conjuntos de índices:
+    \begin{itemize}
+        \item $\mathbf{T}_1 = \Set{a,b,q,c}$, $S_1=\Set{a,b,c}$, $I_1=[b,c]$.
+        \begin{equation*}
+            \innerproduct{\qoff{a} \qem \qno \qem \qon{b} \qem \qno \qem \qon{c}} =
+            \innerproduct{\qoff{a} \qem \qno \qem \qon{b} \qem \qon{q} \qem \qon{c}} 
+        \end{equation*}
+        \item $\mathbf{T}_2 = \Set{a,p,b,c}$, $S_2=\Set{a,b,c}$, $I_2=[b,c]$.
+        \begin{equation*}
+            \innerproduct{\qoff{a} \qem \qno \qem \qon{b} \qem \qno \qem \qon{c}} =
+            \innerproduct{\qoff{a} \qem \qoff{p} \qem \qon{b} \qem \qno \qem \qon{c}}
+            + \innerproduct{\qoff{a} \qem \qon{p} \qem \qon{b} \qem \qno \qem \qon{c}} 
+        \end{equation*}
+        \item $\mathbf{T}_3 = \Set{a,b,q,c}$, $S_2=\Set{a,b,c}$, $I_2=[c,c]$.
+        \begin{equation*}
+            \innerproduct{\qoff{a} \qem \qno \qem \qoff{b} \qem \qno \qem \qon{c}} =
+            \innerproduct{\qoff{a} \qem \qno \qem \qoff{b} \qem \qoff{q} \qem \qon{c}}
+            + \innerproduct{\qoff{a} \qem \qno \qem \qoff{b} \qem \qon{q} \qem \qon{c}} 
+        \end{equation*}
+         
+    \end{itemize}
+\end{ex}
 \section{Medidas retangulares}
+
+\subsection{A medida de persistência}
+
+\subsection{r-medidas abstratas}
+
+\subsection{Equivalência de medidas e diagramas}
 
 \section{Comportamento de módulos e exemplos}
 
