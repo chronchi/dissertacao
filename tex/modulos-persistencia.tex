@@ -109,39 +109,214 @@ cujos indíces são elementos de $\mathbf{S}$. Esta é a restrição de $\mathfr
 ser denotada por $\mathfrak{V}_S$ ou $\left.\mathfrak{V}\right|_S$. 
 
 \subsection{Categoria de módulos}
+Com a definição de módulos de persistência sobre um poset $\mathbf{T}$ qualquer, podemos definir
+homomorfismos entre módulos. Sejam $\mathfrak{U}, \mathfrak{V}$ $\mathbf{T}$-módulos de persistência.
+Um homomorfismo $\Phi$ entre $\mathfrak{U}$ e $\mathfrak{V}$ é uma família de aplicações lineares 
+$(\phi_t \colon U_t \to V_t \mid t \in \mathbf{T})$ tal que o seguinte diagrama comuta para todo
+$s \leq t$. 
+
+\begin{equation*}
+    \begin{tikzcd}
+        U_s \arrow{d}[swap]{\phi_s} \arrow{r}{u_t^s} & U_t \arrow{d}{\phi_t} \\
+        V_s \arrow{r}{v^s_t}                     & V_t                    
+    \end{tikzcd} 
+\end{equation*}
+
+A composição de dois homomorfismo $\Phi, \Psi$ é dada por cada indíce $t \in \mathbf{T}$, ou seja,
+$\Phi \circ \Psi$ é a coleção de aplicações lineares $(\phi_t \circ \psi_t \colon U_t \to W_t \mid t \in \mathbf{T})$,
+onde $\Phi$ é homomorfismo entre $\mathfrak{U}$ e $\mathfrak{V}$ e $\Psi$ entre $\mathfrak{V}$ e $\mathfrak{W}$. 
+A identidade é definida de forma trivial. Portanto, temos a categoria dos módulos. Definamos os seguintes conjuntos
+\begin{align*}
+    \text{Hom}(\mathfrak{U}, \mathfrak{V}) &= \Set{\text{homomorfismos } \mathfrak{U} \to \mathfrak{V}}, \\
+    \text{End}(\mathfrak{V}) &= \Set{\text{homomorfismos } \mathfrak{V} \to \mathfrak{V}}.
+\end{align*}
 
 \subsection{Módulos Intervalares}
+A relação entre os diagramas de persistência e módulos de persistência são fundamentadas pelos módulos intervalares. 
+Eles são a base da teoria de homologia persistente. 
+
+Um intervalo em um conjunto totalmente ordenado $\mathbf{T}$ é um subconjunto $J \subset \mathbf{T}$ tal que se 
+$r \in J$ e $t \in J$ tal que $r < s < t$, então $s \in J$. Portanto, para qualquer intervalo $J \subset \mathbf{T}$,
+o módulo intervalar $\mathfrak{I} = \mathbf{k}^J$ é definido como o $\mathbf{T}$-módulo de persistência com a 
+seguinte família de espaços vetoriais
+\begin{equation*}
+    I_t = \left\{
+    \begin{split}
+        & \mathbf{k} \text{ se } t \in J \\
+        & 0 \text{ caso contrário,}
+    \end{split}
+    \right.
+\end{equation*} 
+e as aplicações lineares
+\begin{equation*}
+    i_t^s = \left\{
+    \begin{split}
+        & id \text{ se } s,t \in J \\
+        & 0 \text{ caso contrário.}
+    \end{split}
+    \right.
+\end{equation*}
+Como mencionado anteriormente, os intervalos seriam as propriedades representadas no diagrama de persistência, 
+ou seja, o módulo intervalar $\mathbf{k}^J$ representa uma propriedade que persiste por todo intervalo $J$.
+
+Devida a sua importância, módulos intervalares com índices em subconjuntos de $\mathbb{R}$ possuem uma notação 
+especial. Para distinguir os vários casos de intervalos, usamos uma supernotação: $+$ e $-$, a decoração dos pontos.
+Para intervalos finitos adota-se o seguinte dicionário
+
+\begin{align*}
+    (p^-, q^-) &= [p,q) \\ 
+    (p^-, q^+) &= [p,q] \\
+    (p^+, q^-) &= (p,q) \\
+    (p^+, q^+) &= (p,q]
+\end{align*}
+O dicionário acima vale para $p < q$. No caso em que $p=q$, representamos o intervalo por $(p^-, p^+) = [p,p]$. 
+Para intervalos infinitos, usamos o símbolo $-\infty^+$ e $+\infty^-$ com definição similar à acima e com a adição
+do seguinte intervalo
+\begin{equation*}
+    (-\infty^+, +\infty^-) = (-\infty, +\infty).
+\end{equation*}
+Quando queremos referenciar um ponto decorados mas não sabemos sua decoração, denotamos por $p^*$, podendo ser 
+$p^-$ ou $p^+$. 
+
+Podemos extender os reais para os reais decorados, um conjunto totalmente ordenado com as seguintes relações
+\begin{equation*}
+    p^- < p < p^+ < q^- < q < q^+,
+\end{equation*}
+para todo $p < q$. Definimos o semiplano diagonal superior em $\mathbb{R}^2$ como 
+\begin{equation*}
+    \mathcal{H} = \Set{(p,q) | p \leq q}
+\end{equation*}
+O semiplano diagonal superior $\bar{\mathcal{H}}$ é a união de $\mathcal{H}$ com os pontos no infinito. 
+
+Portanto, um módulo intervalar pode ser representado de diversas formas, visualizados também na \autoref{fig:mod_int}
+\begin{itemize}
+    \item Como um intervalo na reta real;
+    \item como uma função $\mathcal{H} \to \Set{0,1}$ definida por $(s,t) \mapsto \text{rank}(i^s_t)$; 
+    \item como um ponto $(p,q) \in \mathcal{H}$ e um traço representando a respectiva decoração.
+\end{itemize}
+ 
+\begin{figure}[htpb!] 
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/ex_interval_module.png}
+    \caption{Representação por intervalo (esquerda), pela função rank (meio) e pelo ponto decorado (direita) do 
+            módulo intervalar $\mathbf{k}[1,3) = \mathbf{k}(1^-, 3^-)$.}  
+    \label{fig:mod_int}
+\end{figure}
+Os traços representando a decoração são dados por
+\begin{center}
+    $(p^-,q^-): $ \rotatebox[origin=c]{225}{$\multimap$}
+
+    $(p^-,q^+): $ \rotatebox[origin=c]{135}{$\multimap$}
+
+    $(p^+,q^-): $ \rotatebox[origin=c]{315}{$\multimap$}
+
+    $(p^+,q^+): $ \rotatebox[origin=c]{45}{$\multimap$}
+\end{center}
 
 \subsection{Decomposição em módulos intervalares} 
 
+\begin{defi}
+    A \textbf{soma direta} $\mathfrak{W} = \mathfrak{U} \oplus \mathfrak{V}$ de dois módulos
+    de persistência $\mathfrak{U}$ e $\mathfrak{V}$ é definida por
+    \begin{equation*}
+        W_t = U_t \oplus V_t, \quad w^s_t = u_t^s \oplus v^s_t
+    \end{equation*}
+\end{defi}
+Esta definição generaliza-se para somar arbitrárias, tanto finitas como infinitas. Vamos agora definir
+a indecomponibilidade de um módulo de persistência.
+
+\begin{defi}
+    Um módulo de persistência $\mathfrak{W}$ é indecomponível se dada uma decomposição $\mathfrak{U}
+    \oplus \mathfrak{V}$, então $\mathfrak{U} = 0$ ou $\mathfrak{W}$ e $\mathfrak{V} = 0$ ou $
+        \mathfrak{W}$.
+\end{defi}
+
+Podemos estudar os módulos de persistência através de sua decomposição por módulos intervalares. Dado
+uma sequência de intervalos $(J_l \mid l \in L)$,
+\begin{equation*}
+    \mathfrak{V} \cong \bigoplus_{l \in L} \mathbf{k}^{J_l}.
+\end{equation*}
+Neste caso, podemos pensar que cada intervalo $J_l$ representa uma propriedade. Esta decomposição acaba
+sendo muito importante por este motivo. Mas a questão que fica é: quais módulos são decomponíveis em 
+intervalos? E porque decompõe-se em módulos intervalares? 
+
+A resposta para a primeira pergunta é respondida pelo Teorema \ref{teo:crawley}. Já para a segunda questão,
+os módulos intervalares são indecomponíveis, como mostramos na Proposição \ref{prop:mod_int}.
+
 \begin{propo}
-    Seja $\mathfrak{I} = \mathbf{k}^J_T$ um módulo intervalor sobre $\mathbf{T} \subset \mathbb{R}$. 
+    Seja $\mathfrak{I} = \mathbf{k}^J_T$ um módulo intervalar sobre $\mathbf{T} \subset \mathbb{R}$. 
     Então $\text{End}(\mathfrak{I}) = \mathbf{k}$. 
 \end{propo}
 \begin{proof}
-
+    Vamos definir uma função $\Phi$ entre $\text{End}(\mathfrak{I})$ e $\mathbf{k}$ que será um isomorfismo
+    de aneis.
+    Seja $\Phi \colon \mathbf{k} \to \text{End}(\mathfrak{I})$ definida por 
+    \begin{equation*}
+        \alpha \mapsto \varphi^{\alpha}
+    \end{equation*}
+    onde $\varphi^\alpha$ é um endomorfismo de $\mathfrak{I}$ tal que $\varphi_t^{\alpha} \colon I_t 
+    \to I_t$ e $\varphi^{\alpha}_t (x) = \alpha x$. É fácil ver que a aplicação é um homomorfismo de anéis.
+    Vamos definir a inversa de $\Phi$. Para isso, note primeiro que qualquer endomorfismo de $\mathfrak{I}$
+    age como multiplicação por escalar em qualquer $I_t$ não nulo. Precisamos mostrar que dados $s,t$, temos 
+    que o escalar definido é o mesmo para ambos os casos:
+    \begin{align*}
+        \Psi^{-1} \colon & \mathfrak{I} \to \mathbf{k} \\
+                         & \varphi \mapsto \alpha,
+    \end{align*}
+    Vamos mostrar que a aplicação está bem definida.
+    
+    Primeiro, pela observação acima, dados $s,t$ tais que $I_s, I_t \neq 0$, temos que vale o seguinte
+    para $\varphi \in \mathfrak{I}$.
+    \begin{align*}
+        \varphi_s \colon & \mathbf{k} \to \mathbf{k} \\
+                         &     x \mapsto \alpha x 
+    \end{align*}
+    e 
+    \begin{align*}
+        \varphi_t \colon & \mathbf{k} \to \mathbf{k} \\
+                         &     x \mapsto \beta x 
+    \end{align*}
+    Precisamos mostrar que $\alpha = \beta$, demonstrando a proposição. Mas isso segue pelo 
+    diagrama comutativo dos homomorfismos entre módulos de persistência, como podemos ver na 
+    \eqref{eq:diag_prop_end}, assumindo que $s \leq t$. 
+    \begin{equation}
+        \label{eq:diag_prop_end}
+        \begin{tikzcd}
+            I_s \arrow{d}[swap]{\varphi_s} \arrow{r}{id} & I_t \arrow{d}{\varphi_t} \\
+            I_s \arrow{r}{id}                     & I_t                    
+        \end{tikzcd} 
+    \end{equation}
+    No caso acima temos a identidade entre $I_s$ e $I_t$, já que ambos são $\mathbf{k}$. Logo,
+    segue que $\alpha=\beta$, provando a Proposição.
 \end{proof}
 
-\begin{propo}
+\begin{propo}\label{prop:mod_int}
     Módulos intervalares são indecomponíveis. 
 \end{propo}
 \begin{proof}
-
+    Suponha que exista uma decomposição $\mathfrak{I} = \mathfrak{U} \oplus \mathfrak{V}$. Considere agora
+    as projeções sob $\mathfrak{U}$ e $\mathfrak{V}$. Ambas são homomorfismos idempotentes. Mas como 
+    $\text{End}(\mathfrak{I})$ é isomorfo a $\mathbf{k}$ e os únicos idempotentes de $\mathbf{k}$ são 
+    $0$ e $1$, segue que $\mathfrak{I}$ é indecomponível. 
 \end{proof}
 
-\begin{teo}{(Krull-Remak-Schmidt-Azumaya)}
+\begin{teo}{(Krull-Remak-Schmidt-Azumaya)}\label{teo:krull}
     Suponha que um módulo de persistência $\mathbf{T} \subset \mathbb{R}$ pode ser escrito como soma 
     direta de módulos intervalores de duas formas diferentes
     \begin{equation*}
-        \mathfrak{V} \simeq \bigoplus_{l \in L} \mathbf{k}^{J_l} \simeq \bigoplus_{m \in M} \mathbf{k}^{K_m},
+        \mathfrak{V} \cong \bigoplus_{l \in L} \mathbf{k}^{J_l} \cong \bigoplus_{m \in M} \mathbf{k}^{K_m},
     \end{equation*}
     então existe uma bijeção $\sigma \colon L \to M$ tal que $J_l = K_{\sigma(l)}$ para todo $l \in L$. 
 \end{teo}
 \begin{proof}
-
+    A demonstração segue do Teorema $1$~\cite{Azumaya1950} com a observação de que se $\mathbf{k}^J \cong 
+    \mathbf{k}^L$, então $J=K$. Só é necessário verificar uma condição de localidade para aplicarmos o teorema:
+    se $\psi, \phi \in \text{End}(\mathfrak{I})$ são não isomorfismos, então $\psi + \phi$ não é isomorfismo. 
+    Mas pela proposição anterior, isso segue do fato que a unica aplicação que não é isomorfismo em 
+    $\text{End}(\mathfrak{I})$ é a aplicação nula.
 \end{proof}
 
-\begin{teo}{(Gabriel, Auslander, Ringel-Tachikawa, Webb, Crawley-Boevey)}
+\begin{teo}{(Gabriel, Auslander, Ringel-Tachikawa, Webb, Crawley-Boevey)}\label{teo:crawley}
     Seja $\mathfrak{V}$ um módulo de persistência sobre $\mathbf{T} \subset \mathbb{R}$. Então $\mathfrak{V}$
     pode ser decomposto como um soma direta de módulos intervalares sob as seguintes condições:
     \begin{itemize} 
@@ -154,8 +329,56 @@ ser denotada por $\mathfrak{V}_S$ ou $\left.\mathfrak{V}\right|_S$.
     Detalhes podem ser vistos em \cite{Chazal2016}, página 22, \textbf{Teorema} 2.8.
 \end{proof}
 
-\subsection{Diagrama de persistência e decomposição}
+Se um módulo de persistência indexado sobre $\mathbb{R}$ pode ser decomposto
+\begin{equation*}
+    \mathfrak{V} \cong \bigoplus_{l \in L} \mathbf(p_l^*, q_l^*),
+\end{equation*}
+então o diagrama de persistência decorado é definido pelo multiconjunto
+\begin{equation*}
+    \text{Dgm} (\mathfrak{V}) = \text{Int}(\mathfrak{V}) = \Set{(p_l^*, q_l^*) | l \in L}
+\end{equation*}
+e o diagram de persistência não decorado é o multiconjunto
+\begin{equation*}
+    \text{dgm} (\mathfrak{V}) = \text{int}(\mathfrak{V}) = \Set{(p_l, q_l) | l \in L} - \Delta,
+\end{equation*}
+onde $\Delta$ é a diagonal no plano.
 
+Note que ambos os diagramas definidos não dependem da escolha da decomposição, devido ao Teorema \ref{teo:krull}. 
+Além disso, o diagrama dgm é o diagrama de pontos não decorados e sem a diagonal, sendo encontrado com 
+frequência em exemplos práticos de análise de dados. Para a definição da distância bottleneck acaba sendo 
+mais importante. 
+
+\subsection{Cálculos com quivers}
+TODO: DEFINIR REPRESENTAÇÃO DE QUIVER E COMO FAZER OS CALCULOS. PROVAR AS PROPOSIÇÕES
+
+\begin{propo}
+    Suponha que podemos decompor um módulo de persistência $\mathfrak{V}$ como uma soma direta
+    \begin{equation*}
+        \mathfrak{V} = \bigoplus_{l\in L} \mathfrak{V}^l,
+    \end{equation*}
+    então 
+    \begin{equation*}
+        \langle [a_i, a_j] \mid \mathfrak{V}_{\mathbf{T}} \rangle = \sum_{l\in L} \langle [a_i, a_j] 
+        \mid \mathfrak{V}_{\mathbf{T}}^l \rangle
+    \end{equation*}
+    para qualquer conjunto de índices $\mathbf{T} = \Set{a_1, \dots, a_n}$ e intervalos $[a_i, a_j] \subseteq \mathbf{T}$.
+\end{propo}
+\begin{proof}
+
+\end{proof}
+
+\begin{propo}
+    Sejam $\mathbf{S}, \mathbf{T}$ conjuntos de índices com $\mathbf{S} \subset \mathbf{T}$. Então
+    \begin{equation*}
+        \langle \mathfrak{I} \mid \mathfrak{V}_{\mathbf{S}} \rangle = 
+        \sum_{\mathfrak{J}} \langle \mathfrak{J} \mid \mathfrak{V}_{\mathfrak{J}} \rangle,
+    \end{equation*}
+    onde a soma é sobre todos os intervalos $\mathfrak{J} \subseteq \mathbf{T}$ que se restringe a 
+    $\mathfrak{I}$ sobre $\mathbf{S}$. 
+\end{propo}
+\begin{proof}   
+    
+\end{proof}
 \section{Medidas retangulares}
 
 \section{Comportamento de módulos e exemplos}

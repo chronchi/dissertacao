@@ -115,7 +115,7 @@
 \RequirePackage{hyphenat}       % Pacote para retirar a hifenizacao do preambulo
 \RequirePackage{xstring}        % Pacate para manipulacao de Strings
 \RequirePackage{etoolbox}       % Pacote utilizado para armazenamento de resumos
-\RequirePackage{amsthm, amsfonts, amsmath, amssymb, mathtools} % Pacote para a definicao dos ambientes matematicos
+\RequirePackage{amsthm, amsfonts, amsmath, amssymb, mathtools, tikz-cd} % Pacote para a definicao dos ambientes matematicos
 \RequirePackage{mathptmx}       % Usando times para equacoes, opcional
 \RequirePackage{listings}       % Pacote para formatacao de diversos codigos fontes
 \RequirePackage{algorithm, algpseudocode}  % Pacote para escrever algoritmos em pseudo-codigo
