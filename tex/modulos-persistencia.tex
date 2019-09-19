@@ -240,7 +240,7 @@ Neste caso, podemos pensar que cada intervalo $J_l$ representa uma propriedade. 
 sendo muito importante por este motivo. Mas a questão que fica é: quais módulos são decomponíveis em 
 intervalos? E porque decompõe-se em módulos intervalares? 
 
-A resposta para a primeira pergunta é respondida pelo Teorema \ref{teo:crawley}. Já para a segunda questão,
+A resposta para a primeira pergunta é o Teorema \ref{teo:crawley}. Já para a segunda questão,
 os módulos intervalares são indecomponíveis, como mostramos na Proposição \ref{prop:mod_int}.
 
 \begin{propo}
@@ -425,7 +425,7 @@ $\mathbf{k}[a_i,a_j]$ na decomposição de $\mathfrak{V}_{\mathbf{T}}$.
     $\qoff{a} \qem \qon{b}$. 
 \end{ex}
 
-\begin{propo}
+\begin{propo}\label{teo:direct_sum}
     Suponha que podemos decompor um módulo de persistência $\mathfrak{V}$ como uma soma direta
     \begin{equation*}
         \mathfrak{V} = \bigoplus_{l\in L} \mathfrak{V}^l,
@@ -442,7 +442,7 @@ $\mathbf{k}[a_i,a_j]$ na decomposição de $\mathfrak{V}_{\mathbf{T}}$.
     de cada $\mathfrak{V}^l_{\mathbf{T}}$ para todo $l \in L$. 
 \end{proof}
 
-\begin{propo}{(Princípio da restrição)}
+\begin{propo}{(Princípio da restrição)}\label{teo:restr_princ}
     Sejam $\mathbf{S}, \mathbf{T}$ conjuntos de índices com $\mathbf{S} \subset \mathbf{T}$. Então
     \begin{equation*}
         \langle I \mid \mathfrak{V}_{\mathbf{S}} \rangle = 
@@ -481,13 +481,228 @@ $\mathbf{k}[a_i,a_j]$ na decomposição de $\mathfrak{V}_{\mathbf{T}}$.
          
     \end{itemize}
 \end{ex}
-\section{Medidas retangulares}
 
+\section{Medidas retangulares}
+Na seção anterior discutimos módulos de persistência decomponíveis e seus diagramas de persistência,
+Dgm e dgm. No entanto, nem sempre os módulos são decomponíveis, não sendo possível definir os 
+diagramas de persistência. Para definir-los, podemos nos guiar pela seguinte ideia: se soubermos 
+contar o número de pontos do Dgm pertence em cada retângulo do semiplano, então conhecemos Dgm.
+
+Iremos nos inspirar na teoria da medida para construir uma função que nos dá um valor inteiro ou 
+infinito e que podemos associar um diagrama de persistência com ela. A ideia é que para módulos 
+bem comportados podemos avaliar esta função em retângulos e extrair um conjunto discreto de pontos,
+que juntamente com sua multiplicidade gerará o diagrama de persistência. No caso que o módulo de 
+persistência for decomponível, as definições são iguais. Caso contrário seguimos com a teoria 
+normalmente. 
+
+No resto deste capítulo iremos tratar apenas de medidas finitas no semiplano diagonal sem considerar
+os pontos no infinito. Os argumentos usados podem ser facilmente estendidos para o caso de medidas
+infinitas através de um processo de limite e para o semiplano diagonal com os pontos no infinito 
+podemos usar o truque de colocar tudo dentro de um retângulo com a função $\arctan$.
+ 
 \subsection{A medida de persistência}
 
+\begin{defi} 
+    Seja $\mathfrak{V}$ um módulo de persistência. Então a medida de persistência de $\mathfrak{V}$ é a função
+    \begin{equation*}
+        \mu_{\mathfrak{V}}(R) = \innerproduct{\qoff{a} \qem \qon{b} \qem \qon{c} \qem \qoff{d} \mid \mathfrak{V}}
+    \end{equation*}
+    definida no retângulo $R = [a,b]\times[c,d]$ no plano com $a < b \leq c < d$. 
+\end{defi}
+
+Veremos como a medida tem uma relação com módulos decomponíveis. Abaixo um resultado para módulos intervalares.
+
+\begin{propo}\label{teo:int_meas}
+    Seja $\mathfrak{V} = \mathbf{k}^J$, em que $J=(p^*, q^*)$ é um intervalo real. Seja $R=[a,b]\times[c,d]$
+    tal que $a < b \leq c < d$. Então
+    \begin{equation*}
+        \mu_{\mathfrak{V}}(R) = \left\{
+        \begin{split}
+            1 & \text{ se } [b,c] \subseteq J \subseteq (a,d) \\
+            0 & \text{ caso contrário.}
+        \end{split}
+        \right.
+    \end{equation*}
+\end{propo} 
+\begin{proof}
+    Como $\mathbf{k}^J$ restrito a $\Set{a,b,c,d}$ é só um intervalo ou o módulo nulo, temos que $\mu_{\mathfrak{V}}(R)
+    \leq 1$, pois apenas teriamos a função identidade, cujo rank é um, ou a função nula, cujo rank é zero. 
+
+    Como a medida tem valores em $\Set{0,1,\dots} \cup {\infty}$, vamos averiguar quando acontece $\mu_{\mathfrak{V}}(R)
+    = 1$. Note que $\mu_{\mathfrak{V}}(R) = 1$ quando 
+    \begin{equation*}    
+        \mathbf{k}^J_{\{a,b,c,d\}} = \qoff{a} \qem \qon{b} \qem \qon{c} \qem \qoff{d}. 
+    \end{equation*}
+    E esta restrição vale se e somente se $b,c \in J$ e $a,d \nin J$.
+\end{proof}
+
+A Proposição \ref{teo:int_meas} pode ser representada visualmente. Considere o módulo intervalar como um ponto
+decorado $(p^*, q^*)$ no semiplano diagonal superior. Então se o ponto estiver no interior do retângulo
+$R$, ele será detectado independente da decoração. Mas se estiver na borda, apenas aqueles cuja decoração
+apontem para dentro do retângulo serão detectados, como pode ser visto na \autoref{fig:dec_rect}
+\begin{figure}[htpb!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/placeholder.png}
+    \caption{Pontos decorados que são detectados pela medida aplicada no retângulo R.}
+    \label{fig:dec_rect}
+\end{figure}
+
+\begin{defi}
+    Seja $R=[a,b]\times [c,d]$, em que $a < b \leq c < d$ e considere o ponto decorado $(p^*, q^*)$ com $p^* < q^*$.
+    Definimos $(p^*, q^*) \in R$ se alguma das condições equivalentes é verdade:
+    \begin{itemize}
+        \item Se $p^* \in [a,b]$ e $q^* \in [c,d]$;
+        \item Se $a < p^* < b$ e $c < q^* < d$ na ordem total definida anteriormente;
+        \item Se $a^+ \leq p^* \leq b^-$ e $c^+ \leq q^* \leq d^-$;
+        \item Se o intervalo satisfaz: $[b,c] \subseteq (p^*, q^*) \subseteq (a,d)$;
+        \item O ponto com o traço $(p^*, q^*)$ está dentro do retângulo $R$.
+    \end{itemize} 
+\end{defi}
+
+\begin{defi}
+    Definimos com o \textbf{r-interior} do retângulo $R$ o conjunto
+    \begin{equation*}
+        R^\times = \Set{(p^*, q^*) | (p^*, q^*) \in R}.
+    \end{equation*} 
+    Também podemos definir o \textbf{interior} de $R$ como o conjunto
+    \begin{equation*}
+        R^\circ = (a,b) \times (c,d).
+    \end{equation*}
+\end{defi}
+
+A expressão $|_R$ indica a restrição de um multiconjunto de pontos decorados no retângulo $R$.
+
+\begin{cor}
+    Suponha que $\mathfrak{V}$ seja um módulo de persistência decomponível sobre $R$.
+    \begin{equation*}
+        \mathfrak{V} = \bigoplus_{l \in L} k(p^*_l, q^*_l).
+    \end{equation*}
+    Então 
+    \begin{equation*}
+        \mu_{\mathfrak{R}}(R) = \text{card}(\text{Dgm}(\mathfrak{V}\left.)\right|_R)
+    \end{equation*}
+    para todo retângulo $R = [a,b] \times [c,d]$ com $a < b \leq c < d$. 
+\end{cor}
+\begin{proof}
+   A demonstração segue direto das Proposições \ref{teo:int_meas} e \ref{teo:direct_sum}. 
+\end{proof}
+
+A função $\mu$ é chamada de medida pois é aditiva em relação a divisão dos retângulos. 
+Vamos provar este fato agora.
+
+\begin{propo}\label{teo:split_measure}
+    $\mu_{\mathfrak{V}}$ é aditiva sobre divisão vertical e horizontal dos retângulos:
+    \begin{align*}
+        \mu_{\mathfrak{V}}([a,b]\times[c,d]) = \mu_{\mathfrak{V}}([a,p]\times[c,d]) 
+        + \mu_{\frakv}([p,b] \times [c,d]) \\
+        \mu_{\mathfrak{V}}([a,b]\times[c,d]) = \mu_{\mathfrak{V}}([a,b]\times[c,q]) 
+        + \mu_{\frakv}([a,b] \times [q,d])
+    \end{align*}
+    para todo $a < p < b \leq c < q < d$. Esta propriedade pode ser visualizada na Figura 
+    \ref{fig:split_measure}.
+    \begin{figure}[htpb!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/placeholder.png}
+        \caption{Representação gráfica da Proposição \ref{teo:split_measure}}
+        \label{fig:split_measure}
+    \end{figure}
+\end{propo}
+\begin{proof}
+    A demonstração segue direto da Proposição~\ref{teo:restr_princ}: para a aditividade na divisão
+    horizontal temos que
+    \begin{align*}
+        \mu_{\frakv}([a,b] \times [c,d]) & = \innerproduct{\qoff{a} \qem \qno \qem \qon{b} \qem \qon{c} \qem \qoff{d}} \\
+        &=\innerproduct{\qoff{a} \qem \qon{p} \qem \qon{b} \qem \qon{c} \qem \qoff{d}}
+          + \innerproduct{\qoff{a} \qem \qoff{p} \qem \qon{b} \qem \qon{c} \qem \qoff{d}} \\
+        &=\innerproduct{\qoff{a} \qem \qon{p} \qem \qno \qem \qon{c} \qem \qoff{d}}
+          + \innerproduct{\qno \qem \qoff{p} \qem \qon{b} \qem \qon{c} \qem \qoff{d}} \\
+        &=\mu_{\frakv}([a,p] \times [c,d]) + \mu_{\frakv}([p,b] \times [c,d]).
+    \end{align*}
+    De forma análoga vale o resultado para a divisão vertical.  
+\end{proof}
+
 \subsection{r-medidas abstratas}
+Até agora trabalhamos com módulos de persistência e uma medida associada. Porém, podemos
+trabalhar de forma mais abstrata, sem mencionar os módulos. 
+
+\begin{defi}
+    Seja $\mathcal{D} \subseteq \mathbb{R}^2$. Defina
+    \begin{equation*}
+        \text{Rect}(\mathcal{D}) = \Set{[a,b]\times[c,d] \subset \mathcal{D} | a < b \text{ e } c < d}.  
+    \end{equation*} 
+    A \textbf{r-medida} ou \textbf{medida retangular} em $\mathcal{D}$ é uma função
+    \begin{equation*}
+        \mu \colon \text{Rect}(\mathcal{D}) \to \Set{0,1,\dots} \cup \Set{\infty},
+    \end{equation*}
+    que também é aditiva na divisão horizontal e vertical dos retângulos. 
+\end{defi}
+
+\begin{propo}
+    Seja $\mu$ uma \textbf{r-medida} em $\mathcal \subseteq \mathbb{R}^2$. Então 
+    \begin{itemize}
+        \item Se $R \in \text{Rect}(\mathcal{D})$ pode ser escrito como a união de retângulos com interior
+        disjuntos, $R = R_1 \cup \dots \cup R_n$, então $\mu(R) = \sum \mu(R_i)$;
+        \item Se $R \subseteq S$, então $\mu(R) \leq \mu(S)$.
+    \end{itemize}    
+\end{propo}
+\begin{proof}
+    (\textit{Finitamente aditiva}) Seja $R = [a,b] \times [c,d]$. Por indução e pela propriedade de divisão
+    vertical, temos que a aditividade finita vale para decomposições da forma 
+    \begin{equation*}
+        R = \bigcup_i R_i,
+    \end{equation*}
+    em que cada $R_i = [a_i, a_{i+1}] \times [c,d]$, com $a = a_1 < \dots < a_m = b$. De forma análoga,
+    vale para divisões horizontais e portanto a aditividade vale para decomposições da forma
+    \begin{equation*}
+        R = [a,b] \times [c,d] = \bigcup_{i,j} R_{ij},
+    \end{equation*}
+    onde $R_{ij} = [a_i, a_{i+1}] \times [c_j, c_{j+1}]$ com $a = a_1 < \dots < a_m = b$ e $c = c_1 < 
+    \dots < c_n = d$. Para uma decomposição arbitrária $R = R_1 \cup \dots \cup R_k$ o resultado segue
+    considerando uma decomposição em que cada $R_i$ é decomposto em intervalos da forma acima.  
+
+    (\textit{Monotonicidade}) Decomponha $S$ em uma coleção de retângulos $R$ e $R_1, \dots, R_k$ que 
+    possuem interiores disjuntos. Portanto, da propriedade de aditividade e que $\mu \geq 0$
+    \begin{align*}
+        \mu(S) & = \mu(R) + \mu(R_1) + \dots + \mu(R_k) \\
+               & \geq \mu(R).
+    \end{align*}
+\end{proof}
+
+\begin{propo}{(Subaditividade)} 
+    Seja $\mu$ uma \textbf{r-medida} em $\mathcal{D} \subseteq \mathbb{R}^2$. Se um retângulo $R \in 
+    \text{Rect}(\mathcal{D})$ está contido numa união finita de retângulos $R_i \in \text{Rect}(
+    \mathcal{D})$
+    \begin{equation*}
+        R \subseteq R_1 \cup \dots \cup R_k,
+    \end{equation*}
+    então
+    \begin{equation*}
+        \mu(R) \leq \mu(R_1) + \dots + \mu(R_k).
+    \end{equation*}
+\end{propo}
+\begin{proof}
+    Seja $a_1 < \dots < a_m$ sequência de todos os valores do eixo $x$ de cada vértice dos retângulos. 
+    Considere também $c_1 < \dots < c_n$ sequência de todos os valores do eixo $y$ de cada vértice dos retângulos.
+    Então cada retângulo $R_k$ pode ser decomposto como união dos seguintes subretângulos
+    \begin{equation*}
+        [a_i, a_{i+1}] \times [c_j, c_{j+1}],
+    \end{equation*}
+    que possuem interiores disjuntos por construção e sua medida é a soma das medidas de cada subretângulo. 
+    Como cada subretângulo de $R$ pertence a um ou mais retângulos $R_i$, segue da aditividade o resultado.
+    A Figura~\ref{fig:dem_subadd} mostra uma demonstração visual desta proposição. 
+    \begin{figure}[htpb!]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/placeholder.png}
+        \caption{Demonstração da proposição através da figura.}
+        \label{fig:dem_subadd}
+    \end{figure}
+\end{proof}
 
 \subsection{Equivalência de medidas e diagramas}
+
+\begin{teo}\label{teo:equiv_meas}
+
+\end{teo}
 
 \section{Comportamento de módulos e exemplos}
 
