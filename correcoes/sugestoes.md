@@ -11,6 +11,7 @@ Arquivo de sugestões, críticas e correções da dissertação e TODO.
 - [ ] Desenhar Demonstração 3.22 (subaditividade da seção de r-medidas abstratas) (figura 18)
 - [ ] Desenhar representação grafica da proposição 3.19 (figura da prop 3.7 do livro) (figura 17)
 - [ ] Desenhar figura da prop 3.2 do livro (figura 16) 
+- [ ] Desenhar figura do teorema 3.12 (figura 19)
 
 ### Sugestões e correções
 

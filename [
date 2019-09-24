@@ -278,7 +278,7 @@ os módulos intervalares são indecomponíveis, como mostramos na Proposição \
     \end{align*}
     Precisamos mostrar que $\alpha = \beta$, demonstrando a proposição. Mas isso segue pelo 
     diagrama comutativo dos homomorfismos entre módulos de persistência, como podemos ver na 
-    Eq. \eqref{eq:diag_prop_end}, assumindo que $s \leq t$. 
+    \eqref{eq:diag_prop_end}, assumindo que $s \leq t$. 
     \begin{equation}
         \label{eq:diag_prop_end}
         \begin{tikzcd}
@@ -729,11 +729,11 @@ onde para um retângulo $R = [a,b]\times[c,d]$, $R^\circ = (a,b)\times(c,d)$.
         $\text{card}(\left.A\right|_R) < \infty$ para todo $R \in \text{Rect}(\mathcal{D})$.
     \end{enumerate}
     A medida $\mu$ correspondente ao multiconjunto $A$ é relacionada pela fórmula
-    \begin{equation}\label{eq:med_dgm}
+    \begin{equation}
         \mu(R) = \text{card}(\left.A\right|_R)
     \end{equation}
     para todo $R \in \text{Rect}(\mathcal{D})$, ou equivalentemente
-    \begin{equation}\label{eq:med_mult}
+    \begin{equation}
         \mu(R) = \sum_{(p^*,q^*)\in R} m(p^*, q^*),
     \end{equation}
     em que
@@ -743,28 +743,9 @@ onde para um retângulo $R = [a,b]\times[c,d]$, $R^\circ = (a,b)\times(c,d)$.
     é a função multiplicidade de $A$. 
 \end{teo}
 \begin{proof}
-$(2) \to (1):$ para este passo, basta provar que a medida definida na Eq. \eqref{eq:med_dgm} é uma $r$-medida.
-De fato, é finita pois $A$ é localmente finito. Para verificar a aditivade, suponha que para um retângulo
-$R$ qualquer, ele se divida horizontalmente ou verticalmente em $R_1$ e $R_2$. Note então que $(p^*,q^*)$
-pertence a exatamente $R_1$ ou $R_2$. Portanto, 
-\begin{equation*}
-    \mu(R) = \text{card}(\left.A\right|_R) = \text{card}(\left.A\right|_{R_1}) + \text{card}(\left.A\right|_{R_2})
-     = \mu(R_1) + \mu(R_2),
-\end{equation*}
-provando a primeira implicação. 
 
-\noindent$(1) \to (2):$ Dada uma $r$-medida, iremos (1) construir o multiconjunto $A$ em $\mathcal{D}^\times$,
-(2) mostrar que $\mu$ e $A$ estão relacionadas pela Eq. \eqref{eq:med_dgm} e (3) mostrar que $A$ é único. Na 
-prática, iremos construir a função de multiplicidade $m$ e definir a Eq. \eqref{eq:med_mult} ao invés de $A$ diretamente.
 
-\textbf{Passo 1.} (Fórmula da multiplicidade) Seja $\mu$ uma $r$-medida finita em $\mathcal{D}$. Define
-\begin{equation}
-    m(p^*, q^*) = \min \Set{\mu(R) | R \in \text{Rect}(\mathcal{D}), (p^*, q^*) \in R}
-\end{equation}  
-para $(p^*, q^*) \in \mathcal{D}^\times$. Observe que o mínimo é atingido, já que tomamos $(p^*, q^*) \in \mathcal{D}^\times$
-e $\mu$ é uma medida que assume valores inteiros. Utilizaremos uma definição alternativa, ao invés de minimizar sob 
-todos os retângulos, tomamos o limite de uma sequência de retângulos decrescentes.  
-\begin{lema}\label{teo:lem_med}
+\begin{lema}
     Sejam $(\xi_i)$ e $(\eta_i)$ duas sequências não crescentes de números reais positivos
     que tendem a zero quando $i \to \infty$. Então
     \begin{equation*}
@@ -795,98 +776,6 @@ todos os retângulos, tomamos o limite de uma sequência de retângulos decresce
     Os outros três casos são similares. 
 \end{proof} 
 
-\textbf{Passo 2.} Uma vez com a função multiplicidade definida, mostraremos que ela está de acordo com a 
-Eq. \eqref{eq:med_mult}. Podemos definir uma medida baseada na função multiplicidade
-\begin{equation*}
-    \nu(R) = \sum_{(p^*, q^*)\in R} m(p^*, q^*),
-\end{equation*}
-nos resta mostrar então que $\mu = \nu$. Vamos utilizar indução sobre $k = \mu(R)$. 
-
-\noindent \textbf{Caso base.} Se $\mu(R) = 0$, então para todo $(p^*, q^*) \in R$ temos 
-\begin{equation*}
-    0 \leq m(p^*, q^*) \leq \mu(R) = 0.
-\end{equation*}
-Portanto, $\nu(R) = 0$. 
-
-\noindent \textbf{Passo indutivo.} Suponha qe $\mu(R) = \nu(R)$ para todo retângulo $R$ com 
-$\mu(R) < k$. Seja agora um retângulo $R_0$ tal que $\mu(R_0) = k$. Vamos mostrar que $\nu(R_0)
-=0$. A ideia para este passo é em construir uma sequência decrescente de retângulos fechados 
-de forma que haverá apenas um ponto na interseção destes retângulos (Teorema de Cantor). 
-
-Divida o retângulo em quatro quadrantes iguais, $S_1, \dots, S_4$. Pela aditividade finita
-\begin{align*}
-    \mu(R_0) & = \mu(S_1) + \dots + \mu(S_4) \\
-    \nu(R_0) & = \nu(S_1) + \dots + \nu(S_4).
-\end{align*}
-Se todo quadrante satisfaz $\mu(S_i) < k$, segue então que $\mu(R_0) = \nu(R_0)$, concluindo
-a demonstração. Caso contrário, um dos quadrantes tem valor $k$, enquanto o resto será $0$. 
-Seja $R_1$ o quadrado especial, então $\mu(R_1) = k$. Resta mostrar que $\nu(R_1) = k$. 
-
-Repetindo o argumento acima, divida o retângulo $R_i$ em quatro quadrantes iguais. Temos dois
-casos: todos os quadrantes satisfazem a hipótese indutiva $\mu<k$ e teriamos terminado a situação.
-Ou existe um quadrante $R_{i+1}$ com $\mu(R_{i+1})=k$ e temos que mostrar que $\nu(R_{i+1})$.
-
-No pior caso, temos uma sequência decrescente de retângulos fechados
-\begin{equation*}
-    R_0 \supset R_1 \supset R_2 \supset \dots
-\end{equation*}
-com cada quadrante sendo do mesmo tipo anterior, $\mu(R_i) = k$. Pelo teorema de cantor e o fato
-que o diâmetro dos conjuntos tende a $0$, temos que a interseção dos intervalos fechados possuem
-apenas um ponto $(r,s)$.
-
-Vamos mostrar agora que $\nu(R_0) = k$ avaliando a soma explicitamente sob todos os pontos decorados
-em $R_0$.
-
-Note primeiro que pontos decorados em $R_0$ que saem da sequência de retângulos em algum momento não
-contribuem para $\nu(R_0)$, já que se $(p^*, q^*) \in R_0$ e $(p^*, q^*) \in R_{i-1} - R_i$ para 
-algum $i$, então o ponto pertence a algum dos outros três quadrantes, sendo assim $\mu = 0$. 
-Portanto, pela fórmula de multiplicidade, $m(p^*, q^*) = 0$. 
-
-Assim, os únicos pontos que contribuem para $\nu(R_0)$ são as variações decoradas de $(r,s)$, já 
-que é o único ponto não decorado na interseção. Agora a avaliação de $\nu(R_0)$ depende de como 
-este ponto decorado se encontra na intereseção. Existem 3 possíveis casos: as 4, 2, 1 decorações
-estão contidas nos retângulos, como podemos ver na Figura \ref{fig:proof_rect}
-
-\begin{figure}[htpb!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{images/placeholder.png}
-    \caption{Possíveis casos dos pontos decorados $(r^*, s^*)$ na interseção $\cap_i R_i$.}
-    \label{fig:proof_rect}
-\end{figure}
-
-Vamos mostrar apenas para o caso em que as 4 decorações estão em todos os retângulos $R_i$. Os outros
-dois casos são análogos. 
-
-Suponha que todas as decorações $(r^*, s^*) \in R_i$ para todo $i$. Agora divida cada retângulo
-$R_i$ em quatro partes, de forma que cada parte contenha apenas uma decoração: $R_i^{++}, R_i^{+-},
-R_i^{-+}, R_i^{--}$. A divisão ocorre de forma que o ponto $(r,s)$ fique num vértice dividido pelos 
-quatro retângulos. Pelo Lema \ref{teo:lem_med},
-\begin{align*} 
-    & m(r^+, s^+) = \lim_{i \to \infty} \mu(R_i^{++}), \quad m(r^+, s^-) = \lim_{i \to \infty} \mu(R_i^{+-}), \\
-    & m(r^-, s^+) = \lim_{i \to \infty} \mu(R_i^{-+}), \quad m(r^-, s^-) = \lim_{i \to \infty} \mu(R_i^{--}).
-\end{align*}
-Além disso, cada uma dessas sequências decrescentes de inteiros estabilizam no seu limite. Portanto, para valores
-de $i$ suficientemente grandes
-\begin{align*}
-    \nu(R_0) & = m(r^+, s^+) + m(r^+, s^-) + m(r^-, s^+) + m(r^-, s^-) \\
-             & = \mu(R_i^{++}) +  \mu(R_i^{+-}) + \mu(R_i^{-+}) + \mu(R_i^{--}) = \mu(R_i) = k. 
-\end{align*}
-
-\textbf{Passo 3.} (Unicidade) Suponha que $m'(p^*, q^*)$ é um outra função multiplicidade em $\mathcal{D}^\times$ 
-cuja $r$-medida associada 
-\begin{equation*}
-    \nu'(R) = \sum_{(p^*, q^*) \in R} m'(p^*, q^*)
-\end{equation*}
-satisfaz $\mu = \nu'$. Vamos mostrar que $m=m'$. 
-
-Seja $(p^*, q^*) \in \mathcal{D}^\times$ e $R$ um retângulo que contém o ponto $(p^*, q^*)$ em um
-dos seus vértices. Como $\nu(R) = \nu'(R) = \mu(R) < \infty$, existem apenas finitos pontos decorados
-em $R$. Além disso, podemos diminuir $R$ de forma que $(p^*, q^*)$ seja o único ponto decorado em $R$
-com multiplicidade positiva em ambas as medidas. Portanto,
-\begin{equation*}
-    m(p^*, q^*) = \nu(R) = \mu(R) = \nu'(R) = m'(p^*, q^*).
-\end{equation*} 
-Como $(p^*, q^*)$ era um ponto qualquer, segue o resultado. 
 \end{proof}
 
 \begin{defi} 
@@ -908,76 +797,6 @@ Como $(p^*, q^*)$ era um ponto qualquer, segue o resultado.
 \end{defi}
 
 \section{Comportamento de módulos e exemplos}
-
-Quando extende-se as medidas e diagramas de persistência para o semiplano diagonal superior com os 
-pontos no infinito e para medidas que assumem valor infinito também, os módulos de persistência não são
-sempre bem comportados, necessitando diferenciar entre as diversas situações.
-Abaixo estão três diferentes noções e em seguida apresentaremos apenas mais uma, já que estamos trabalhando
-apenas com medidas finitas. 
-
-\begin{itemize}
-    \item Um módulo de persistência é do \textbf{tipo finito} se é uma soma direta finita de módulos intervalares;
-    \item Um módulo de persistência é \textbf{localmente finito} se é uma soma direta de módulos intervalares
-    e satisfaz a seguinte propriedade: qualquer subconjunto de $\mathbb{R}$ intersecta um número finito de 
-    módulos intervalares;
-    \item Um módulo de persistência $\frakv$ é \textbf{pontualmente de dimensão finita (pfd)} se cada espaço
-    vetorial $V_t$ tiver dimensão finita. 
-\end{itemize}
-
-Como estamos trabalhando medidas finitas apenas, vamos definir o módulo \textit{q-tame}. Seja 
-$\frakv$ um módulo de persistência. Dizemos que $\mathfrak{V}$ é \textit{q-tame} se 
-$\mu_{\frakv}(Q) < \infty$ para todo quadrante $Q$ que não toca a diagonal. Em outras palavras
-\begin{equation*}
-    \innerproduct{\qon{b} \qem \qon{c} \mid \frakv} < \infty
-\end{equation*}
-para todo $b < c$. O diagrama de persistência $\text{Dgm}(\mu_\frakv)$ é definido sobre o conjunto
-\begin{equation*}
-    \Set{(p^*, q^*) | -\infty \leq p < q \leq + \infty}.
-\end{equation*}
-
-Abaixo mostramos alguns exemplos que encontra-se na teoria para módulos de persistência \textit{q-tame}.
-
-\begin{teo}\label{teo:tameum}
-Seja $X$ um poliedro compacto e $f \colon X \to \mathbb{R}$ uma função contínua. Então a homologia
-persistente $H(\mathfrak{X}_{\text{sub}})$ da filtração de subnível de $(X,f)$ é \textit{q-tame}. 
-\end{teo}
-\begin{proof}
-Precisamos mostrar que 
-\begin{equation*}
-    H(X^b) \to H(X^c) 
-\end{equation*}
-tem rank finito para qualquer $b < c$. Considere uma triangulação de $X$ e a subdivida de forma que 
-nenhum simplexo intersecte $f^{-1}(b)$ e $f^{-1}(c)$ ao mesmo tempo. Defina agora $Y$ como a união
-de todos os simplexos que intersectam $X^b$. Portanto, 
-\begin{equation*}
-    X^b \subseteq Y \subseteq X^c
-\end{equation*} 
-e aplicando o funtor de homologia
-\begin{equation*}
-    H(X^b) \longrightarrow H(Y) \longrightarrow H(X^c).
-\end{equation*}
-Como $Y$ é um poliedro compacto, $H(Y)$ tem dimensão finita, portanto a aplicação $H(X^b) \to H(X^c)$ 
-tem rank finito. 
-\end{proof}
-
-\begin{cor}\label{teo:tamedois}
-Seja $X$ um poliedro localmente compacto e $f \colon X \to \mathbb{R}$ uma função propriamente contínua
-que seja limitada por baixo. Então $H(\mathfrak{X}_{\text{sub}})$ é \textit{q-tame}.
-\end{cor}
-\begin{proof}
-Novamente, precisamos mostrar que $H(X^b) \to H(X^c)$ tem rank finito. Mas neste caso iremos aplicar
-o Teorema~\ref{teo:tameum}, para tanto precisamos de um subpoliedro compacto de $X$ que contenha $X^c$. 
-Seja uma triangulação local finita de $X$ e considere os simplexos fechados que intersectam $X^c$. 
-Como $X^c$ é compacto, já que $f$ é uma função própria, no sentido que a pre-imagem de compacto é compacto,
-temos que existe um número finito de conjuntos fechados que intersecta $X^c$. Considere agora a união
-desses conjuntos fechados como o subpoliedro desejado. 
-\end{proof}
-
-\begin{cor}\label{teo:tametres} 
-Seja $A$ um subconjunto não vazio compacto de $X = \mathbb{R}^n$ e $f \colon X \to \mathbb{R}$, $f(x) =
-\min_{a\in A} \norm{x-a}$, para qualquer norma $\norm{.}$. Segue então do Corolário \ref{teo:tamedois}
-que $H(\mathfrak{X}_{\text{sub}})$ é \textit{q-tame}.
-\end{cor}
 
 \section{\textit{Interleaving}} 
 
