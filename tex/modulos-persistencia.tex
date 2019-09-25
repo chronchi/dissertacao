@@ -979,6 +979,133 @@ Seja $A$ um subconjunto não vazio compacto de $X = \mathbb{R}^n$ e $f \colon X 
 que $H(\mathfrak{X}_{\text{sub}})$ é \textit{q-tame}.
 \end{cor}
 
-\section{\textit{Interleaving}} 
+\section{\textit{Intercalação}} 
+
+A intercalação é um modo de comparar dois módulos de persistência. Dizemos que os módulos
+$\mathfrak{U}$ e $\frakv$ são isomorfos se existem homomorfismos
+\begin{equation*}
+    \Psi \in \text{Hom}(\mathfrak{U}, \frakv), \quad \Phi \in \text{Hom}(\frakv, \fraku), 
+\end{equation*}
+tais que 
+\begin{equation*}
+    \Psi \Phi = 1_\fraku, \quad \Phi \Psi = 1_\frakv.
+\end{equation*}
+
+No entanto, para trabalhar com módulos de persistência, a noção de isomorfismo é muito forte. 
+Para isso, podemos enfraquece-la definindo a $\delta$-intercalação entre dois módulos. 
+Nesta subseção iremos definir o interlaçamento e demonstrar o lema de interpolação,
+como se define um \textit{caminho contínuo} entre dois módulos de persistência. 
+
+\subsection{Homomorfismos e módulos de persistência}
+
+Primeiro vamos considerar homomorfismo que mudam o índice de persistência dos módulos. 
+Sejam $\fraku, \frakv$ módulos de persistência sobre $\mathbb{R}$ e $\delta \in \mathbb{R}$
+qualquer. Então um homomorfismo de grau $\delta$ é a coleção $\Phi$ de aplicações lineares
+\begin{equation*}
+    \phi_t \colon U_t \to V_{t+\delta}
+\end{equation*}
+para todo $t \in \mathbb{R}$ tal que o diagrama 
+\begin{equation*}
+    \begin{tikzcd}[row sep=huge, column sep = huge]
+        & U_s \rar{u_t^s} \dar[swap]{\phi_s} & U_t \dar{\phi_t} \\
+        & V_{s+\delta} \rar{v^{s+\delta}_{t+\delta}} & V_{t+\delta}
+    \end{tikzcd}
+\end{equation*}
+comuta para todo $s \leq t$. Escrevemos 
+\begin{align*}
+    \text{Hom}^\delta(\mathfrak{U}, \mathfrak{V}) &= \Set{\text{homomorfismos } \mathfrak{U} \to \mathfrak{V}}
+    \text{ de grau } \delta, \\
+    \text{End}(\mathfrak{V}) &= \Set{\text{homomorfismos } \mathfrak{V} \to \mathfrak{V}\text{ de grau } \delta}.
+\end{align*}
+A composição é definida de forma natural, nos dando a aplicação
+\begin{equation*}
+    \text{Hom}^{\delta_2}(\frakv, \mathfrak{W}) \times \text{Hom}^{\delta_1}(\fraku, \frakv) 
+    \to \text{Hom}^{\delta_1 + \delta_2}(\fraku, \mathfrak{W}).
+\end{equation*}
+Para $\delta \geq 0$, a aplicação de grau $\delta$ mais importante é a aplicação
+\textit{shift}
+\begin{equation*}
+    1^\delta_\frakv \in\text{End}^\delta(\frakv),
+\end{equation*}
+que é a coleção de aplicações lineares $(v_{t+\delta}^t)$ da estrutura de $\frakv$. Se $\Phi$ 
+é um homomorfismo $\fraku \to \frakv$ de grau quaqluer, então por definição 
+\begin{equation*}
+    \Phi 1_\fraku^\delta = 1_\fraku^\delta \Phi,
+\end{equation*}
+para todo $\delta \geq 0$. 
+
+\begin{propo}\label{teo:prop_inter}
+Sejam $x,y$ números reais. Os módulos de persistência $\mathfrak{U}$ 
+e $\frakv$ são $\abs{y-x}$-intercalados se, e somente se, existe 
+um módulo de persistência $\mathfrak{W}$ sobre $\Delta_x \cup
+\Delta_y$ tal que $\left.\mathfrak{W}\right|_{\Delta_x} = 
+\mathfrak{U}$ e  $\left.\mathfrak{W}\right|_{\Delta_y} = 
+\mathfrak{V}$. O conjunto $\Delta_x \cup \Delta_y$ é um subposet
+de $\mathbb{R}^2$.  
+\end{propo}
+\begin{proof}
+
+\end{proof}
+
+\subsection{O lema de interpolação}
+
+Vamos anunciar o lema da interpolação, que será utilizado na 
+demonstração do teorema da estabilidade dos módulos de persistência.
+
+\begin{lema}{(Lema de interpolação)}\label{teo:lema_interp}
+Suponha que $\mathfrak{U}$ e $\frakv$ são módulos de persistência
+$\delta$-interlaçados. Então existe uma família de módulos de 
+persistência $(\mathfrak{U}_x \mid x \in [0,\delta])$ tais que 
+$U_0$ e $U_\delta$ são iguais a $\mathfrak{U}$ e $\frakv$ 
+respectivamente e $\mathfrak{U}_x$, $\mathfrak{U}_y$ são 
+$\abs{y-x}$-interlaçados para todo $x,y \in [0,\delta]$. Além disso,
+se $\mathfrak{U}$ e $\mathfrak{V}$ são \textit{q-tames}, então 
+$(\mathfrak{U}_x)$ são \textit{q-tames}.
+\end{lema}
+
+O Teorema~\ref{teo:lema_interpdois} é uma versão mais forte do 
+Lema~\ref{teo:lema_interp}. 
+\begin{teo}{(Lema de interpolação, versão 2)}\label{teo:lema_interpdois}
+Todo módulo de persistência sobre $\Delta_0 \cup 
+\Delta_\delta, \mathfrak{W}$, se extende a um módulo de persistência 
+$\bar{\mathfrak{W}}$ sobre a faixa diagonal
+\begin{equation*}
+    \Delta_{[0, \delta]} = \Set{(p,q) | 0 \leq q - p \leq 2\delta}
+    \subset \mathbb{R}^2.
+\end{equation*} 
+Se $\left.\mathfrak{W}\right|_{\Delta_0}, \left.\mathfrak{W}
+\right|_{\Delta_\delta}$ são \textit{q-tames}, então a extensão
+pode ser escolhida de forma que cada $\left.\bar{\mathfrak{W}}
+\right|_{\Delta_x}$ é \textit{q-tame}. 
+\end{teo}
+\begin{proof}
+    Sejam $\Delta_0 \cup \Delta_\delta$ e $\Delta_{[0,\delta]}$ duas 
+    categorias no mesmo sentido definido no início deste capítulo para
+    o conjunto dos reais $\mathbb{R}$ ($s \to t \text{ sss } s \leq t$).
+    Então os módulos de persistência sobre esses posets podem ser vistos
+    como funtores para a categoria dos espaços vetoriais. O teorema
+    de extensão de Kan~\cite{MacLane1978} afirma que existe uma extensão
+    $\bar{\mathfrak{W}}$ 
+    \begin{equation*}
+        \begin{tikzcd}
+            {\Delta_{[x_0,x_1]}} \arrow[dotted]{rd}{\bar{\mathfrak{W}}}     &             \\
+            \Delta_{x_0} \cup \Delta_{x_1} \arrow{u} \arrow{r}{\mathfrak{W}}  & \text{Vect}
+        \end{tikzcd}
+    \end{equation*}
+    para qualquer funtor $\mathfrak{W}$, completando
+    a demonstração. 
+    
+\end{proof}
+
+Se $\mathfrak{U}$ e $\frakv$ são $\delta$-interlaçados, então 
+pela Proposição~\ref{teo:prop_inter} existe um módulo de 
+persistência $\mathfrak{W}$ sobre $\Delta_0 \cup \Delta_\delta$ tal
+que $\left.\mathfrak{W}\right|_{\Delta_0} = \mathfrak{U}$ e 
+$\left.\mathfrak{W}\right|_{\Delta_\delta} = \frakv$. Pelo 
+Teorema~\ref{teo:lema_interpdois}, este módulo se extende a 
+$\bar{\mathfrak{W}}$ sobre a faixa $\Delta_{[0,\delta]}$.
+Defina então $\mathfrak{U}_x = \left.\bar{\mathfrak{W}}\right|_{
+\Delta_x}$, logo $\mathfrak{U}_x$ e $\mathfrak{U}_y$ são 
+$\abs{y-x}$-interlaçados para todo $x,y\in [0, \delta]$. 
 
 \section{O teorema de isometria}
