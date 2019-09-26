@@ -1,0 +1,69 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{carlos_package}[2019/09/26 Personal package]
+
+% include necessary packages
+\RequirePackage{pgf,tikz}           % Pacote para o uso do tikz
+\usetikzlibrary{matrix,chains,positioning,decorations.pathreplacing,arrows}
+
+% Comandos matemáticos
+\RequirePackage{MnSymbol}
+\newtheorem{teo}{\scshape Teorema}[chapter]
+\newtheorem{lem}[teo]{\scshape Lema}
+\newtheorem{cor}[teo]{\scshape Corol\'ario}
+\newtheorem{propo}[teo]{\scshape Proposi\c{c}\~ao}
+\newtheorem{defi}[teo]{\scshape Defini\c{c}\~ao}
+\newtheorem{ex}[teo]{\scshape Exemplo}
+\newtheorem{obs}[teo]{Observação}
+
+\usepackage{listings}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\innerproduct}[1]{\left\langle#1\right\rangle}
+\newcommand{\frakv}{\mathfrak{V}}
+\newcommand{\fraku}{\mathfrak{U}}
+\newcommand{\lp}{\{}
+\newcommand{\rp}{\}}
+\newcommand{\Hom}{\text{Hom}}
+
+\RequirePackage{braket}
+
+\RequirePackage{packages/kbordermatrix}
+\renewcommand{\kbldelim}{(}% Left delimiter
+\renewcommand{\kbrdelim}{)}% Right delimiter
+
+\RequirePackage{packages/jlcode}
+
+\raggedbottom
+\RequirePackage{hyperref} % Pacote para o uso de autoref
+
+\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
+
+%------------------------------------------------------------------------------------------
+% quiver calculus commands
+%------------------------------------------------------------------------------------------
+%
+% This is what we put in our preamble:
+%
+
+\newcommand{\qlen}{1em}
+\newcommand{\Qlen}{1.5em}
+\newcommand{\QQlen}{3em}
+
+\newcommand{\qem}{\makebox[\qlen]{---}}
+
+% short
+\newcommand{\qno}{\makebox[\qlen]{---}}  
+\newcommand{\qon}[1]{\makebox[\qlen]{$_{\phantom{}}\bullet_{#1}$}}
+\newcommand{\qoff}[1]{\makebox[\qlen]{$_{\phantom{}}\circ_{#1}$}}
+
+% medium
+\newcommand{\Qno}{\makebox[\Qlen]{--{}--{}--}}
+\newcommand{\Qon}[1]{\makebox[\Qlen]{$_{\phantom{}}\bullet_{#1}$}}
+\newcommand{\Qoff}[1]{\makebox[\Qlen]{$_{\phantom{}}\circ_{#1}$}}
+
+% long
+\newcommand{\QQno}{\makebox[\QQlen]{--{}--{}--{}--{}--{}--}}
+\newcommand{\QQon}[1]{\makebox[\QQlen]{$_{\phantom{}}\bullet_{#1}$}}
+\newcommand{\QQoff}[1]{\makebox[\QQlen]{$_{\phantom{}}\circ_{#1}$}}
+

@@ -1034,6 +1034,75 @@ que é a coleção de aplicações lineares $(v_{t+\delta}^t)$ da estrutura de $
 \end{equation*}
 para todo $\delta \geq 0$. 
 
+\begin{obs}
+Podemos escrever os morfismos de grau não nulos de forma diferente. Seja $\frakv$ um módulo
+de persistência e $\delta \in \mathbb{R}$ qualquer, denotamos por $\frakv[\delta]$ o 
+\textbf{módulo transladado} 
+\begin{equation*}
+    (V[\delta])_t = V_{t+\delta}, \qquad (v[\delta])^s_t = v^{s+\delta}_{t+\delta},
+\end{equation*}
+ou seja, $V[\delta]$ é o módulo $\frakv$ transladado em $\delta$ para baixo. Além disso,
+temos identificações com os homomorfismos
+\begin{equation*}
+    \text{Hom}^\delta(\fraku, \frakv) = \text{Hom}(\fraku, \frakv[\delta]) 
+    = \text{Hom}(\fraku[a], \frakv[a+\delta])
+\end{equation*}
+para todo $a \in \mathbb{R}$. 
+\end{obs}
+
+\begin{defi}
+    Seja $\delta \geq 0$. Dizemos que $\fraku, \frakv$ são $\delta$-interlaçados se
+    existem aplicações 
+    \begin{equation*}
+        \Phi \in \Hom^\delta(\fraku, \frakv), \Psi \in \Hom^\delta(\frakv, \fraku) 
+    \end{equation*}
+    tais que
+    \begin{equation*}
+        \Psi\Phi = 1_\fraku^{2\delta}, \Phi\Psi = 1_\frakv^{2\delta}.
+    \end{equation*}
+\end{defi}
+
+\begin{ex}
+    Seja $X$ um espaço topológico e $f,g \colon X \to \mathbb{R}$. Suponha que $\norm{f-g}_\infty 
+    < \delta$. Então os módulos de persistência $H(\mathfrak{X}^f_{\text{sub}}), H(\mathfrak{X}^g_{\text{sub}})$
+    são $\delta$-interlaçados.  
+    
+    De fato, note primeiro que 
+    \begin{align*}
+        & (X,f)^t \subseteq (X,g)^{t+\delta} \\
+        & (X,g)^t \subseteq (X,f)^{t+\delta},
+    \end{align*}
+    já que para $x \in (X,f)^t$ temos que $f(x) \leq t$ e como 
+    $\norm{f-g}_\infty < \delta$, $\abs{g(x) - f(x)} < \delta$ 
+    e logo $g(x) < f(x) + \delta \leq t + \delta$, implicando 
+    $x \in (X,g)^{t+\delta}$. De forma análoga temos a segunda equação.  
+
+    Pela funtorialidade de $H$, temos que para todo $t$, existem aplicações lineares induzidas das
+    inclusões acima
+    \begin{align*}
+        \Phi \colon H(\mathfrak{X}_{\text{sub}}^f) \to H(\mathfrak{X}_{\text{sub}}^g) \\
+        \Psi \colon H(\mathfrak{X}_{\text{sub}}^g) \to H(\mathfrak{X}_{\text{sub}}^f)
+    \end{align*}
+    de grau $\delta$. Como as aplicações são decorrentes de um funtor, as condições de interlaçamento
+    são satisfeitas.
+\end{ex}
+
+Da mesma forma que módulos de persistência podem ser vistos sobre posets, uma relação de 
+interlaçamento entre dois módulos pode ser vista como um módulo de persistência sobre um poset. A seguir
+iremos desenvolver esta ideia. 
+
+Considere a seguinte ordem parcial no plano
+\begin{equation*}
+    (p_1, q_1) \leq (p_2, q_2) \iff p_1 \leq p_2, q_1 \leq q_2.
+\end{equation*}
+Agora, para todo número real $x$, defina a faixa diagonal transladada no plano
+\begin{equation}\label{eq:iso_delta}
+    \Delta_x = \Set{(p,q) | q-p = 2x} = \Set{(t-x, t+x) | t \in \mathbb{R}}.
+\end{equation}
+$\Delta_x$ visto como um poset é isomorfo à reta real. Iremos usar o isomorfismo de
+\eqref{eq:iso_delta} como uma identificação canônica entre módulos de persistência
+sobre $\mathbb{R}$ e sobre $\Delta_x$. 
+
 \begin{propo}\label{teo:prop_inter}
 Sejam $x,y$ números reais. Os módulos de persistência $\mathfrak{U}$ 
 e $\frakv$ são $\abs{y-x}$-intercalados se, e somente se, existe 
