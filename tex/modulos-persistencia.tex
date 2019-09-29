@@ -1,4 +1,4 @@
-A homologia persistence teve seu ínicio em uma intersecção entre as ciências da computação 
+A homologia persistente teve seu ínicio em uma intersecção entre as ciências da computação 
 e a matemática. Os primeiros artigos mostravam algoritmos sobre espaços topológicos simples,
 como esferas \cite{Edelsbrunner2000}. No entanto, a teoria foi se desenvolvendo 
 ao longo dos anos ao ponto em que as linguagens utilizadas para tratar da homologia persistente 
@@ -1163,7 +1163,6 @@ pode ser escolhida de forma que cada $\left.\bar{\mathfrak{W}}
     \end{equation*}
     para qualquer funtor $\mathfrak{W}$, completando
     a demonstração. 
-    
 \end{proof}
 
 Se $\mathfrak{U}$ e $\frakv$ são $\delta$-interlaçados, então 
@@ -1178,3 +1177,467 @@ Defina então $\mathfrak{U}_x = \left.\bar{\mathfrak{W}}\right|_{
 $\abs{y-x}$-interlaçados para todo $x,y\in [0, \delta]$. 
 
 \section{O teorema de isometria}
+
+Existe uma relação entre os módulos de persistência e seus respectivos diagramas 
+de persistência. Para módulos de persistência bem comportados, como os 
+\textit{q-tames}, existe uma isometria entre módulos e diagramas. Para mostrar 
+parcialmente este resultado, iremos definir a distância de interlaçamento entre
+módulos de persistência e também a distância bottleneck, que é calculada
+em multiconjuntos. 
+
+\subsection{A distância de interlaçamento}
+
+Para o primeiro passo, iremos definir a distância de interlaçamento entre
+módulos de persistência. Primeiro note que para módulos 
+$\fraku,  \frakv$ que são $\delta$-interlaçados, então eles
+são $(\delta+\epsilon)$-interlaçados para todo $\epsilon > 0$. Basta tomar
+os morfismos
+\begin{align*}
+    & \Phi' = \Phi 1_\fraku^\epsilon = 1_\frakv^\epsilon \Phi \\
+    & \Psi' = \Psi 1_\frakv^\epsilon = 1_\fraku^\epsilon \Psi
+\end{align*}
+que satisfazem a condição de interlaçamento. 
+
+Portanto, o desafio é obter o menor parâmetro possível de forma que módulos
+de persistência sejam interlaçados. O problema é que nem sempre é obtido, 
+sendo assim definimos o conceito de $\delta^+$-interlaçamento. Dizemos que 
+$\fraku, \frakv$ são $\delta^+$-interlaçados se eles são $(\delta + \epsilon)$
+-interlaçados para todo $\epsilon > 0$. 
+
+\begin{defi}
+    Sejam $\fraku, \frakv$ dois módulos de persistência. A \textbf{distância
+    de interlaçamento} entre $\fraku, \frakv$ é dada por
+    \begin{align*}
+        \di(\fraku, \frakv) &= \inf\Set{\delta | \fraku, \frakv \text{ são }
+        \delta \text{-interlaçados}} \\
+        &=\min\Set{\delta | \fraku, \frakv \text{ são } \delta^+ 
+        \text{-interlaçados}}.
+    \end{align*}
+    Se não existe nenhum $\delta$-interlaçamento entre $\fraku, \frakv$ para
+    qualquer $\delta$, então $\di(\fraku, \frakv) = \infty$.
+\end{defi}
+
+\begin{propo}\label{teo:inter_triang}
+    A distância de interlaçamento satisfaz a desigualdade triangular:
+    \begin{equation*}
+        \dt_i(\fraku, \frakw) \leq \dt_i(\fraku, \frakv) + \dt_i(\frakv, \frakw)
+    \end{equation*}
+    para quaisquer módulos de persistência $\fraku, \frakv$ e $\frakw$. 
+\end{propo}
+\begin{proof}
+    Dados $\delta_1$-interlaçamento entre $\fraku, \frakv$ e $\delta_2$-interlaçamento
+    entre $\frakv, \frakw$, então podemos construir um $(\delta_1 + \delta_2)$-
+    interlaçamento entre $\fraku, \frakw$ simplesmente compondo as outras duas aplicações
+    de interlaçamento
+    \begin{align*}
+        &\fraku \xrightarrow{\Phi_1} \frakv \xrightarrow{\Phi_2} \frakw \\
+        &\fraku \xleftarrow{\Psi_1} \frakw \xleftarrow{\Psi_2} \frakw.
+    \end{align*}
+    Vamos mostrar que $\Phi = \Phi_2 \Phi_1$ e $\Psi = \Psi_1 \Psi_2$. De fato
+    \begin{align*}
+        & \Psi\Phi = \Psi_1\Psi_2\Phi_2\Phi_1 = \Psi_1 1^{2\delta_2}_\frakv \Phi_1 
+        = \Psi_1\Phi_1 1^{2\delta_2}_\fraku = 1^{\delta_1}_\fraku 1^{\delta_2}_\fraku
+        = 1^{2\delta}_\fraku \\
+        & \Phi\Psi = \Phi_2\Phi_1\Psi_1\Psi_2 = \Phi_2 1^{2\delta_1}_\frakv \Psi_2 
+        = \Phi_2\Psi_2 1^{2\delta_1}_\frakw = 1^{\delta_2}_\frakw 1^{\delta_1}_\frakw
+        = 1^{2\delta}_\frakw 
+    \end{align*}
+    Agora basta tomar o ínfimo entre $\delta_1, \delta_2$.
+\end{proof}
+
+A proposição nos diz que $\di$ é uma pseudométrica. Não chega a ser uma métrica, 
+pois é possível construir exemplos tais que $\di(\fraku, \frakv) = 0$ não implica
+que $\fraku \simeq \frakv$. Só teremos um isomorfismo entre dois módulos \textit{q-tames}
+se os diagrams de persistência não decorados forem iguais. 
+
+\begin{ex}
+    Os módulos intervalares
+    \begin{equation*}
+        \kbf[p,q], \kbf[p,q), \kbf(p,q], \kbf(p,q)
+    \end{equation*}
+    são $0^+$-interlaçados, mas não isomórfos. 
+\end{ex}
+
+\begin{propo}\label{teo:direct_sum_dist}
+    Sejam $\fraku_1, \fraku_2, \frakv_1, \frakv_2$ módulos de persistência. Então
+    \begin{equation*}
+        \dt_i(\fraku_1 \oplus \fraku_2, \frakv_1 \oplus \frakv_2) \leq \max(\di(\fraku_1,
+        \frakv_1), \di(\fraku_2, \frakv_2)).
+    \end{equation*}
+    De forma geral a equação acima vale para somas diretas arbitrárias. Sejam $(\fraku_l \mid l \in L)$ 
+    e $(\frakv_l \mid l \in L)$ famíias de módulos de persistência indexadas em algum conjunto $L$. Seja
+    \begin{equation*}
+        \fraku = \bigoplus_{l \in L} \fraku_l, \quad \frakv = \bigoplus_{l \in L} \frakv_l.
+    \end{equation*}
+    Então
+    \begin{equation*}
+        \di(\fraku, \frakv) \leq \sup(\di(\fraku_l, \frakv_l) \mid l \in L).
+    \end{equation*}
+\end{propo}
+\begin{proof}
+    Dados $\delta$-interlaçamentos $\Phi_l, \Psi_l$ para cada par $\fraku_l, \frakv_l$, as aplicações
+    $\Phi = \oplus\Phi_l, \Psi = \oplus \Psi_l$ constituem um $\delta$-interlaçamento entre 
+    $\fraku, \frakv$. Portanto, qualquer cota superior de $\di(\fraku_l, \frakv_l)$ é uma cota superior
+    de $\di(\fraku, \frakv)$, em particular, para o $\sup$. 
+\end{proof}
+
+\subsection{A distância bottleneck}
+
+Com a primeira distância definida, vamos definir a segunda, a bottleneck. Denote por 
+\begin{equation*}
+    \bar{\mathcal{H}}^\circ = \Set{(p,q) | -\infty \leq p < q \leq +\infty}
+\end{equation*}
+o semiplano extendido aberto (sem a diagonal). Para definirmos a distância bottleneck,
+precisamos definir certas relações entre os pontos em $\hsp$.  
+\begin{itemize}
+    \item \textbf{ponto a ponto}: A primeira ideia é que dois diagramas não decorados estão
+    próximos um do outro se existe uma bijeção entre eles que não leva um ponto muito longe.
+    Para definir uma distância entre esses pontos, usamos a métrica $l^\infty$ no plano:
+    \begin{equation*}
+        \dt^\infty((p,q), (r,s)) = \max(\abs{p-r}, \abs{q-s}).
+    \end{equation*}
+    Pontos no infinito são calculados da seguinte forma:
+    \begin{align*}
+        &\dt^\infty((-\infty, q), (-\infty,s)) = \abs{q-s} \\
+        &\dt^\infty((p, +\infty), (r,+\infty)) = \abs{p-r} \\
+        &\dinf((-\infty, +\infty), (-\infty, +\infty)).
+    \end{align*}
+    Pontos em regiões diferentes, como $(p,q)$ e $(-\infty,s)$, possuem distância igual a
+    $\infty$.
+    \item \textbf{ponto a diagonal}: A outra ideia é que pontos próximos da diagonal podem ser
+    absorvidos pela diagonal. Usando novamente a métrica $l^\infty$:
+    \begin{equation*}
+        \dinf((p,q), \Delta) = \frac{1}{2}(q-p).
+    \end{equation*}
+\end{itemize}
+
+Vamos mostrar agora duas proposições relacionadas com os dois itens acima. 
+\begin{propo}\label{teo:int_ineq}
+    Sejam $(p^*, q^*)$ e $(r^*, s^*)$ intervalos e 
+    \begin{equation*}
+        \fraku = \kbfp{p}{q} \text{ e } \frakv = \kbfp{r}{s}
+    \end{equation*}
+    os módulos intervalares correspondentes. Então
+    \begin{equation*}
+        \di(\fraku, \frakv) \leq \dt^\infty((p,q), (r,s)).
+    \end{equation*}
+\end{propo}
+\begin{proof}
+    A demonstração pode ser encontrada na página $87$ em \cite{Chazal2016}.
+\end{proof}
+
+\begin{propo}\label{teo:semint_eq}
+    Seja $(p^*, q^*)$ um intervalo e 
+    \begin{equation*}
+        \fraku = \kbfp{p}{q}
+    \end{equation*}
+    seu módulo intervalar correspondente. Denote por $0$ o módulo de persistência
+    nulo. Então
+    \begin{equation*}
+        \di(\fraku, 0) = \frac{1}{2}(q-p)
+    \end{equation*}
+\end{propo}
+\begin{proof}
+    Seja $\delta \geq 0$. Observe que como tomamos o módulo de persistência nulo, os únicos
+    morfismos saindo e chegando nele são os morfismos nulos. Portantno, a única condição
+    que precisamos checar é quando dados $\Psi\Phi = 1^{2\delta}_\fraku$, temos 
+    $0 = 1^{2\delta}_\fraku$. Isso vale quando $\delta > \frac{1}{2} (q-p)$ e falha 
+    para $\delta < \frac{1}{2}(q-p)$. De fato, note que as aplicações $u^t_{t+2\delta} \colon
+    U_t \to U_{t+2\delta}$ são nulas precisamente quando $t < p$ ou $t + 2\delta > q$, ou seja,
+    $\delta < \frac{1}{2}(q-t)$ e pela primeira condição $(-t > -p)$, teriamos a desigualdade desejada. 
+\end{proof}
+
+Utilizando os resultados e definições acima, podemos definir a distância bottleneck entre 
+multiconjuntos no semiplano extendido. Neste contexto, iremos adaptar os multiconjuntos 
+a conjuntos onde cada elemento possui um índice, ou seja, se $\alpha$ é um elemento de 
+multiplicidade $k$, teremos os elementos $\alpha_1, \dots, \alpha_k$. 
+
+\begin{defi}
+    Um \textbf{emparelhamento parcial} entre os multiconjuntos $A$ e $B$ é uma coleção de pares
+    \begin{equation*}
+        M \subset A \times B
+    \end{equation*}
+    tal que
+    \begin{itemize}
+        \item para todo $\alpha \in A$ existe no máximo um $\beta \in B$ tal que $(\alpha, \beta)
+        \in M$;
+        \item para todo $\beta \in B$ existe no máximo um $\alpha \in A$ tal que 
+        $(\alpha, \beta) \in M$.
+    \end{itemize}
+    Além disso, dizemos que um emparelhamento parcial $M$ é um $\delta$-emparelhamento se 
+    as seguintes condições são verdadeiras
+    \begin{itemize}
+        \item se $(\alpha, \beta) \in M$, então $\dinf(\alpha, \beta) \leq \delta$; 
+        \item se $\alpha \in A$ não está emparelhado, então $\dinf(\alpha, \Delta) \leq \delta$;
+        \item se $\beta \in B$ não está emparelhado, então $\dinf(\beta, \Delta) \leq \delta$.
+    \end{itemize}
+\end{defi}
+
+\begin{defi}
+    A \textbf{distância bottleneck} entre dois multiconjuntos $A,B$ em $\hsp$ é
+    \begin{equation*}
+        \db(A,B) = \inf \Set{\delta | \text{Existe um } \delta \text{-emparelhamento entre 
+        } A \text{ e } B}.
+    \end{equation*}
+\end{defi}
+
+\begin{propo}
+    A distância bottleneck satisfaz a desigualdade triangular
+    \begin{equation*}
+        \dt_b(A,C) \leq \dt_b(A,B) + \dt_b(B,C)
+    \end{equation*}
+    para quaisquer multiconjuntos $A, B, C$. 
+\end{propo}
+\begin{proof}
+    Sejam $M_1$ um $\delta_1$-emparelhamento entre $A,B$ e $M_2$ um $\delta_2$-
+    emparelhamento entre $B,C$. Defina agora $\delta = \delta_1 + \delta_2$. 
+    Vamos definir agora um $\delta$-emparelhamento $M$ entre $A$ e $C$.
+    
+    Defina $M$ como a composição de $M_1$ e $M_2$, ou seja,
+    \begin{equation*}
+        M = \Set{(\alpha, \gamma) | \text{Existe um } \beta \in B \text{ tal que }
+        (\alpha, \beta) \in M_1 \text{ e } (\beta, \gamma) \in M_2}.
+    \end{equation*}
+    Observe que $M$ é um emparelhamento parcial pois $M_1, M_2$ são. Resta 
+    mostrar agora que $M$ é o $delta$-emparelhamento que procuramos. De fato
+    \begin{itemize}
+        \item Se $(\alpha, \gamma) \in M$, então
+        \begin{equation*}
+            \dinf(\alpha, \gamma) \leq \dinf(\alpha, \beta) + \dinf(\beta, \gamma) 
+            \leq \delta_1 + \delta_2 = \delta,
+        \end{equation*}
+        em que $\beta$ é o elemento da definição de $M$ que une $\alpha$ a $\gamma$. 
+        \item Se $\alpha$ não está emparelhado em $M$ então há duas possibilidade:
+        $\alpha$ não está emparelhado em $M_1$, então por definição
+        \begin{equation*}
+            \dinf(\alpha, \Delta) \leq \delta_1 \leq \delta,
+        \end{equation*}
+        e caso $\alpha$ está emparelhado em $M_1$, $(\alpha, \beta) \in M_1$. 
+        Portanto, $\beta$ não está emparelhado em $M_2$, caso contrário $\alpha$ estaria 
+        emparelhado em $M$. Logo, 
+        \begin{equation*}
+            \dinf(\alpha, \Delta) \leq \dinf(\alpha, \beta) + \dinf(\beta, \Delta) 
+            \leq \delta_1 + \delta_2 = \delta.
+        \end{equation*}
+        \item Se $\gamma$ não está emparelhado em $M$, de maneira análoga temos que 
+        \begin{equation*}
+            \dinf(\gamma, \Delta) \leq \delta.
+        \end{equation*}
+        Assim mostramos que $M$ é o $\delta$-emparelhamento requerido. 
+    \end{itemize}
+\end{proof}
+
+Por fim, finalizamos a subseção com seu teorema mais importante:
+\begin{teo}\label{teo:stb_decom}
+    Sejam $\fraku, \frakv$ módulos de persistência decomponíveis. Então 
+    \begin{equation*}
+        \di(\fraku, \frakv) \leq \dt_b(\dgm{\fraku}, \dgm{\frakv}).
+    \end{equation*}
+\end{teo}
+\begin{proof}
+    Vamos mostrar que para todo $\delta$-emparelhamento entre $\dgm{\fraku}$
+    e $\dgm{\frakv}$, temos $\di(\fraku, \frakv) \leq \delta$. Após isso 
+    tomamos o infimum sobre todo $\delta$ acima e obtemos o resultado. 
+
+    Seja $M$ um $\delta$-emparelhamento entre $\dgm{\fraku}$ e $\dgm{\frakv}$. 
+    Como os módulos são decomponíveis, podemos construir $M$ a partir de um
+    emparelhamento parcial entre os módulos intervalares de $\fraku$ e $\frakv$.
+    
+    Reescrevendo $\fraku$ e $\frakv$
+    \begin{equation*}
+        \fraku = \bigoplus_{l\in L} \fraku_l, \quad \frakv = \bigoplus_{l \in L} \frakv_l
+    \end{equation*}
+    de forma que cada par é um dos seguintes
+    \begin{enumerate}
+        \item \label{en:match} um par de intervalos emparelhados;
+        \item \label{en:unmatchU} $\fraku_l$ não está emparelhado e $\frakv_l = 0$;
+        \item \label{en:unmatchV}$\frakv_l$ não está emparelhado e $\fraku_l = 0$.
+    \end{enumerate}
+    Pela Proposição~\ref{teo:int_ineq} e ~\ref{teo:semint_eq}, temos $\di(\fraku_l,
+    \frakv_l) \leq \delta$. Pela Proposição~\ref{teo:direct_sum_dist}, segue que $\di(\fraku,
+    \frakv) \leq \delta$.
+\end{proof}
+
+\subsection{O teorema de isometria} 
+Com as duas distâncias definidas, podemos apresentar o teorema de estabilidade 
+dos módulos de persistência.
+
+\begin{teo}\label{teo:stbtheo}
+    Sejam $\fraku, \frakv$ módulos de persistência \textit{q-tame}. Então
+    \begin{equation*}
+        \di(\fraku, \frakv) = \dt_b(\dgm{\fraku}, \dgm{\frakv})
+    \end{equation*}
+\end{teo}
+
+O resultado pode ser dividido em duas partes. A primeira parte seria o 
+teorema de estabilidade conhecido na literatura \cite{CohenSteiner2006, 
+ChazalProx2009}
+\begin{equation}\label{eq:ida}
+    \di(\fraku, \frakv) \geq \dt_b(\dgm{\fraku}, \dgm{\frakv}),
+\end{equation}
+e a volta do teorema de estabilidade
+\begin{equation}\label{eq:volta}
+    \di(\fraku, \frakv) \leq \dt_b(\dgm{\fraku}, \dgm{\frakv}).
+\end{equation}
+
+Nesta dissertação iremos mostrar apenas a volta, já que a volta envolve argumentos
+muito complexos que fogem do escopo da exposição. 
+Anteriormente mostramos o resultado para módulos decomponíveis. Agora vamos mostrar
+para módulos \textit{q-tame} que não sabemos ser decomponíveis.  
+ 
+\subsection{A volta do teorema de estabilidade}
+
+Agora vamos deduzir a volta do teorema de estabilidade, dado pela Inequação~\ref{eq:volta}. 
+A ideia principal é aproximar um módulo de persistência por um outro módulo "suave".
+
+\begin{defi}
+    Seja $\frakv$ um módulo de persistência e $\epsilon > 0$. A $\epsilon$-suavização 
+    de $\frakv$ é o módulo de persistência $\frakv^\epsilon$ definido como a imagem
+    da aplicação 
+    \begin{equation*}
+        1^{2\epsilon}_\frakv \colon V[-\epsilon] \to \frakv[\epsilon].
+    \end{equation*}
+    Ou seja, $(V^\epsilon)_t$ é a imagem da aplicação
+    \begin{equation*}
+        v_{t+\epsilon}^{t-\epsilon} \colon V_{t-\epsilon} \to V_{t+\epsilon},
+    \end{equation*}
+    e $(v^\epsilon)^s_t$ é a restrição de $v^{s+\epsilon}_{t+\epsilon}$. 
+    Portanto, temos a fatorização de $1^{2\epsilon}_\frakv$ dado por
+    \begin{equation} \label{eq:fatorizacao}
+        \frakv[-\epsilon] \longrightarrow V^\epsilon \longrightarrow \frakv[\epsilon],
+    \end{equation}
+    em que a primeira aplicação é sobrejetora e a segunda é injetora. Dado um índice $t$,
+    tem-se que 
+    \begin{equation*}
+        V_{t-\epsilon} \xrightarrow{v^{t-\epsilon}_{t+\epsilon}} V^\epsilon_t 
+        \xrightarrow{1} V_{t+\epsilon}
+    \end{equation*}
+\end{defi}
+
+\begin{propo}\label{teo:smoothing}
+    Seja $\frakv$ um módulo de persistência. Então $\di(\frakv, \frakv^\epsilon) \leq 
+    \epsilon$.
+\end{propo}
+\begin{proof}
+    O morfismo dado em~\ref{eq:fatorizacao} é um $\epsilon$-interlaçamento.
+\end{proof}
+
+\begin{ex}
+    Seja $\frakv = \kbfp{p}{q}$. Então a $\epsilon$-suavização de $\frakv$ 
+    é dada por 
+    \begin{equation*}
+        \frakv^\epsilon = 
+        \left\{
+        \begin{split}
+            &\kbfp{(p+\epsilon)}{(q-\epsilon)}, & \text{ se } (p+\epsilon)^* < (q - \epsilon)^* \\
+            & 0, & \text{ caso contrário.}
+        \end{split}
+        \right.
+    \end{equation*}
+    Em outras palavras, a $\epsilon$-suavização diminui o intervalo em ambos os lados. 
+\end{ex}
+
+\begin{propo}\label{teo:shiftdgm}
+    O diagrama de persistência de $\frakv^\epsilon$ é obtido através do diagrama
+    de persistência de $\frakv$ pela translação $T_\epsilon \colon (p,q) \mapsto
+    (p+\epsilon, q-\epsilon)$ para a parte do semiplano acima da linha 
+    $\Delta_\epsilon = \Set{(t-\epsilon, t+\epsilon) | t \in \mathbb{R}}$. 
+\end{propo}
+\begin{proof}
+
+\end{proof}
+
+\begin{cor}\label{teo:corvolta}
+    Seja $\frakv$ \textit{q-tame}, então $\dt_b(\dgm{\frakv}, \dgm{\frakv^\epsilon}) 
+    \leq \epsilon$.
+\end{cor}
+\begin{proof}
+    Seja o $\epsilon$-emparelhamento definido a seguir
+    \begin{equation*}
+        (p,q) \in \dgm{\frakv^\epsilon} \iff (p - \epsilon, q + \epsilon) \in \dgm{\frakv}.
+    \end{equation*}
+    Note que isso é uma bijeção para todos os pontos, exceto para aquele que não foram emparelhados
+    em $\dgm{\frakv}$, mas estes são justamente os pontos que ficam na linha $\Delta_\epsilon$ ou abaixo
+    dela. Portanto, possem uma distância de no máximo $\epsilon$ da diagonal. 
+\end{proof}
+
+\begin{propo}\label{teo:final_prop}
+    Se $\frakv$ é \textit{q-tame}, então $\frakv^\epsilon$ é localmente finito. 
+\end{propo}
+\begin{proof}
+    Como $\dim((V^\epsilon)_t) = \text{rank}[V_{t-\epsilon} \to V_{t+\epsilon}] < \infty$, segue do 
+    Teorema~\ref{teo:crawley} que $\frakv^\epsilon$ é decomponível em módulos intervalares. Vamos mostrar
+    agora que essa coleção de intervalos é localmente finita. 
+
+    Seja $t\in\mathbb{R}$ qualquer, então
+    \begin{align*}
+        & \#\Set{\text{intervalos que intersecta } [t-\frac{1}{2}\epsilon, t + \frac{1}{2}\epsilon]} \\
+        &\quad = \#\Set{\text{pontos em } \Dgm{\frakv^\epsilon} \text{ no quadrante superior esquerdo a partir
+            do ponto } (t-\frac{1}{2}\epsilon, t + \frac{1}{2}\epsilon)} \\
+        & \quad \leq \#\Set{\text{pontos em } \Dgm{\frakv} \text{ no quadrante superior esquerdo a partir
+            do ponto } (t-\frac{1}{2}\epsilon, t + \frac{1}{2}\epsilon)} \\
+        & \quad = \text{rank}[V_{t-\epsilon} \to V_{t+\epsilon}] < \infty
+    \end{align*}
+    Temos que a inequação da terceira linha segue da Proposição~\ref{teo:shiftdgm}. 
+\end{proof}
+Agora podemos demontrar a inequação~\ref{eq:volta}.
+\begin{proof}{\ref{eq:volta}}
+    Sejam $\fraku, \frakv$ módulos de persistência \textit{q-tames}. Para qualquer $\epsilon > 0$, 
+    a $\epsilon$-suavização de $\fraku^\epsilon$, $\frakv^\epsilon$ são decomponíveis, então a
+    volta do teorema de estabilidade se aplica a eles. Portanto
+    \begin{align*}
+        \di(\fraku, \frakv) & \leq \di(\fraku^\epsilon, \frakv^\epsilon) + 2\epsilon & 
+                              \text{ Proposição~\ref{teo:smoothing}} \\
+                            & \leq \db(\dgm{\fraku^\epsilon}, \dgm{\frakv^\epsilon}) + 2\epsilon & 
+                              \text{ Teorema~\ref{teo:stb_decom}} \\
+                            & \leq \db(\dgm{\fraku}, \dgm{\frakv}) + \epsilon & \text{ Corolário~\ref{teo:corvolta}} \\
+    \end{align*}
+    Como isso vale para todo $\epsilon > 0$, temos que
+    \begin{equation*}
+        \di(\fraku, \frakv) \leq \db(\dgm{\fraku}, \dgm{\frakv}).
+    \end{equation*}
+\end{proof}
+
+\subsection{O teorema de estabilidade}
+A Inequação~\ref{eq:ida} pode ser expressa da seguinte maneira
+\begin{teo}\label{teo:stabdif}
+    Sejam $\fraku, \frakv$ módulos de persistência \textit{q-tames} que são 
+    $\delta^+$-interlaçados. Então existe um $\delta$-emparelhamento entre os 
+    multiconjuntos $\dgm{\fraku}$ e $\dgm{\frakv}$. 
+\end{teo}
+
+Podemos, no entando, provar a seguinte forma do teorema.
+\begin{teo}\label{teo:stabeasier}
+    Sejam $\fraku, \frakv$ módulos de persistência \textit{q-tames} que são 
+    $\delta$-interlaçados. Então existe um $\delta$-emparelhamento entre os 
+    multiconjuntos $\dgm{\fraku}$ e $\dgm{\frakv}$. 
+\end{teo}
+
+Podemos deduzir o Teorema~\ref{teo:stabdif} de \ref{teo:stabeasier} pois se 
+$\fraku, \frakv$ são $\delta^+$-interlaçados, então existe um $\eta$-interlaçamento
+entre os respectivos diagramas para todo $\eta > \delta$, então existe um $\delta$-
+emparelhamento. O Teorema~\ref{teo:stabeasier} pode ser provado usando os seguintes
+resultados:
+\begin{itemize}
+    \item O Lema de Interpolação~\ref{teo:lema_interp};
+    \item As inequações do Lema~\ref{teo:lema_box}, que relacionam localmente
+    as medidades de $\fraku, \frakv$. 
+\end{itemize}
+Iremos apenas apresentar o Lema~\ref{teo:lema_box}. Sua demonstração se 
+encontra em \cite{Chazal2016}. Utiliza-se o método de continuidade apresentado
+em \cite{CohenSteiner2006} para concluir a demonstração do Teorema~\ref{teo:stabeasier}.
+Não iremos apresentar a demonstração por completo aqui devido a sua dificuldade. 
+
+\begin{defi}
+    Sejam $R = [a,b] \times [c,d]$ um retângulo em $\bar{\mathbb{R}^2}$. O 
+    $\delta$-engrossamento de $R$ é o retângulo
+    \begin{equation*}
+        R^\delta = [a-\delta, b+\delta] \times [c-\delta, d + \delta].
+    \end{equation*}
+\end{defi}
+
+\begin{lema}\label{teo:lema_box}
+    Sejam $\fraku, \frakv$ módulos de persistência $\delta$-interlaçados. Seja 
+    $R$ um retângulo cujo $\delta$-engrossamento $R^\delta$ fique acima da diagonal.
+    Então $\mu_\fraku(R) \leq \mu_\frakv(R^\delta)$ e $\mu_\frakv(R) \leq \mu_\fraku(R^\delta)$.
+\end{lema}

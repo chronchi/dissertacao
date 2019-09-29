@@ -17,21 +17,34 @@
 
 \usepackage{listings}
 
+% user defined commands 
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
 \newcommand{\innerproduct}[1]{\left\langle#1\right\rangle}
 \newcommand{\frakv}{\mathfrak{V}}
 \newcommand{\fraku}{\mathfrak{U}}
+\newcommand{\frakw}{\mathfrak{W}}
 \newcommand{\lp}{\{}
 \newcommand{\rp}{\}}
 \newcommand{\Hom}{\text{Hom}}
+\newcommand{\dt}{\text{d}}
+\newcommand{\di}{\text{d}_i}
+\newcommand{\db}{\text{d}_b}
+\newcommand{\kbfp}[2]{\mathbf{k}(#1^*, #2^*)}
+\newcommand{\kbf}{\mathbf{k}}
+\newcommand{\dgm}[1]{\text{dgm}(#1)}
+\newcommand{\Dgm}[1]{\text{dgm}(#1)}
+\newcommand{\hsp}{\bar{\mathcal{H}}^\circ}
+\newcommand{\dinf}{\dt^\infty}
 
+% Pacote para definir conjutnos
 \RequirePackage{braket}
 
 \RequirePackage{packages/kbordermatrix}
 \renewcommand{\kbldelim}{(}% Left delimiter
 \renewcommand{\kbrdelim}{)}% Right delimiter
 
+% pacote para inserir código fonte da linguagem julia
 \RequirePackage{packages/jlcode}
 
 \raggedbottom
@@ -42,9 +55,6 @@
 %------------------------------------------------------------------------------------------
 % quiver calculus commands
 %------------------------------------------------------------------------------------------
-%
-% This is what we put in our preamble:
-%
 
 \newcommand{\qlen}{1em}
 \newcommand{\Qlen}{1.5em}

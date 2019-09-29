@@ -12,6 +12,8 @@ Arquivo de sugestões, críticas e correções da dissertação e TODO.
 - [ ] Desenhar representação grafica da proposição 3.19 (figura da prop 3.7 do livro) (figura 17)
 - [ ] Desenhar figura da prop 3.2 do livro (figura 16) 
 - [ ] Desenhar figura do teorema 3.12 (figura 19)
+- [ ] Provar proposição 4.4 pg 72 do livro (seção 3.4)
+- [ ] Provar proposição 5.18 pg 93 do livro (seção 3.5)
 
 ### Sugestões e correções
 
