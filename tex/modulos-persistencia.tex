@@ -85,8 +85,8 @@ se
     r_t^s = \text{rank}(v_t^s) < \infty \text{ para } s < t.
 \end{equation*}
 Intuitivamente falando, um módulo é \textit{q-tame} se para todo quadrante que pegamos com a origem
-na diagonal, existem finitos pontos do diagram de persistência neste quadrante como pode ser visto
-na \autoref{fig:quad_finito}.
+na diagonal existem finitos pontos do diagrama de persistência neste quadrante, como pode ser visto
+na Figura~\ref{fig:quad_finito}.
 
 \begin{figure}
     \centering
@@ -1113,7 +1113,68 @@ um módulo de persistência $\mathfrak{W}$ sobre $\Delta_x \cup
 de $\mathbb{R}^2$.  
 \end{propo}
 \begin{proof}
-
+Suponha que $x < y$ sem perda de generalidade. Vamos mostrar que a informação
+\ref{item:persmod} extra dada pelas aplicações de $\abs{y-x}$-interlaçamento
+são equivalentes
+as \ref{item:wpersmod} informações extras do módulo de persistência $\frakw$. 
+\begin{enumerate}
+    \item \label{item:persmod} Note que como $\fraku, \frakv$ são módulos 
+    $\abs{y-x}$-interlaçados, existem morfismos $\Phi, \Psi$ tais que 
+    \begin{equation*}
+        \phi_t \colon U_t \to V_{t+y-x}, \qquad \psi_t \colon V_t \to U_{t+y-x},
+    \end{equation*}
+    que satisfazem as seguintes relações para todo $\eta \geq 0$:
+    \begin{equation}\label{eq:rel_uv}
+        \begin{split}
+        \Phi 1^\eta_\fraku = 1^\eta_\frakv \Phi, & \quad \Psi 1^\eta_\frakv = 1^\eta_\fraku \Psi, \\
+        \Psi \Phi = 1^{2y-2x}_\fraku, & \quad \Phi \Psi = 1^{2y-2x}_\frakv.
+        \end{split}
+    \end{equation}
+    \item \label{item:wpersmod} Sejam $R,S,T \in \Delta_x \cup \Delta_y$ tais que $R \leq 
+    S \leq T$. Temos então as aplicações lineares entre os espaços vetoriais de $\frakw$ 
+    que satisfazem a lei de composição
+    \begin{equation*}
+        w^R_T = w^S_T \circ w^R_S.
+    \end{equation*}
+    Vamos mostrar que cada aplicação $w^S_T$ está relacionada com algum dos mapas a seguire
+    \begin{align*}
+        & 1^\eta_\fraku \quad \text{de } \Delta_x \text{ para } \Delta_y \\
+        & 1^\eta_\frakv \quad \text{de } \Delta_y \text{ para } \Delta_x \\
+        & 1^\eta_\fraku\Phi \quad \text{de } \Delta_x \text{ para } \Delta_y \\
+        & 1^\eta_\fraku\Psi \quad \text{de } \Delta_y \text{ para } \Delta_x.
+    \end{align*}
+    Note primeiro que podemos recuperar as aplicações $\phi_t, \psi_t$ como mapas verticais 
+    de $\Delta_x$ para $\Delta_y$ e mapas horizontais de $\Delta_y$ para $\Delta_x$ respectivamente,
+    como pode ser visto na Figura~\ref{fig:verthoriz}.
+    \begin{align*}
+        & U_t \cong W_{(t-x, t+x)} \to W_{(t-x, t+2y-x)} \cong V_{t+y-x} \\
+        & V_t \cong W_{(t-y, t+y)} \to W_{(t+y-2x, t+y)} \cong U_{t+y-x}  
+    \end{align*}
+    \begin{figure}[bthp!]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/wrecovermaps.png}
+        \caption{Os morfismos $\Phi, \Psi$ recuperados do módulo de persistência $\frakw$ sobre
+                 $\Delta_x \cup \Delta_y$.}  
+        \label{fig:verthoriz}
+    \end{figure}
+    Portanto, a lei de composição das aplicações de $\frakw$ implicam nas relações
+    dadas em~\eqref{eq:rel_uv}. 
+    Tendo mostrado que \ref{item:wpersmod} implica em \ref{item:persmod}, note que 
+    as aplicações lineares $w^S_T$, $S\leq T$ podem ser fatoradas da seguinte forma:
+    \begin{equation}\label{eq:rel_comp}
+        \begin{split}
+            & w^S_T = v^{s+y-x}_t \circ \phi_s, \text{ se } S \in \Delta_x \text{ e } T \in \Delta_y, \\
+            & w^S_T = u^{s+y-x}_t \circ \psi_s, \text{ se } S \in \Delta_y \text{ e } T \in \Delta_x.
+        \end{split}
+    \end{equation}
+    Assim, a lei de composição é satisfeita para cada par de aplicações apenas usando as relações
+    dadas em~\eqref{eq:rel_comp}:
+    \begin{equation*}
+        (1^\eta_\frakv \Phi) (1^\xi_\fraku \Psi) = 1^\eta_\frakv \Phi 1^\xi_\fraku \Psi
+        = 1^\eta_\frakv 1^\xi_\frakv \Phi \Psi = 1^{\eta+\xi} 1^{2y-2x}_\frakv = 
+        1^{\eta+\xi+2y-2x}_\frakv.
+    \end{equation*}
+\end{enumerate}
 \end{proof}
 
 \subsection{O lema de interpolação}
@@ -1247,7 +1308,7 @@ $\fraku, \frakv$ são $\delta^+$-interlaçados se eles são $(\delta + \epsilon)
 
 A proposição nos diz que $\di$ é uma pseudométrica. Não chega a ser uma métrica, 
 pois é possível construir exemplos tais que $\di(\fraku, \frakv) = 0$ não implica
-que $\fraku \simeq \frakv$. Só teremos um isomorfismo entre dois módulos \textit{q-tames}
+que $\fraku \cong \frakv$. Só teremos um isomorfismo entre dois módulos \textit{q-tames}
 se os diagrams de persistência não decorados forem iguais. 
 
 \begin{ex}
@@ -1522,7 +1583,7 @@ A ideia principal é aproximar um módulo de persistência por um outro módulo 
     O morfismo dado em~\ref{eq:fatorizacao} é um $\epsilon$-interlaçamento.
 \end{proof}
 
-\begin{ex}
+\begin{ex}\label{ex:int_smooth}
     Seja $\frakv = \kbfp{p}{q}$. Então a $\epsilon$-suavização de $\frakv$ 
     é dada por 
     \begin{equation*}
@@ -1544,7 +1605,69 @@ A ideia principal é aproximar um módulo de persistência por um outro módulo 
     $\Delta_\epsilon = \Set{(t-\epsilon, t+\epsilon) | t \in \mathbb{R}}$. 
 \end{propo}
 \begin{proof}
+Considere os dois casos: quando $\frakv$ é decomponível e o caso geral.
 
+\textbf{Primeiro caso}: Suponha que $\frakv$ seja decomponível, então seja
+$\frakv = \oplus \frakv_l$ a decomposição de $\frakv$ em módulos intervalares. 
+Como soma direta é linear sob aplicações lineares, segue que a $\epsilon$-suavização
+de $\frakv$ é a soma direta das $\epsilon$-suavizações de cada $\frakv_l$
+\begin{equation*}
+    \left[ \bigoplus_{l\in L} \frakv_l  \right]^\epsilon = \bigoplus_{l \in L} \frakv_l^\epsilon.
+\end{equation*}
+Logo, pelo Exemplo~\ref{ex:int_smooth}, segue o resultado.
+
+\textbf{Segundo caso}: Vamos mostrar que a medida de persistência de $\frakv^\epsilon$ é igual a medida
+de persistência de $\frakv$ transladada por $T_\epsilon$. Defina
+\begin{equation*}
+    A = a-\epsilon, \quad B = b-\epsilon, \quad C =c+\epsilon, D=d+\epsilon.
+\end{equation*}
+Queremos mostrar então que
+\begin{equation*}
+    \innerproduct{\qoff{A} \qem \qon{B} \qem \qon{C} \qem \qoff{D} \mid \frakv} = 
+    \innerproduct{\qoff{a} \qem \qon{b} \qem \qon{c} \qem \qoff{d} \mid \frakv^\epsilon}, 
+\end{equation*}
+para todo $a < b \leq c < d$. 
+
+O resto da demonstração é baseado no seguinte diagrama comutativo:
+\begin{equation*}
+    \begin{tikzcd}
+    & (V^\epsilon)_a \arrow[rr] &   & (V^\epsilon)_b \arrow[r] & (V^\epsilon)_c \arrow[rr] \arrow[rd] &    & (V^\epsilon)_d \arrow[rd] &     \\
+    V_A \arrow[ru] \arrow[rr]   &   & V_B \arrow[ru] \arrow[rrr] &    &    & V_C \arrow[rr] &  & V_D  
+    \end{tikzcd}
+\end{equation*}
+onde as aplicações $\surjarrow$ são sobrejetoras e $\injarrow$ são injetoras. As setas 
+induzem um poset, então o diagrama pode ser visto como um módulo de persistência sobre
+esse poset com $8$ elementos. 
+
+Para as aplicações sobrejetoras $\surjarrow$, temos que
+\begin{equation}\label{eq:forbum}
+    \innerproduct{\qoff{A} \qem \qon{a}} = 0 \text{ e } \innerproduct{\qoff{B} \qem \qon{b}} = 0,
+\end{equation}
+já para as aplicações injetoras $\injarrow$
+\begin{equation}\label{eq:forbdois}
+    \innerproduct{\qon{c} \qem \qoff{C}} = 0 \text{ e } \innerproduct{\qon{d} \qem \qoff{D}} = 0.
+\end{equation}
+Além disso, os módulos intervalares contendo alguma das configurações dada pelas equações acima
+possuem multiplicidade zero pelo princípio de restrição. Portanto
+\begin{align*}
+    \innerproduct{\qoff{A} \qem \qno \qem \qon{b} \qem \qon{c} \qem \qno \qem \qoff{D}} &=
+    \innerproduct{\qoff{A} \qem \qon{B} \qem \qon{b} \qem \qon{c} \qem \qon{C} \qem \qoff{D}} + \text{ outros
+    três termos} \\
+    & = \innerproduct{\qoff{A} \qem \qon{B} \qem \qon{b} \qem \qon{c} \qem \qon{C} \qem \qoff{D}} \\
+    & = \innerproduct{\qoff{A} \qem \qon{B} \qem \qno \qem \qno \qem \qon{C} \qem \qoff{D}} \\
+    & = \innerproduct{\qoff{A} \qem \qon{B} \qem \qon{C} \qem \qoff{D} \mid \frakv},
+\end{align*}
+e analogamente
+\begin{align*}
+    \innerproduct{\qoff{A} \qem \qno \qem \qon{b} \qem \qon{c} \qem \qno \qem \qoff{D}} &=
+    \innerproduct{\qoff{A} \qem \qoff{a} \qem \qon{b} \qem \qon{c} \qem \qoff{d} \qem \qoff{D}} + \text{ outros
+    três termos} \\
+    & = \innerproduct{\qoff{A} \qem \qoff{a} \qem \qon{b} \qem \qon{c} \qem \qoff{d} \qem \qoff{D}} \\
+    & = \innerproduct{\qno \qem \qoff{a} \qem \qon{b} \qem \qoff{c} \qem \qoff{d} \qem \qno} \\
+    & = \innerproduct{\qoff{a} \qem \qon{b} \qem \qon{c} \qem \qoff{d} \mid \frakv^\epsilon}.
+\end{align*}
+Logo temos a igualdade. Os seis termos extras são todos nulos pois eles contêm as configurações~\eqref{eq:forbum}
+e~\eqref{eq:forbdois}.
 \end{proof}
 
 \begin{cor}\label{teo:corvolta}
@@ -1636,8 +1759,8 @@ Não iremos apresentar a demonstração por completo aqui devido a sua dificulda
     \end{equation*}
 \end{defi}
 
-\begin{lema}\label{teo:lema_box}
+\begin{lem}\label{teo:lema_box}
     Sejam $\fraku, \frakv$ módulos de persistência $\delta$-interlaçados. Seja 
     $R$ um retângulo cujo $\delta$-engrossamento $R^\delta$ fique acima da diagonal.
     Então $\mu_\fraku(R) \leq \mu_\frakv(R^\delta)$ e $\mu_\frakv(R) \leq \mu_\fraku(R^\delta)$.
-\end{lema}
+\end{lem}

@@ -8,11 +8,12 @@ Arquivo de sugestões, críticas e correções da dissertação e TODO.
 - [x] Desenhar Alpha Shape Complex
 - [x] Desenhar uma figura com os 3 complexos
 - [x] Desenhar filtração com barcode e diagrama de persistencia
+- [ ] Desenhar figura 14 (pg 39, seção 31) 
 - [ ] Desenhar Demonstração 3.22 (subaditividade da seção de r-medidas abstratas) (figura 18)
 - [ ] Desenhar representação grafica da proposição 3.19 (figura da prop 3.7 do livro) (figura 17)
 - [ ] Desenhar figura da prop 3.2 do livro (figura 16) 
 - [ ] Desenhar figura do teorema 3.12 (figura 19)
-- [ ] Provar proposição 4.4 pg 72 do livro (seção 3.4)
+- [x] Provar proposição 4.4 pg 72 do livro (seção 3.4)
 - [ ] Provar proposição 5.18 pg 93 do livro (seção 3.5)
 
 ### Sugestões e correções
