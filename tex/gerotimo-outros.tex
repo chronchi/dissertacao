@@ -1,4 +1,214 @@
+Neste capítulo iremos descrever alguns métodos da análise topológica de dados
+para tratar os diagramas de persistência. 
+
+O primeiro dos métodos é o
+gerador ótimo. Para cada ponto no diagrama de persistência, temos um ciclo
+associado. A ideia é analisar este ciclo geometricamente e extrair 
+informação desse maneira. 
+O segundo é a imagem de persistência, um método de vetorização do diagrama de 
+persistência, de forma que ele possa ser usado para prever e classificar 
+conjuntos de dados. 
+Por último, tratamos \textit{mapper}, uma ferramenta da análise topológica 
+de dados para visualização de conjuntos de alta dimensão em algum 
+espaço de baixa dimensão. 
+
 \section{Geradores ótimos}
+O diagrama de persistência nos dá informação sobre buracos e cavidades que
+persistentem ao longo de uma filtração. Para cada buraco temos um ciclo
+associado, um representante da classe homológica nos grupos de homologia 
+da filtração. É possível visualizar esses ciclos através dos simplexos do
+complexo simplicial associado a filtração e ao diagrama. Geralmente eles 
+podem nos dar informações geométricas, como a localidade de buracos, 
+revelando informações escondidas. 
+
+Entretanto, os ciclos por várias vezes não representam de forma ótima
+uma propriedade do conjunto. Na Figura~\ref{fig:nonoptcyc} podemos
+ver que um ciclo é maior do que poderia ser em relação ao número
+de simplexos, não representando de maneira ótima o buraco relacionado. 
+\begin{figure}\label{fig:nonoptimal}
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/placeholder.png}
+    \caption{Dois ciclos homólogos que representam o buraco. Note que o ciclo
+            que representa o buraco não é ótimo no número de simplexos. O ciclo
+            ótimo é o com linhas pontilhadas.}
+    \label{fig:nonoptcyc}
+    \fautor
+\end{figure} 
+
+A seguir apresentamos a ideia de geradores ótimos, que trata de ajustar
+o problema de melhor gerador. Começamos com o problema de otimização
+de um único ciclo e depois apresentamos para múltiplos geradores. 
+Esta seção tem como referência~\cite{Escolar2015}. 
+
+\subsection{Único Gerador}
+Seja $X$ um complexo simplicial qualquer e denote por $Z_q(X)$ o 
+conjunto dos $q$-ciclos de $X$, com respeito ao operador bordo $\partial_q$ e 
+por denote $B_q(X)$ o conjunto dos $q$-bordos de $X$, em que 
+$B_q(X) = \text{im} \partial_{q+1}$.
+
+Para cada $q$, considere $\Set{\sigma_1, \dots, \sigma_N}$ conjunto de $q$-simplexos
+de $X$ como a base de $C_q(X)$, grupo de todoas as $q$-cadeias de $X$. Então
+representamos todo $x = \sum x_i\sigma_i \in C_q(X)$ por um vetor 
+$[x_1, \dots, x_N]^T$. 
+
+Seja agora $z \in Z_q(X)$, considere o problema 
+\begin{equation}\label{eq:probfour}
+    \begin{split}
+        &\text{minimize} \quad \quad ||x||_1 \\
+        &\text{sujeito a} \quad \left \{ \begin{array}{l}
+            x - \partial_{q+1} y = z \\
+            x,y \text{ integrais.}
+        \end{array} \right.
+    \end{split}
+\end{equation}
+Aqui tentamos achar um ciclo $\tilde{z}$ homólogo a $z$ que possui 
+a menor $1$-norma entre todas as cadeias homólogas a $z$. A $1$-norma é definida
+por $\norm{\sum_i x_i\sigma_i}_1 = \sum_i\abs{x_i}$. 
+
+Podemos no entanto alterar o problema. Ao invés de considerar $x$ um vetor inteiro
+qualquer, vamos restringir $x$ para valores em $\Set{-1,0,1}$, facilitando a interpretação
+geométrica de $\tilde{z}$. Uma consequência disso é $\norm{x}_0 = \norm{x}_1$, em que
+$\norm{x}_0 = \abs{\Set{x_i \neq 0}}$ em $C_q(X)$. Adicionamos mais uma condição,
+de que para $\tilde{z} = \sum_\sigma n_\sigma \sigma$, $n_\sigma \in \Set{-1,0,1}$. 
+Sendo assim, podemos formular o problema anterior da seguinte maneira:
+
+\begin{equation}\label{eq:probfive}
+    \begin{split}
+        &\text{minimize} \quad \quad ||x||_1 \\
+        &\text{sujeito a} \quad \left \{ \begin{array}{l}
+            x - \partial_{q+1} y = z \\
+            x \text{ é um vetor com entradas em } \Set{-1,0,1} \text{ e } 
+            y \text{ é inteiro}
+        \end{array} \right.
+    \end{split}
+\end{equation}
+
+Se $z$ é um vetor com entradas em $\Set{-1,0,1}$, então existe uma solução para o 
+problema~\eqref{eq:probfive}~\cite{Dey2010}. Escreva também $x$ como 
+$x^+ - x^-$, $\xpos, \xneg \geq 0$ correspondendo as partes positiva e negativa
+de $x$ espectivamente. Então podemos reescrever o problema como 
+
+\begin{equation*}
+    \begin{split}
+        &\text{minimize} \quad \quad ||x||_1 = \sum_{i=1}^N (\xpos_i + \xneg_i) \\
+        &\text{sujeito a} \quad \left \{ \begin{array}{l}
+            (\xpos - \xneg) - \partial_{q+1} y = z \\
+            \xpos, \xneg \text{ com entradas em } \Set{0,1} \text{ e } 
+            y \text{ é inteiro,}
+        \end{array} \right.
+    \end{split}
+\end{equation*}
+em que $\xpos_i, \xneg_i$ são as entradas dos vetors $\xpos, \xneg$ respectivamente.
+
+A integralidade das soluções não é garantida, precisamos considerar uma
+restrição a mais. Uma matrix é dita unimodular se o determinante de cada
+submatriz for $-1, 0$ ou $1$. Então podemos garantir uma solução se 
+não exigirmos que $\tilde{z}$ seja inteiro e considerar o problema 
+de programação linear sobre os reais. Então a unimoludariade total
+da matriz de restrição do problema garantirá que o problema possuirá 
+solução inteira. Vamos escrever ambos os problemas de seguinte forma:
+\begin{equation*}
+    \begin{split}
+        &\text{minimize} \quad \quad c'x \\
+        &\text{sujeito a} \quad \left \{ \begin{array}{l}
+            Ax = b \\
+            x \geq 0, \text{ inteiro.}
+        \end{array} \right.
+    \end{split}
+\end{equation*}
+Para o Problema~\eqref{eq:probfour}, temos
+\begin{equation*}
+    \begin{split}
+        &\text{minimize} \quad \quad  \sum_{i=1}^N (\xpos_i + \xneg_i) \\
+        &\text{sujeito a} \quad \left \{ \begin{array}{l}
+            \xpos - \xneg - \partial_{q+1}(\ypos - \yneg) = z \\
+            \xpos, \xneg, \ypos, \yneg  \geq 0, \text{ inteiros,}
+        \end{array} \right.
+    \end{split}
+\end{equation*}
+e possu uma matriz de restrição 
+$A = \begin{bmatrix}
+I & -I & -\partial_{q+1} & \partial_{q+1}
+\end{bmatrix}$. O Problema~\eqref{eq:probfive} também pode ser escrito da forma acima,
+bastante colocar a restrição de que $x$ é um vetor com entradas em $\Set{-1,0,1}$ na 
+matriz $A$ acima. Então se $\partial{q+1}$ é unimodular, temos que a matriz $A$
+também é. 
+
+Para um $q \geq 0$ fixado, existem condições para que $\partial_{q+1}$ seja 
+totalmente unimodular~\cite{Dey2010}. Por exemplo, se $X$ é um complexo simplicial finito
+triangulando uma variedade compacta de dimensão $q+1$ ou $X$ é um complexo simplicial
+finito mergulhado em $\mathbb{R}^{q+1}$, então $\partial_{q+1}$.
+
+\subsection{Múltiplos geradores}
+Nem sempre otimizar apenas um gerador é suficiente. Como podemos ver na Figura~\ref{fig:nonoptimal},
+os dois ciclos não são os ótimos, mesmo após o processo de otimização. Podemos dizer intuitivamente
+que o ciclo está emperrado entre os dois buracos. Vamos modificar a proposta e resolver este problema. 
+
+Seja $\Set{g_1, \dots, g_m}$ um conjunto de ciclos. Considere agora o seguinte problema
+\begin{equation*}
+    \begin{split}
+        &\text{minimize} \quad \norm{x}_1 \\
+        &\text{sujeito a} \quad \left \{ \begin{array}{l}
+            x- \partial_{q+1}(y) + \sum_{j=1}^m a_j g_j = z \\
+            x, y \text{ e } a \text{ inteiros,}
+        \end{array} \right.
+    \end{split}
+\end{equation*}
+e seja $P(z;g_1, \dots, g_m)$ o conjutno de soluções ótimos projetado na variável
+$x$ do problema acima. Linearizando o problema, obtemos
+ \begin{equation*}
+    \begin{split}
+        &\text{minimize} \quad \quad  \sum_{i=1}^N (\xpos_i + \xneg_i) \\
+        &\text{sujeito a} \quad \left \{ \begin{array}{l}
+            \xpos - \xneg - \partial_{q+1}(y) + \sum_{j=1}^m a_j g_j = z \\
+            \xpos, \xneg \geq 0, \xpos, \xneg, y, \text{ e } a \text{ inteiros.}
+        \end{array} \right.
+    \end{split}
+\end{equation*}
+
+Vamos agora entender os ciclos $g_1, \dots, g_m$. Estes são os ciclos que 
+gostariamos de tirar enquanto otimizando o ciclo $z$, em outras palavras,
+preencheriamos os buracos que ficam entre $z$ e o seu ciclo ótimo,
+onde esses buracos são representados por $g_i$, para todo $i$. Estes ciclos
+são chamados de ciclos relativos e a soma $\sum a_j g_j$ pode ser entedida
+da seguinte forma. Seja 
+\begin{equation*}
+    \partial^{'}_{q+1} = \begin{bmatrix} \partial_{q+1} & g_1 & \dots & g_m \end{bmatrix}
+\end{equation*}
+a matriz de bordo com colunas a mais, $g_1, \dots, g_m$. Geometricamente, estamos
+adicionando células $\tau_j$ em $X_{q+1}$ de forma que $\partial^{'}_{q+1} \tau_j 
+= g_j$ para $j=1,\dots,m$. Como dito anteriormente, cada célula $\tau_j$ cobre
+uma propriedade topológica, permitindo que $z$ passe por $g_j$. 
+
+Seja agora $\Set{z_1, \dots, z_n}$ conjunto gerador de $H_q(X)$, grupo de homologia
+de $X$. Portanto, se trocarmos $z_j$ por algum
+\begin{equation*}
+    \tilde{z}_j \in P(z_j; z_1, \dots, z_{j-1}, z_{j+1}, \dots, z_n),
+\end{equation*}
+temos que $\Set{z_1, \dots, \tilde{z}_j, \dots, z_n}$ é um novo conjunto gerador 
+de $H_q(X)$, já que 
+\begin{equation*}
+    [\tilde{z}_j] = [z_j] + \sum_{i\neq j} a_i [z_i],
+\end{equation*}
+pelas restrições do problema de otimização. Portanto, temos o Algoritmo~\ref{alg:optimize_cycles}.
+\begin{algoritmo}[!htpb]
+  \caption{Procedimento de otimização dos geradores.}
+  \label{alg:optimize_cycles}
+  \begin{algorithmic}[1]
+    \Require Geradores $z_1, \dots, z_m$ de $H_q(X)$
+    \Function{optimize\_cycles}{$\Set{z_1, \dots, z_n}$}
+    \For{$j \in \Set{1,\dots,n}$}
+        \State Escolha $\tilde{z}_j$ de $P(z_j; \tilde{z}_1, \dots,
+         \tilde{z}_{j-1}, z_{j+1}, \dots, z_n)$
+    \EndFor    
+    \State \Return $\Set{\tilde{z}_1, \dots, \tilde{z}_n}$
+    \EndFunction
+  \end{algorithmic}
+\end{algoritmo}
+
+
+\subsection{Geradores ótimos em homologia persistente}
+
 
 \section{Vetorização do diagrama de persistência}
 Dado uma sequência de conjuntos de dados $X_i$ e os respectivos diagramas de persistência tem-se uma variação no
@@ -164,8 +374,8 @@ Considere $X$ um conjunto de pontos extraídos de um círculo com ruído, como p
     \centering
     \includegraphics[width=0.7\textwidth]{images/noisy_circle.png}
     \caption{Pontos extraídos de um círculo com ruídos.}
-    \fautor
     \label{fig:noisycircle}
+    \fautor
 \end{figure}
 Na \autoref{fig:persdcircle} tem-se os diagramas de persistência do círculo de dimensão $0$ e $1$, assim mostrando
 as componentes conexas e buracos. Note que existem dois pontos longe da diagonal, um representando a 
@@ -175,8 +385,8 @@ componente conexa e o outro o buraco do círculo.
     \includegraphics[width=0.7\textwidth]{images/persdcircle.png}
     \caption{Diagrams de persistência do círculo $X$. Em laranja o diagrama de persistência de dimensão $1$,  
             em azul o de dimensão $0$. A filtração de Vietoris-Rips foi usada para calcular o complexo simplicial.}
-    \fautor
     \label{fig:persdcircle}
+    \fautor
 \end{figure}
 Vamos agora análisar as imagens de persistência para cada uma das images. Escolhemos a distribuição gaussiana
 dada por 
@@ -190,8 +400,8 @@ $10\times10$ e $50\times50$. O resultado pode ser visto na \autoref{fig:persimgc
     \centering
     \includegraphics[width=0.9\textwidth]{images/comparacao_pis.png}
     \caption{Seis imagens de persistência do diagrama de dimensão $1$ da \autoref{fig:persdcircle}.} 
-    \fautor
     \label{fig:persimgcircle}
+    \fautor
 \end{figure}
 
 Observe a diferença entre os tamanhos escolhidos para as imagens. Com um tamanho maior, a informação fica mais fina,
