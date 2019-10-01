@@ -14,7 +14,8 @@ Arquivo de sugestões, críticas e correções da dissertação e TODO.
 - [ ] Desenhar figura da prop 3.2 do livro (figura 16) 
 - [ ] Desenhar figura do teorema 3.12 (figura 19)
 - [x] Provar proposição 4.4 pg 72 do livro (seção 3.4)
-- [ ] Provar proposição 5.18 pg 93 do livro (seção 3.5)
+- [x] Provar proposição 5.18 pg 93 do livro (seção 3.5)
+- [ ] Provar teorema da seção 4.1 da dissertação e explicar o algoritmo para encontrar ciclos ótimos
 
 ### Sugestões e correções
 

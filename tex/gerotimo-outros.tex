@@ -209,7 +209,147 @@ pelas restrições do problema de otimização. Portanto, temos o Algoritmo~\ref
 
 \subsection{Geradores ótimos em homologia persistente}
 
+Seja $\emptyset = X_0 \subset X_1 \subset \dots \subset X_N$ uma filtração com a propriedade de que 
+em cada índice, apenas um simplexo é adicionado, ou seja, se $\sigma_j$ é um simplexo, então
+$X_j \backslash X_{j-1} = \sigma_j$, dessa forma cada simplexo causa o nascimento ou morte de uma 
+classe de homologia. Também para cada simplexo em $X_N$, temos um índice $j$ de nascimento único. 
 
+Vamos agora descrever os passos para otimizar os ciclos gerados utilizando o algoritmo de persistência.
+Denote por $A_j$ o bordo do simplexo $\sigma_j$, $A_j = \partial \sigma_j$. O bordo do simplexo é
+representado como um vetor na base de todos os simplexos de $X$, ordenados de acordo com o índice da
+filtração. A i-ésima entrada de $A_j$ é denotada por $A_j(i)$. Para qualquer coluna
+$A_j$, o seu pivot é denotado por $\pivot(A_j)$ representa o maior inteiro $i$ tal que 
+$A_j(i) \neq 0$.
+
+O Algoritmo~\ref{alg:redhir} calcula a persistência da filtração $X$. Note que neste caso específico
+utilizamos coeficientes em $\mathbb{Q}$. 
+
+\begin{algoritmo}[htpb!]
+    \caption{Algoritmo para calcular o diagrama de persistência de uma filtração.}
+    \label{alg:redhir}
+    \begin{algorithmic}[1]
+        \Procedure{compute\_persistence}{X}
+            \State Inicialize $g_j = \sigma_j$ para todo $j=1,\dots,N$.
+            \For{$j=1,\dots,N$}
+                \While{$A_j \neq 0$ e $l(\pivot(A_j)) \neq 0$}
+                    \State $p \leftarrow \pivot(A_j)$
+                    \State $r \leftarrow -\frac{A_j(p)}{A_{l(p)}(p)}$
+                    \State $A_j \leftarrow + r \cdot A_{l(p)}$
+                    \State $g_j \leftarrow + r \cdot g_{l(p)}$
+                \EndWhile
+                \If{$A_j \neq 0$} 
+                    \State $i \leftarrow \pivot(A_j)$
+                    \State $l(i) \leftarrow j$ 
+                    \State Insira o par $(i,j)$ na matriz dgm
+                \EndIf
+            \EndFor
+            \ForAll{$i$ tal que $i\neq b,d$ para todo $(b,d) \in \text{dgm}$}
+                \State Insira $(i, \infty)$ em dgm. 
+            \EndFor
+            \State \Return dgm     
+        \EndProcedure 
+    \end{algorithmic}
+\end{algoritmo}
+
+Para cada $p$, o valor $l(p)$ registra na tabela $l$ o índice da coluna reduzida que possui o pivot na linha $p$.  
+Temos então dois casos, se $A_j$ é reduzida a uma coluna nula, então temos o nascimento de um ciclo $g_j$. 
+Caso contrário, temos a morte de um ciclo que nasceu em $i = \pivot(A_j)$. Além disso, a mudança na base é 
+atualizada e salva nos ciclos $g_j$. No final do algoritmo todo índice $i$ é pareado com algum índice $j$ ou 
+não é. Sendo assim, denote por 
+\begin{equation*}
+    d(i) = \left\{
+    \begin{array}{cl}
+        j      & \text{ se } (i,j) \text{ é o par de } i, \\
+        \infty & \text{ se } i \text{ não é pareado}, 
+    \end{array}
+    \right.
+\end{equation*}
+o índice de morte do ciclo que nasce no tempo $i$. Defina então
+\begin{equation*}
+    \mathcal{L}_q(k) = \Set{i | i \leq k, A_i = 0, \dim\sigma_i = q, d(i) > k}.
+\end{equation*}
+O conjunto de índices acima representa todos os ciclos que nascem antes de $\sigma_k$ e 
+não se tornam parte do borde de $X_k$. Pode-se mostrar que 
+\begin{equation*}
+    \Set{[g_i] | i \in \mathcal{L}_q(k)}
+\end{equation*}
+forma uma base de $H_q(X_k)$. 
+
+Com a dimensão $q$ fixada, o Algoritmo~\ref{alg:optcycles} calcula os ciclos ótimos logo após 
+o seu nascimento. 
+
+\begin{algoritmo}[htpb!]
+    \caption{Algoritmo para calcular o diagrama de persistência de uma filtração e os ciclos ótimos.}
+    \label{alg:optcycles}
+    \begin{algorithmic}[1]
+        \Procedure{persistence\_optimal\_cycles}{X,q}
+            \State Inicialize uma tabela $l$
+            \State $B$, uma matriz vazia
+            \State Inicialize $g_j = \sigma_j$ para todo $j=1,\dots,N$.
+            \For{$j=1,\dots,N$}
+                \If{$\dim\sigma_j = q$}
+                    \State Atualize o problema de otimização com o novo simplexo $\sigma_j$
+                \EndIf
+                \While{$A_j \neq 0$ e $l(\pivot(A_j)) \neq 0$}
+                    \State $p \leftarrow \pivot(A_j)$
+                    \State $r \leftarrow -\frac{A_j(p)}{A_{l(p)}(p)}$
+                    \State $A_j \leftarrow + r \cdot A_{l(p)}$
+                    \State $g_j \leftarrow + r \cdot g_{l(p)}$
+                \EndWhile
+                \If{$A_j=0$ e $\dim\sigma_j=0$}
+                    \State $\tilde{z}_j = \textsc{optimize\_cycle}(g_j)$
+                    \State Atualize o problema de otimização com $\tilde{z}_j$
+                \EndIf
+                \If{$A_j \neq 0$} 
+                    \State $i \leftarrow \pivot(A_j)$
+                    \State $l(i) \leftarrow j$ 
+                    \State Insira o par $(i,j)$ na matriz dgm
+                    \If{$\dim\sigma_j = q + 1$}
+                        \State Adicione $A_j$ a matrix $B$ (como uma coluna de bordo)
+                        \State Remova $\tilde{z}_i$ do problema de otimização
+                    \EndIf
+                \EndIf
+            \EndFor
+            \ForAll{$i$ tal que $i\neq b,d$ para todo $(b,d) \in \text{dgm}$}
+                \State Insira $(i, \infty)$ em dgm. 
+            \EndFor
+            \State \Return dgm     
+        \EndProcedure 
+    \end{algorithmic}
+\end{algoritmo}
+
+\begin{algoritmo}
+    \caption{Procedimento para encontrar o ciclo ótimo.}
+    \label{alg:optimize}
+    \begin{algorithmic}[1]
+        \Procedure{optimize\_cycle}{$z_j = g_j$}
+            \State Encontre uma solução ótima $\tilde{z}_j$ para
+            \begin{equation}\label{eq:optimize}
+                \begin{array}{rl}
+                    \text{minimize } & \norm{x}_1 \\
+                    \text{sujeito a } & 
+                    \left\{x + By + \mathlarger{\sum}_{i \in \mathcal{L}_q(j), i < j} a_i \tilde{z}_i = z_j\right.
+                \end{array}
+            \end{equation}
+            \State \Return $\tilde{z}_j$
+        \EndProcedure
+    \end{algorithmic}
+\end{algoritmo}
+
+No Teorema~\ref{teo:optimize_cycle} mostramos que os ciclos otimizados forma uma base para cada 
+grupo de homologia na filtração de $X$, mantendo a consistência da informação topológica dada
+pelo diagrama de persistência. 
+\begin{teo}\label{teo:optimize_cycle}
+    Seja $q$ um número inteiro não negativo. Sejam então $\tilde{z}_1, \dots, \tilde{z}_m$ os 
+    ciclos ótimos gerados pelo Algoritmo~\ref{alg:optcycles}. Então 
+    $\Set{[\tilde{z}_i] | i \in \mathcal{L}_q(k)}$ forma uma base de $H_q(X)$.
+\end{teo}
+\begin{proof}
+
+\end{proof} 
+
+A implementação deste método foi feita pelos autores do artigo original~\cite{Escolar2015} e
+pode ser encontrada no site: \url{https://bitbucket.org/remere/optiperslp}.
 \section{Vetorização do diagrama de persistência}
 Dado uma sequência de conjuntos de dados $X_i$ e os respectivos diagramas de persistência tem-se uma variação no
 seus tamanhos, devido a natureza do algoritmo de homologia persistente. Além de variação entre os tamanhos, cada 

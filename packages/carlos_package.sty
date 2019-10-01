@@ -15,7 +15,11 @@
 \newtheorem{ex}[teo]{\scshape Exemplo}
 \newtheorem{obs}[teo]{Observação}
 
-\usepackage{listings}
+\RequirePackage{listings}
+
+\RequirePackage[section]{placeins}
+
+\RequirePackage{relsize}
 
 % user defined commands 
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
@@ -40,6 +44,7 @@
 \newcommand{\xneg}{x^-}
 \newcommand{\ypos}{y^+}
 \newcommand{\yneg}{y^-}
+\newcommand{\pivot}{\text{pivot}}
 
 % rotate arrows
 \newcommand{\surjarrow}{\rotatebox[origin=c]{45}{$\rightarrow$}} % rotate by 45 degrees
