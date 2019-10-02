@@ -318,6 +318,10 @@ o seu nascimento.
     \end{algorithmic}
 \end{algoritmo}
 
+Quando um simplexo $\sigma_j$ de dimensão $q$ é encontrado, atualizamos o problema de timização
+com uma nova variável e uma restrição correspondendo ao seu ciclo. No Problema~\eqref{eq:optimize}
+a variável $x$ aumenta em um no seu tamanho e as restrições são completadas com zeros.
+
 \begin{algoritmo}
     \caption{Procedimento para encontrar o ciclo ótimo.}
     \label{alg:optimize}
@@ -336,6 +340,17 @@ o seu nascimento.
     \end{algorithmic}
 \end{algoritmo}
 
+Se a coluna $A_j$ é zerada, isso significa o nascimento de um novo ciclo. Se sua dimensão for
+$q$, então resolvemos o problema de otimização com o ciclo $g_j = z_j$ que acabou de nascer. 
+Uma vez com o ciclo otimizado $\ztilde_j$, o adicionamos no problema de otimização como um
+ciclo relativo. 
+
+Se a coluna $A_j$ não for zerada, isso sinaliza a morte de um ciclo e se $\dim \sigma_j = q + 1$,
+então adicionamos a coluna $A_j$ no problema de otimização como uma coluna no final da matriz de bordo $B$.
+Além disso, se $low(j) = i$, isso significa que o ciclo $\ztilde_i$ de dimensão $q$ faz parte do bordo. 
+Portanto, o ciclo $\ztilde_i$ não é mais necessário no processo de otimização, e assim o removemos
+do problema. 
+
 No Teorema~\ref{teo:optimize_cycle} mostramos que os ciclos otimizados forma uma base para cada 
 grupo de homologia na filtração de $X$, mantendo a consistência da informação topológica dada
 pelo diagrama de persistência. 
@@ -345,7 +360,31 @@ pelo diagrama de persistência.
     $\Set{[\tilde{z}_i] | i \in \mathcal{L}_q(k)}$ forma uma base de $H_q(X)$.
 \end{teo}
 \begin{proof}
+    A classe $[\ztilde_i] \in H_q(X_k)$ satisfaz, 
+    \begin{equation*}
+        [\ztilde_i] = [g_i] + \sum_{h\in \mathcal{L}_q(i), h<i} a_h[\ztilde_h]
+    \end{equation*}
+    pelo Problema~\ref{eq:optimize} e pelo fato de que $B = \text{img}\left.
+    \partial_{q+1}\right|_{X_k}$. De maneira similar para $[\ztilde_h]$, 
+    \begin{equation}\label{eq:ztilde}
+        [\ztilde_i] = [g_i] + \sum_{h<i, A_h = 0, \dim\sigma_h = q} c_h [g_h]. 
+    \end{equation}
+    O subíndice da soma em~\eqref{eq:ztilde} se refere a todos os ciclos que nascem antes
+    de $i$ e possuem dimensão $q$. Agora queremos os índices $h$ tais que $d(h) > k$, de 
+    forma que obtemos a soma
+    \begin{equation}\label{eq:basisopt}
+        [\ztilde_i] = [g_i] + \sum_{h \in \mathcal{L}_q(k), h<i}.
+    \end{equation}  
+    
+    Quando expandimos cada $[\ztilde_h] = [g_h] + \sum_{h' \in \mathcal{L}_q(k)} 
+    a'_{h'}[\ztilde'_{h'}$, não sabemos se para $h'$ e seus ciclos correspondentes
+    $g_{h'}$ vivem até o índice $k$. Para aqueles $h'$ com $d(h') \leq k, [g_{h'}]$,
+    já que eles morrem antes ou quando entram em $H_q(X_k)$. Então, para os índices $h$
+    que satisfazem essa propriedade, $[g_h]$ entra no bordo e podemos remove-los da soma
+    em~\eqref{eq:ztilde}. Logo, obtemos~\eqref{eq:basisopt}. 
 
+    Agora, a transformação induzida por~\eqref{eq:basisopt} é invertível, pois a condição
+    $h < i$ implica que a matriz de tranformação é triangula com $1$'s na diagonal. 
 \end{proof} 
 
 A implementação deste método foi feita pelos autores do artigo original~\cite{Escolar2015} e
