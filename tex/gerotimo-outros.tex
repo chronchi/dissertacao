@@ -481,7 +481,7 @@ $\norm{\phi}_\infty$. E observe ainda devido a invariância pela translação, t
 Vamos enunciar um lema agora que será utilizado nas provas de estabilidade das imagens de superfície e persistência.
 
 \begin{lem}\label{lema:persimg}
-    Sejam $u,v\in \mathbb{R}^2$, temos que $\norm{f(u)\phi_u - f(v)\phi_v} \leq 
+    Sejam $u,v\in \mathbb{R}^2$, então $\norm{f(u)\phi_u - f(v)\phi_v} \leq 
     \left( \norm{f}_\infty \mid \nabla \phi \mid + \norm{\phi}_\infty \mid \nabla f \mid \right) \norm{u-v}_2.$
 \end{lem}
 \begin{demonstracao}
@@ -592,3 +592,132 @@ Todo o código para gerar o círculo com ruído, calcular os diagramas e imagens
 \textit{jupyter\_notebook}.
 
 \section{Mapper}
+
+Mapper é um algoritmo para visualização de dados com alta dimensão em $\mathbb{R}$ ou $\mathbb{R}^2$
+através do uso de grafos e complexos simpliciais~\cite{mapper}. Ele é aplicado em diversas áreas,
+sendo que uma delas é na inferência de formatos~\cite{Lum2013}. Nas próximas subseções iremos apresentar
+a motivação topológica para o desenvolvimento do algoritmo assim como sua versão estatística, usada
+em implementações. 
+
+\subsection{Mapper topológico}
+
+Seja $X$ um espaço topológico, $Z$ um espaço de parâmetros tais que $f \colon X \to Z$ é uma
+função contínua. A função $f$ é chamada de filtro. Considere agora uma cobertura aberta
+de $Z$, $\Set{U_\alpha}_{\alpha \in A}$ para algum conjunto finito de índices $A$. Como
+$f$ é contínua, os conjuntos $f^{-1}(U_\alpha)$ também são abertos, portanto, temos uma
+cobertura finita de $X$ dada por $\Set{f^{-1}(U_\alpha)}_{\alpha  \in A}$. 
+
+Para cada um desses conjuntos abertos, considere suas respectivas componentes
+conexas por caminho. Dessa forma podemos quebrar a cobertura em conjuntos $V(\alpha, i)$, 
+em que $U_\alpha = \cup_i V(\alpha,i)$ e cada conjunto $V$ é aberto. Denote esta nova
+cobertura por $\overline{\mathcal{U}}$.
+
+Dada tal cobertura, podemos associar um complexo simplicial. Para uma cobertura $\mathcal{U}$
+qualquer com um conjunto de índices finitos $A$, defina o nervo $N(\mathcal{U})$ como o 
+complexo simplicial cujo conjunto de índices é $A$ e $\Set{\alpha_0, \dots, \alpha_k} \subset A$ 
+gera um $k$-simplexo em $N(\mathcal{U})$ se, e somente se, $U_{\alpha_0} \cap \dots \cap U_{\alpha_k}$
+é não-vazio. O Exemplo~\ref{ex:topmap} é um caso do mapper topológico.
+
+\begin{ex}\label{ex:topmap}
+    Seja $X$ um círculo únitario no plano e $Z=[-1,1]$. defina a função filtro como
+    a projeção no eixo $y$, $f(x,y) = y$. Seja $\mathcal{U}$ a cobertura $\Set{[-1,-\frac{1}{3}), 
+    (-\frac{1}{2},\frac{1}{2}), (\frac{1}{3}, 1]}$. Observe que $f^{-1}([-1,-\frac{1}{3}))$
+    e $f^{-1}((\frac{1}{3}, 1])$  consistem de uma componente conexa cada, enquanto 
+    $f^{-1}((-\frac{1}{2}, \frac{1}{2}))$ de duas componentes conexas. O complexo simplicial pode
+    ser realizada como mostra a Figura~\ref{fig:topmap}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/topmap.png}
+        \caption{Complexo simplicial associado a $X$, $Z$ e $f$ 
+                 do Exemplo~\ref{ex:topmap}}
+        \label{fig:topmap}
+    \end{figure}
+\end{ex}
+
+\subsection{Mapper Estatístico} 
+
+Vamos descrever agora a versão estatística do Mapper. Seja $X$ uma nuvem de pontos com $N$ pontos
+e suponha que temos uma função $f \colon X \to \mathbb{R}$ cujos valores sabemos para cada ponto
+em $X$. A função $f$ é chamada de filtro como anteriormente. Assuma também que podemos calcular a 
+distância entre pontos de $X$. 
+
+O primeiro passo é achar um intervalo ($I \subset \mathbb{R}$) da função $f$ sobre o conjunto
+$X$ e uma cobertura dos dados sobre $I$. Após a seleção do intervalo $I$, temos mais dois parâmetros 
+para determinar: as regiões menoras que dividirão $I$ e a porcentagem de interseção entre elas. 
+
+Dados o intervalo $I$, cobertura $S$ de $I$ e $p$ a porcentagem de intereseção, tome um
+intervalo $I_j \in S$ e considere os conjuntos $X_j = \Set{x \in X | f(x) \in I_j}$.
+Logo, temos uma cobertura natural de $X \subset \cup X_j$. Esse passo é diferente da 
+versão topológica, já que nós trabalhamos sobre um conjunto finito, temos que agrupar os pontos
+em cada $X_j$, caso contrário dependemos da topologia, onde cada ponto seria uma componente conexa
+e não teriamos nenhuma informação relevante. 
+
+Portanto, devemos selecionar um algoritmo de agrupamento (Clustering), explicando o 
+porque de precisar uma função distâcia entre os pontos. Então, para cada conjunto $X_j$ aplicamos 
+o algoritmo de agrupamento e denotamos os clusters por $X_{ji}$. Observe que temos uma cobertura
+de $X_j$ dessa forma. Na versão topológica, cada componente conexa por caminhos era tratada como
+um vértice em um grafo, enquanto que não versão estatística cada cluster será tratado como
+um vértice. Além disso, desenhamos uma aresta entre dois vértices (clusters) $X_{jk}$ e 
+$X_{lm}$ toda vez que $X_{jk} \cap X_{lm} \neq \emptyset$.
+
+\begin{ex}
+    Este é um exemplo do mapper sendo aplicado em um círculo com ruídos. A função filtro
+    é $f(x) = || x - p ||_2$, em que $p$ é o ponto mais a esquerda, em relação ao eixo $y$
+    dos dados. As cores de cada vértice na Figure~ref{fig:statmap} correspondem à média
+    do valor da função filtro em cada vértice, em que azul representa um valor baixo e 
+    vermelho um valor alto. 
+
+    O intervalo do filtro é $[0,4.2]$. O intervalo foi divido em $5$ partes menores com uma
+    interseção de $20\%$. O algoritmo de agrupamento utilizado foi o \textit{single-linkage
+    clustering}. Este exemplo foi retirado de~\cite{mapper}. 
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/statmap.png}
+        \caption{Exemplo do Mapper sendo aplicado em um círculo com ruído.}
+        \label{fig:statmap}
+    \end{figure}
+\end{ex} 
+
+É possível também extender esta versão do algoritmo para uma com o espaço de parâmetros de dimensão
+mais alta, com o $\mathbb{R}^2$, mais detalhes desta versão podem ser encontrados em~\cite{mapper}.
+
+\subsection{Funções filtro}
+
+A função filtro aplicada no algoritmo Mapper precisada ser escolhida com muito cuidado, pois o
+grafo resultante depende da função escolhida. A seguir mostramos alguns exemplos para funções
+filtro que capturam algumas propriedades dos conjuntos de dados.
+
+\subsubsection{Ecentricidade}
+
+Essa é uma família de função que capturam informações geométricas do conjunto de dados. Estas funções
+identificam pontos longe do centro, sem especificar exatamente que ponto é o centro e onde ele está. 
+
+Seja agora $p$ com $q \leq p < \infty$, então
+
+\begin{equation}
+    E_p(x) = \left( \frac{\sum_{y\in X} d(x,y)^p}{N} \right)^{\frac{1}{p}},
+\end{equation}
+and for $p = \infty$, set $E_\infty(x) = \max_{x' \in X} d(x,x')$. 
+
+\subsubsection{Densidade} 
+
+Seja $\epsilon > 0$. Então, $f_\epsilon$ é a estimativa do kernel gaussiano  
+\begin{equation}
+    f_\epsilon (x) = C_\epsilon \sum_y \exp\left( \frac{-d(x,y)^2}{\epsilon}\right),
+\end{equation}
+em que $x,y \in X$ e $C_\epsilon$ é uma constante tal que $\int f_\epsilon = 1$. A ideia 
+do kernel gaussiano é que ele suaviza o conjunto de dados de forma que o parâmetro $\epsilon$ 
+controla a suavidade. 
+
+Podemos também usar funções que dependem do problema a ser trabalhado. Por exemplo, considere
+um conjunto de proteínas com um score de estabilidade ou energia total associado a elas. Podemos
+definir $f$ em cada proteína como os valores mencionados, pois esses já carregam informações
+biológicas do conjunto. 
+
+\subsection{Implementação} 
+
+Uma variação da implementação do mapper pode ser encontrada em \url{https://github.com/chronchi/MapperMDS.jl}
+desenvolvida pelo estudante. O algoritmo aceita uma matriz de distância como entrada e agrupa os pontos
+utilizando DBScan \cite{Ester96} por padrão, mas aceita o algoritmo de agrupamento single linkage. 
+Se este último for usado, recomenda-se usar o método da silhueta \cite{Rousseeuw1987} para escolher 
+o melhor número de cluster em cada passo de agrupamento. 

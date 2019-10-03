@@ -1,20 +1,3 @@
 .output/
-.output/thesis.aux
-.output/thesis.bbl
-.output/thesis.blg
-.output/thesis.brf
-.output/thesis.glo
-.output/thesis.glsdefs
-.output/thesis.idx
-.output/thesis.ist
-.output/thesis.loa
-.output/thesis.lof
-.output/thesis.log
-.output/thesis.lol
-.output/thesis.loq
-.output/thesis.los
-.output/thesis.lot
-.output/thesis.mw
-.output/thesis.nlo
-.output/thesis.toc
+tex/dump_aplicacoes.tex
 
