@@ -17,6 +17,8 @@ Arquivo de sugestões, críticas e correções da dissertação e TODO.
 - [x] Provar proposição 5.18 pg 93 do livro (seção 3.5)
 - [x] Provar teorema da seção 4.1 da dissertação e explicar o algoritmo para encontrar ciclos ótimos
 - [ ] Desenhar figuras das seções 4.1 e 4.3
+- [ ] Traduzir seção sobre VAE do relatório do bep.(?) Seria a seção 4.4
+
 
 ### Sugestões e correções
 

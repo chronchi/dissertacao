@@ -1,1 +1,336 @@
-\section{Problema do enovelamento de proteínas}
+O problema de enovalemento da proteína é a questão fundamental de como a sua sequência de aminoácidos
+no plano se transforma em uma estrutura átomica tridimensional. Esta questão é essencial, pois
+um melhor entendimento dessa situação pode levar ao desenvolvimento de novos remédios e também
+uma melhora no combate de doenças. No entanto, continua sendo um grande desafio obter
+uma estrutura estável da proteína a partir da sequência de aminoácidos.
+Recentemente, alguns estudos \cite{Rocklin2017} desenvolveram novas proteínas usando o softaware
+\textit{Rosetta}, que modela estruturas macromolecures. Existem alguns problemas no
+desenvolvimento usando tal software, como proteínas modeladas que não são tão
+estáveis sobre o processo de proteólise, que é a quebra da proteína em pedaços
+menores. Pode-se contornar este problema através do uso de outras ferramentas avançadas, como
+as encontradas em aprendizado de máquinas e análise topológica de dados.
+
+Neste capítulo estudamos a estabilidade de proteínas sobre um score proposto
+em \cite{Rocklin2017} utilizando imagens de persistência \cite{Adams2017}, descritas
+no Capítulo \ref{chapter:miscel}, e vários algoritmos de aprendizado de máquinas
+implementados em \cite{scikit-learn}. Mais detalhes são dados na Seção \ref{sec:stabprot}
+
+
+Por outro lado podemos estudar a perfomance de algoritmos para modelagem computacional e
+análise estrutural de proteínas, como \textit{Rosetta} e \textit{Amber}.
+Em \cite{Rubenstein2018}, ambos os softwares sõa comparados em relação a proteína-energia.
+Para uma proteína específica, eles geraram milhares de moléculas similares e calcularem
+a raíz do erro quadrático médio em relação a proteína original.
+Após isso, eles analisaram as móleculas de falso mínimo. Dada uma lista de proteínas
+simuladas, elas são ranqueadas de acordo com suas energias normalizadas. Uma molécula
+simulada é uma falsa mínima se está no top $10$ das moléculas no ranking a seu
+RMSD é maior do que $5$. Eles observaram que o software \textit{Rosetta} gerou mais
+proteínas de falso mínimo do que o \textit{Amber}. Na Seção \ref{sec:predrmsd}
+analisamos a estrutura das proteínas dadas pelo \textit{Rosetta} utilizando ciclos ótimos
+\cite{Escolar2015}, imagens de persistência \cite{Adams2017}, VAE's \cite{kingma2013} e
+diversos algoritmos de machine learning utilizando o sklearn \cite{scikit-learn}. Nós
+tentamos prever e apresentar uma nova função para ajudar o \textit{Rosetta} no seu
+passo de otimização quando simulando novas moléculas.
+
+\section{Estudando a estabilidade - Proteínas I}\label{sec:stabprot}
+
+
+
+\section{Analisando a energia total - Proteínas II}\label{sec:predrmsd}
+
+Em \cite{Rubenstein2018} eles analisam a eficácia do \textit{Rosetta} e \textit{Amber}, dois softwares
+para modelagem de macromoléculas. Dado uma proteína obtida do Protein Data Bank (PDB), por exemplo a proteína
+de ID 1T2I, eles geraram novas moléculas usando amostragem ab-inition com viés e sem viés seguido por
+uma amostragem paralela loophash. Após isso, essas amostras foram sujeitas à minimização no
+backbone (átomos C-$\alpha$) e cadeias laterais (grupo-R) usando o protocolo talaris2014 e o minimzador
+LBFGS. Então com os átomos C-$\alpha$ apenas, o RMSD foi calculado para todos as decoys (moléculas
+geradas pelo software).
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/relatorio/1t2i_tunnel.png}
+    \caption{Panorama de energia para decoys modeladas em relação à proteína 1T2I.}
+    \label{fig:1t2iland}
+\end{figure}
+
+Para cada decoy existe um score de energia associado, que é a função score minimizada pelo \textit{Rosetta}.
+Com esse valor podemos plotar o panorama de energia para cada proteína, como na Figura~\ref{fig:1t2iland}.
+O formato ideal seria o de um túnel, já que RMSD baixo corresponderia a uma energia normalizada baixa idealmente.
+
+O score de energia dado por \textit{Rosetta} é normlizado usando a seguinte fórmula
+\begin{equation}
+    E_{i(norm)} = \frac{E_i - E_{\min}}{E_{95th} - E_{5th}},
+\end{equation}
+em que $E_{95th}$ é o $95$-ésimo percentil e $E_{5th}$ é o quinto percentil.
+
+\subsection{Análise de falso mínimos}
+Dados as moléculas geradas pelo software, podemos ranquear cada decoy de acordo com sua energia normalizada
+e RMSD. Ranqueamos o conjunto de decoys da menor para a maior energia, por exemplo uma molécula com energia
+de 0.3 está acima de outra com energia 0.5 no ranking. Na Tabela~\ref{tab:protrank} temos o top 5 decoys
+das proteínas geradas a partir da 1T2I.
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Rank mostrando as top 5 decoys em relação a 1T2I.}
+    \label{tab:protrank}
+    \begin{tabular}{@{}ccc@{}}
+        \toprule
+        Rank & Normalized Energy & RMSD  \\
+        \midrule
+        1    & 0.000             & 2.233 \\
+        2    & 0.023             & 1.37  \\
+        3    & 0.025             & 2.395 \\
+        4    & 0.057             & 2.004 \\
+        5    & 0.061             & 2.356 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Como mencionado anteriormente, \textit{Rosetta} tenta minimizar uma função score de energia de forma
+que energia baixa corresponde a um valor baixo do RMSD. Dizemos que uma decoy é um falso mínimo
+se está no top 10 moléculas do ranking de acordo com a definição acima e também possui um RMSD maior
+do que $5$.
+
+\subsubsection{VAE e ciclos ótimos}
+
+Para analisar os falsos mínimos, utilizamos homologia persistente \cite{Edelsbrunner2002} para extrair
+informações biológicas, como hidrofobicidade, juntamente com outras ferramentas topológicas \cite{Cang2017}.
+
+Para cada ponto no diagrama de persistência existe um ciclo, um representante para sua respectiva classe
+de homologia, que possui propriedades geométricas dos dados. Apesar disso, os ciclos não possuem o
+verdadeiro tamanho do correspondente buraco $n$-dimensional, com respeito ao número de arestas. Portanto,
+o problema de encontrar o ciclo ótimo em relação ao número de arestas é muito interessante, já que assim
+podemos representar as propriedades topológicas de maneira muito mais fiel \cite{Escolar2015}.
+
+Por um lado ciclos ótimos codificam muita informação, por outro lado é muitas vezes difícil analisa-los
+de forma coesa. Portanto, nós propomos um método similar a \cite{Obayashi2018}. Primeiro vetorizamos
+os diagramas de persistência utilizando imagens de persistência \cite{Adams2017} e após isso treinamos
+um autoencoder variacional básico \cite{kingma2013} para extrair as regiões mais importantes
+do diagrama de persistência. Então realizamos uma análise inversa, em que para
+cada região existem pontos associados no diagrama de persistência e dessa forma seus
+respectivos ciclos. Então, para cada conjunto de ciclos, somamos todos os átomos correspondentes de
+cada ciclo, por xemplo, soma de todos os átomos de carbono de todos os ciclos. Nas próximas subseções
+mostramos os resultados e parâmetros utilizados para gerar os diagramas de persistência, imagens
+de persistência e hiperparâmetros para o treinamento do VAE.
+
+\subsubsection{Resultados}
+
+Selecionamos as proteínas de ID 2QY7 e 1T2I para análise. A primeira contém vários falsos mínimos,
+enquanto o último não possuim nenhum falso mínimo.
+
+Para a proteína 2QY7 calculamos os diagramas de persistêcnai para os top 100 decoys e plotamos a
+som na Figura~\ref{fig:cyc2qy7}.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/relatorio/cyc2qy7.png}
+    \caption{Soma dos átomos de carbono que compõem os ciclos do
+            1º diagrama de persistência das decoys da 2QY7.}
+    \label{fig:cyc2qy7}
+\end{figure}
+
+Para cada decoy foi calculado dois diagramas de persistência, um para a dimensão 1 e outro para a dimensão 2.
+Em cada uma das dimensões usamos duas nuvens de pontos, a primeiro composta apenas pelos átomos C-$\alpha$
+das moléculas e a outra composta apenas pelos átomos de nitrogênio e oxigênio.
+
+Note que quando usamos apenas os átomos de carbono, a maioria dos falsos mínimos ficam agrupados em um intervalo
+pequeno, como pode ser visto na Figura~\ref{fig:cyc2qy7}, e por outro lado com a outra nuvem de pontos os valores
+ficaram espalhados, indicando que para esta proteína é melhor usar os átomos C-$\alpha$ para análise de falsos
+mínimos.
+
+Já para a proteína 1T2I um fenômeno similar acontece, como pode ser visto na Figura~\ref{fig:nocyc}. As top decoys
+ficam em um intervalo menor, enquanto outras moléculas estão espalhadas pelo intervalo.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.99\textwidth]{images/relatorio/NOcyc.png}
+    \caption{Sum of nitrogen (left) and oxygen (right) atoms composing the cycles of the 1st PD from 1T2I decoys.}
+    \label{fig:nocyc}
+\end{figure}
+
+É importante notar que os ciclos da proteína com um panorâma de energia bom (1T2I) foram melhor caracterizados
+pelos átomos de nitrogênio e oxigênio, enquanto que para a outra proteína, os átomos C-$\alpha$ caracterizaram melhor.
+
+\subsubsection{Parâmetros}
+
+Calcumos os primeiro e segundo diagramas de persistência usando a filtração alpha, onde o raio de cada átomo
+era o raio de Van der Waals. Para os ciclos ótimos o software \textit{optiperslp} foi utilizado. As imagens
+de persistência foram criadas utilizando a linguagem python e o pacote persim \cite{scikittda2019} com
+os seguintes parâmetros: tamanho da imagem (pixel) = $(10,10)$, variância $=1$, e a função peso é a padrão
+sugerida em \cite{Adams2017}.
+
+Para o treinamento do VAE, 75 imagens de persistência foram utilizadas para o trienamento e 25 para o test. O
+número de épocas é 300 e taxa de aprendizado igual a $0.0001$. O algoritmo de otimização utilizado foi o Adam.
+
+O número de regiões das imagens de persistência selecionadas foi 5, ou seja, 5 regiões de 100 com
+os maiores valores.
+
+\subsection{Prevendo o RMSD}
+
+Ao invés de usar a estrutura topologica dada pelos diagramas de persistência e os respectivos ciclos ótimos para
+estudar os falsos mínimos, utilizamos as imagens de persistência de várias decoys de diversas proteínas diferentes
+em algorimos de machine learning, como regressão linear, árvores de decisão, redes neurais e regressão linear
+com regularização.
+
+Escolhemos as proteínas 1T2I e 2NQW para testar e um outro conjunto de proteínas para o treinamento (proteínas
+que contêm pelo menos um falso mínimo). O top 10 para ambas as proteínas pode ser visto na Figura~\ref{fig:truermsd}.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/relatorio/true_rmsd.png}
+    \caption{Value of the RMSD for each decoy in the top 10. There are no false minima for the protein 1T2I,
+            meanwhile there are 7 false minima for the protein 2NQW.}
+    \label{fig:truermsd}
+\end{figure}
+
+\subsubsection{Resultados}
+
+Para podermos comparar os resultados dos teste utilizando imagens de persistência, 
+treinamos os mesmos algoritmos no conjunto de propriedades de proteínas dadas pelo \textit{Rosetta} 
+quando desenvolvendo um novo decoy. As propriedades são dadas por
+\begin{center}
+    fa\_dun, fa\_elec, fa\_intra\_rep, hbond\_sc,
+
+    fa\_rep, fa\_sol, hbond\_bb\_sc, hbond\_lr\_bb,
+
+    hbond\_sr\_bb, omega, p\_aa\_pp, pro\_close, rama.
+\end{center}
+Quando treinamos os regressores com essas propriedades, obtemos as seguintes figuras. 
+Na Figura~\ref{fig:res1t2i} são os resultados para a proteínas 1T2I e na Figura~\ref{fig:res2nqw} 
+os resultados para 2NQW.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.7\linewidth]{images/relatorio/res1t2i.png}
+    \caption{Proteína 1T2I. RMSD previsto x RMSD verdadeiro para o top 10 dados os 
+             regressores treinados em outras proteínas.}
+    \label{fig:res1t2i}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.7\linewidth]{images/relatorio/res2nqw.png}
+    \caption{Proteína 2NQW. RMSD previsto x RMSD verdadeiro para o top 10 dados os 
+             regressores treinados em outras proteínas.}
+    \label{fig:res2nqw}
+\end{figure}
+
+Agora pode analisar os modelos usando imagens de persistênia no treinamento. Na Tabela~\ref{run_numb} temos
+os parâmetros utilizados para diversos testes. A coluna \textbf{Pixel} mostra o tamanho das imagens, $n$
+signifca $(n,n)$. \textbf{\# Teste} é uma identificação para os resultados. Para cada teste três diagramas
+de persistência foram calculados, somente os átomos C-$\alpha$, os átomos N e O e por fim todos os átomos
+menos os de hidrogênio.
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Alguns dos testes feitos para obter as imagens de persistência e usa-las para o
+             treinamento.}
+    \label{tab:run_numb}
+    \begin{tabular}{@{}cccc@{}}
+    \toprule
+    \textbf{\# Teste} & \textbf{Pixel} & \textbf{Variância} & \textbf{Dimensão PD} \\
+    \midrule
+    1                   & 10                  & 0.3             & 1                     \\
+    2                   & 10                  & 0.5             & 1                     \\
+    3                   & 10                  & 0.6             & 1                     \\
+    4                   & 10                  & 0.8             & 1                     \\
+    5                   & 10                  & 1.0             & 1                     \\
+    6                   & 10                  & 1.2             & 1                     \\
+    7                   & 3                   & 1.0             & 1                     \\
+    8                   & 5                   & 1.0             & 1                     \\
+    9                   & 50                  & 0.3             & 1                     \\
+    10                  & 50                  & 1.0             & 1                     \\
+    11                  & 100                 & 0.3             & 1                     \\
+    12                  & 100                 & 1.0             & 1                     \\
+    %18                  & 6                   & 0.3             & 1                     \\
+    %19                  & 6                   & 0.5             & 1                     \\
+    %20                  & 6                   & 0.6             & 1                     \\
+    %21                  & 6                   & 0.8             & 1                     \\
+    %22                  & 6                   & 1.0             & 1                     \\
+    %23                  & 6                   & 1.2             & 1                     \\
+    %24                  & 8                   & 0.3             & 1                     \\
+    %25                  & 8                   & 0.5             & 1                     \\
+    %26                  & 8                   & 0.6             & 1                     \\
+    %27                  & 8                   & 0.8             & 1                     \\
+    %28                  & 8                   & 1.0             & 1                     \\
+    %29                  & 8                   & 1.2             & 1                     \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+Treinamos os mesmos regressores como anterioemnte para varias proteínas. Definimos então $4$ métricas diferentes
+para selecionar o melhor regressor com respeito a cada uma. As métricas são:
+\begin{itemize}
+    \item $R^2$ score: medida estatística para medir o quão perto os dados estão da linha de regressão;
+    \item MSE: Erro quadrático médio;
+    \item RMSE: Raíz do erro quadrático médio;
+    \item Acurácia binária: Converte cada RMSD para 0 ou 1 usando a seguinte regra: se o RMSD é maior que
+          $5$ então 0, senão 1.
+\end{itemize}
+
+A Tabela~\ref{tab:bestruns} mostra os melhores experimentos para cada métrica usando imagens de persistência na hora do treinamento.
+\begin{table}[!htbp]
+    \centering
+    \caption{Best parameters for each metric}
+    \label{tab:bestruns}
+    \begin{tabular}{@{}cccccc@{}}
+    \toprule
+    \textbf{Métrica} & \textbf{Regressor} & \textbf{Pixel} & \textbf{Variância} &
+    \textbf{Lista de átomos}\footnote{Atomos utilizados para calcular os diagramas de persistência. "todo" significa
+    que todos os átomos menos os de hidrogênio foram usados para os PD's.}
+     & Score médio
+    \\
+    \midrule
+    $R^2$           & Redes neurais     & 100       & 1.0             & C     &  $-5.780$ \\
+    MSE             & Redes neurais     & 100       & 1.0             & C     &  $8.299$  \\
+    RMSE            & Regressão com regu.   & 10        & 1.2             & todo &  $2.599$  \\
+    Acurácia Binária & GBoost             & 10        & 0.6             & N,O   &  $0.657$  \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+Por outro lado, a Tabela~\ref{tab:rosregr} mostra os melhores regressores treinados 
+nas propriedades dadas pelo \textit{Rosetta}. 
+\begin{table}[!htbp]
+    \centering
+    \caption{Melhores regressores treinados com as propriedades das proteínas}.
+    \label{tab:rosregr}
+    \begin{tabular}{@{}ccc@{}}
+        \toprule
+        \textbf{Métrica} & \textbf{Regressor} & \textbf{Score médio} \\ \midrule
+        $R^2$           & Random Forest II   & -13.706        \\
+        MSE             & Random Forest II   & 10.113         \\
+        RMSE            & Random Forest II   & 2.707          \\
+        Acurácia binária & Regressão com regu. & 0.586          \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+Os regressores treinados com imagens de persistência obtiveram melhores resultados 
+do que os treinados utilizando as propriedades que o \textit{Rosetta} para todas as métricas.
+Podemos ver na Figura~\ref{fig:1t2i_binary} e ~\ref{fig:2nqw_binary} que os modelos baseados em 
+imagens de persistência possuem uma maior acurácia binária. O método baseado em propriedades topológicas
+pode ser estendido. Devido a sua natureza e similaridade com imagens, pode-se utilizar redes neurais 
+convolucionais para o treinamento. 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.99\textwidth]{images/relatorio/1t2i_binary.png}
+    \caption{RMSD previsto x RMSD verdadeiro para o top 10 decoys da proteína 1T2I dados os 
+             regressores com a melhor acurácia binária no conjunto de validação.}
+    \label{fig:1t2i_binary}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.99\textwidth]{images/relatorio/2nqw_binary.png}
+    \caption{RMSD previsto x RMSD verdadeiro para o top 10 decoys da proteína 2NQW dados os 
+             regressores com a melhor acurácia binária no conjunto de validação.}
+    \label{fig:2nqw_binary}
+\end{figure}
+
+Este trabalho mostra que usar imagens de persistência é melhor para as tarefas de predição do RMSD
+para proteínas não vistas anteriormente. Os algortimos treinados podem ser usados como uma função
+para o \textit{Rosetta} utilizar na hora dos passos de minimização no desenvolvimento de novas proteínas.
+
+O Jupyter Notebook \cite{Kluyver2016} está disponível online com a lista completa de proteínas (ID's) utilizadas 
+no treinamento e teste, assim como com o código para a análise de resultados dos modelos. Os arquivos
+podem ser baixados \href{https://drive.google.com/file/d/160DZgRiPwsHNaTzasQxd2VaIXCUkiLZG/view?usp=sharing}{aqui}
+(\url{https://bit.ly/2XUjat2}).
+
