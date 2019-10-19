@@ -567,19 +567,35 @@
 }
 
 % Redefinicao do comando \date do Latex
-\renewcommand{\date}[3]{%
-  \gdef\@day{#1}%
-  \gdef\@month{#2}%
-  \gdef\@year{#3}%
+%\renewcommand{\date}[3]{%
+%  \gdef\@day{#1}%
+%  \gdef\@month{#2}%
+%  \gdef\@year{#3}%
+%}
+%
+%% Define a data
+%\date{\number\day}{\number\month}{\number\year}
+%
+%% Redefinicao do comando de data do ABNTex
+%\renewcommand{\data}[3]{%
+%    \date{#1}{#2}{#3}%
+%}
+
+% Redefinicao do comando \date do Latex
+\renewcommand{\date}[2]{%
+  \gdef\@month{#1}%
+  \gdef\@year{#2}%
 }
 
 % Define a data
-\date{\number\day}{\number\month}{\number\year}
+\date{\number\month}{\number\year}
 
 % Redefinicao do comando de data do ABNTex
-\renewcommand{\data}[3]{%
-    \date{#1}{#2}{#3}%
+\renewcommand{\data}[2]{%
+    \date{#1}{#2}%
 }
+
+
 
 % Nome do Mes
 \providecommand*{\Monthname}{}

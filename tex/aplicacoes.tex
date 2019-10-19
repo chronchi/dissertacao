@@ -1,5 +1,5 @@
 O problema de enovalemento da proteína é a questão fundamental de como a sua sequência de aminoácidos
-no plano se transforma em uma estrutura átomica tridimensional. Esta questão é essencial, pois
+no plano se transforma em uma estrutura atômica tridimensional. Esta questão é essencial, pois
 um melhor entendimento dessa situação pode levar ao desenvolvimento de novos remédios e também
 uma melhora no combate de doenças. No entanto, continua sendo um grande desafio obter
 uma estrutura estável da proteína a partir da sequência de aminoácidos.
@@ -14,7 +14,6 @@ Neste capítulo estudamos a estabilidade de proteínas sobre um score proposto
 em \cite{Rocklin2017} utilizando imagens de persistência \cite{Adams2017}, descritas
 no Capítulo \ref{chapter:miscel}, e vários algoritmos de aprendizado de máquinas
 implementados em \cite{scikit-learn}. Mais detalhes são dados na Seção \ref{sec:stabprot}
-
 
 Por outro lado podemos estudar a perfomance de algoritmos para modelagem computacional e
 análise estrutural de proteínas, como \textit{Rosetta} e \textit{Amber}.
@@ -34,7 +33,322 @@ passo de otimização quando simulando novas moléculas.
 
 \section{Estudando a estabilidade - Proteínas I}\label{sec:stabprot}
 
+O desenvolvimento de novas moléculas através de softwares acelerou o estudo de 
+novas estruturas atômicas e suas propriedades. No entanto, fica cada vez mais díficil
+verificar experimentalmente se uma proteína modelada computacionalmente é estável ou não,
+pois por várias vezes existem milhares ou dezenas de milhares de moléculas, dificultando
+a experimentação no laboratório devido ao grande número e o seu custo relacionado.
 
+Em \cite{Rocklin2017} eles apresentam um novo método de desenvolvimento de proteínas
+com o auxílio de algoritmos de aprendizado de máquinas. Para cada round de desenvolvimento
+de proteínas, eles selecionam apenas algumas para testar a estabilidade no laboratório e 
+estudar o que precisa ser modificado na estrutura da molécula para o próximo round de 
+experimentos computacionais. Nesta seção apresentamos um método que utiliza 
+análise topológica de dados para selecionar as moléculas com resultados similares. Porém, 
+utilizando homologia persistente obtemos outra informações geométricas da proteína, que pode
+auxiliar no desenvolvimento e aprimoramento em cada round de experimentos. Por exemplo, as informações 
+dos buracos e cavidades, que podem ser obtidas com a homologia persistente, nos dizem o quão hidrofóbica 
+ou hidrofílica uma proteína é. \cite{Jamadagni2011} 
+
+\subsection{A estabilidade da proteína}
+Dada uma proteína modelada, podemos medir a sua estabilidade da seguinte maneira. Primeiro,
+deposita-se várias cópias da proteína sobre uma célula de levedura, para várias céulas. Então cada 
+célula é geneticamente fundida à uma tag de expressão que pode ser tabelada com fluorescência. 
+Assim, as células são encubadas com diversas concentrações diferentes de enzimas proteolíticas. 
+A quantidade de enzimas utilizadas para quebrar metade das proteínas depositadas na levedura
+são então gravadas e vão dar o score de estabilidade da proteína. Se um valor baseado 
+nessa soma das concentrações for maior que 1, dizemos que a proteína é estável, caso contrário
+dizemos que ela é instável. Podemos ver na Figura~\ref{fig:yeast_cell} o processo de quebra
+das cópias da proteína. Mais detalhes podem ser vistos em \cite{Rocklin2017}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/placeholder.png}
+    \caption{Processo de quebra de uma cópia da proteína sobre a superfície de uma 
+            célula de levedura.}
+    \label{fig:yeast_cell}
+    \fautor
+\end{figure}
+
+\subsection{Prevendo a estabilidade}
+O conjunto de proteínas utilizado contém 12927 moléculas para o treinamento e 
+3232 proteínas para o teste. No conjunto de treinamento existem 2210 proteínas 
+estáveis (com score maior do que 1) enquanto que no conjunto de treinamento 
+existem 305 moléculas estáveis. 
+
+Cada proteína tem 110 propriedades associadas, ou seja, valores numéricos,
+que vão desde área de superfície não acessível (relacionada à hidrofobicidade
+da proteína) a potenciais coulombianos.  
+
+Os autores de \cite{Rocklin2017} desenvolveram um algoritmo para prever a estabilidade
+da proteína e selecionar as melhores moléculas para testes em laboratório. Eles usaram 
+o algoritmo de árvore de decisões \textit{Random forest} para treinar mais de 12000
+proteínas e prever seu score de estabilidade. Foi treinado um regressor com o erro quadrático
+médio (MSE em inglês) para a minimização. Os resultados são dados em relação à raíz do erro quadrático
+médio (RMSE em inglês), erro porcentual (RMSE dividido pela diferença entre o maior e menor score
+de estabilidade) e podem ser vistos na Tabela~\ref{tab:rockl_result}
+
+\begin{table}[!htpb]
+    \centering
+    \caption{Resultados do algoritmo treinado pelos autores de \cite{Rocklin2017}.}
+    \label{tab:rockl_result}
+    \begin{tabular}{@{}ccc@{}}
+    \toprule
+    Modelo        & RMSE  & Erro Percentual (\%) \\ \midrule
+    Random Forest & 0,419 & 11,381               \\ \bottomrule
+    \end{tabular}
+\end{table} 
+
+A seguir apresentamos dois métodos utilizando homologia persistente para o problema de predição
+do score de estabilidade. O primeiro foi usando as propriedades obtidas utilizando
+homologia persistente e imagens de persistente além das propriedades das proteínas já geradas. 
+Já o segundo foi apenas utilizando as imagens de persistência das proteínas. Nas próximas
+seções descrevemos a metodologia utilizada, parâmetros e resultados.
+
+\subsection{Metodologia}
+Para cada proteína construímos sete subconjuntos, um para cada conjunto em $\mathcal{A} = \Set{\{C\}, \{O\}, \{N\}, 
+\{C, O\}, \{C, N\}, \{O,N\}, \{C,O,N\}}$. Para cada subconjunto calculamos os diagramas de persistência
+de dimensão 1 e 2 utilizando a filtração de Alpha. Os pesos utilizados para a filtração de Alpha foram os raios
+de Van der Waals para cada átomo. 
+
+Para vetorizar os diagramas de persistência utilizamos imagem de persistência com os seguintes parâmetros:
+\begin{itemize}
+    \item Tamanho da imagem: $5 \times 4$;
+    \item Variância: $0,1,\quad 0,3,\quad 0,5,\quad 0,7$. 
+\end{itemize}
+
+Então, concatenamos as imagens de persistência de forma a obter um vetor de tamanho $280$. Para o
+primeiro método concatenamos as 110 propriedades de cada proteína no final do vetor, totalizando 
+o seu tamanho em $390$. Uma vez com os vetores podemos treinar os algoritmos de aprendizado de máquinas
+para prever o score de estabilidade. Abaixo temos a liste de algoritmos utilizados:
+\begin{itemize}
+    \item Regressão linear;
+    \item Regressão linear com regularização; 
+    \item Árvore de decisão;
+    \item GBoost. 
+\end{itemize}
+E por fim após o treinamento obtemos os scores de estabilidade dos conjuntos de teste. 
+A Figura~\ref{fig:proteinpipeline} mostra o pipeline da metodologia utilizada. 
+
+\begin{figure}[!htpb] 
+    \centering
+    \includegraphics[width=0.99\textwidth]{images/proteinpipeline.pdf}
+    \caption{Pipeline da metodologia utilizada para a predição do score de estabilidade.} 
+    \label{fig:proteinpipeline}
+    \fautor 
+\end{figure}
+
+\subsection{Resultados e análises} 
+\subsubsection{Primeiro método}
+O primeiro método consiste em utilizar as propriedades da proteínas e as imagens de 
+persistência para prever o score de estabilidade. Temos 4 tabelas para cada uma das 
+variâncias. 
+
+\begin{table}[htpb!]
+    \centering
+    \caption{Resultados para variância igual a $0,1$.}
+    \label{tab:var01}
+    \begin{tabular}{@{}ccccc@{}}
+    \toprule
+    Modelo                 & MSE    & RMSE   & Erro Percentual (\%) & $R^2$  \\ \midrule
+    GBoost                 & 0,1831 & 0,4278 & 11,61                & 0,5529 \\
+    Regressão Linear       & 0,2025 & 0,4500 & 12,21                & 0,5054 \\
+    Regressão lin. c/ Reg. & 0,2084 & 0,4565 & 12,39                & 0,4910 \\
+    Árvore de decisão I    & 0,1771 & 0,4208 & 11,42                & 0,5674 \\
+    Árvore de decisão II   & 0,1780 & 0,4219 & 11,45                & 0,5653 \\ \bottomrule
+    \end{tabular}
+\end{table}
+\begin{table}[htpb!]
+    \centering
+    \caption{Resultados para variância igual a $0,3$.}
+    \label{tab:var03}
+    \begin{tabular}{@{}ccccc@{}}
+    \toprule
+    Modelo                 & MSE    & RMSE   & Erro Percentual (\%) & $R^2$  \\ \midrule
+    GBoost                 & 0,1832 & 0,4281 & 11,62                & 0.5525 \\
+    Regressão Linear       & 23,6637 & 4,8645 & 132,01                & -56.7950 \\
+    Regressão lin. c/ Reg. & 0,2075 & 0,4555 & 12,36                & 0,4932 \\
+    Árvore de decisão I    & 0,1772 & 0,4209 & 11,42                & 0,5672 \\
+    Árvore de decisão II   & 0,1785 & 0,4225 & 11,46                & 0,5641 \\ \bottomrule
+    \end{tabular}
+\end{table}
+\begin{table}[htpb!]
+    \centering
+    \caption{Resultados para variância igual a $0,5$.}
+    \label{tab:var05}
+    \begin{tabular}{@{}ccccc@{}}
+    \toprule
+    Modelo                 & MSE    & RMSE   & Erro Percentual (\%) & $R^2$  \\ \midrule
+    GBoost                 & 0,1829 & 0,4277 & 11,61 & 0,5533 \\
+    Regressão Linear       & 0,2032 & 0,4508 & 12,23 & 0,5036 \\
+    Regressão lin. c/ Reg. & 0,2068 & 0,4548 & 12,34 & 0,4949 \\
+    Árvore de decisão I    & 0,1781 & 0,4220 & 11,45 & 0,5650 \\
+    Árvore de decisão II   & 0,1783 & 0,4222 & 11,46 & 0,5646 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+\begin{table}[htpb!]
+    \centering
+    \caption{Resultados para variância igual a $0,7$.}
+    \label{tab:var07}
+    \begin{tabular}{@{}ccccc@{}}
+    \toprule
+    Modelo                 & MSE    & RMSE   & Erro Percentual (\%) & $R^2$  \\ \midrule
+    GBoost                 & 0,1828 & 0,4275 & 11,60 & 0,5536 \\
+    Regressão Linear       & 0,2009 & 0,4482 & 12,16 & 0,5093 \\
+    Regressão lin. c/ Reg. & 0,2069 & 0,4549 & 12,34 & 0,4947 \\
+    Árvore de decisão I    & 0,1779 & 0,4218 & 11,45 & 0,5655 \\
+    Árvore de decisão II   & 0,1790 & 0,4230 & 11.48 & 0,5629 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+Esperavamos obter resultados melhores quando combinassemos ambos os conjuntos de dados em um só, mas
+os resultados ficaram bem similares. Acreditamos que o resultado continua similar pois as propriedades
+dadas pelas imagens da persistência possuem uma correlação com propriedades já conhecidas de proteínas, 
+sendo assim a adição de novas propriedades não melhora o algoritmo. 
+
+Os parâmetros para os algoritmos são os seguintes:
+\begin{itemize}
+    \item GBoost: n\_estimators $\in [100,300,500,700]$, min\_samples\_split $\in [2,5,10,15]$;
+    \item Árv. Dec. I: n\_estimators $=689$, max\_features $=0.2$, max\_depth $=86$;
+    \item Árv. Dec. II: n\_estimators $=500$, max\_depth $=100$, max\_features $=0.3$;
+    \item Regressão Lin. c/ Reg: valor de alfa em $[0.005, 5000]$ (de $10$ em $10$) escolhido com 
+     cross validation de 5 folds. 
+\end{itemize}
+
+\subsubsection{Segundo método}
+
+Para o segundo método, utilizamos apenas as imagens de persistência para o treinamento. Obtivemos
+um resultado similar ao dos modelos treinados com as propriedades das proteínas apenas. Os resultados
+podem ser vistos nas tabelas a seguir. Note também como os resultados melhoram quando aumentamos
+a variância utilizadada para as imagens de persistência. 
+
+\begin{table}[htpb!]
+\centering
+\caption{Resultados dos modelos treinados utilizando apenas as imagens de persistência com variância
+$0.1$}
+\label{tab:pionly01}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+Modelo                 & MSE    & RMSE   & Erro Percentual (\%) & $R^2$  \\ \midrule
+Regressão Linear       & 0,2734 & 0,5229 & 14,19                & 0,3322 \\
+GBoost                 & 0,2435 & 0,4935 & 13,39                & 0,4053 \\
+Árvore de Decisão I    & 0,2490 & 0,4990 & 13,54                & 0,3917 \\
+Árvore de Decisão II   & 0,2485 & 0,4985 & 13,53                & 0,3931 \\
+Regressão Lin. c/ Reg. & 0,2723 & 0,5218 & 14,16                & 0,3350 \\
+GBoost Ótimo           & 0,2450 & 0,4950 & 13,43                & 0,4017 \\ \bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[htpb!]
+\centering
+\caption{Resultados dos modelos treinados utilizando apenas as imagens de persistência com variância
+$0.3$}
+\label{tab:pionly03}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+Modelo                 & MSE      & RMSE    & Erro Percentual (\%) & $R^2$      \\ \midrule
+Regressão Linear       & 438,3102 & 20,9359 & 568,14               & -1069,5076 \\
+GBoost                 & 0,2364   & 0,4863  & 13,20                & 0,4225     \\
+Árvore de Decisão I    & 0,2417   & 0,4917  & 13,34                & 0,4096     \\
+Árvore de Decisão II   & 0,2419   & 0,4919  & 13,35                & 0,4091     \\
+Regressão Lin. c/ Reg. & 0,2649   & 0,5146  & 13,97                & 0,3531     \\
+GBoost Ótimo           & 0,2305   & 0,4801  & 13,03                & 0,4371     \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[htpb!]
+\centering
+\caption{Resultados dos modelos treinados utilizando apenas as imagens de persistência com variância
+$0.5$}
+\label{tab:pionly05}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+Modelo                 & MSE    & RMSE   & Erro Percentual (\%) & $R^2$  \\ \midrule
+Regressão Linear       & 0,2639 & 0,5137 & 13,94 & 0,3555 \\
+GBoost                 & 0,2327 & 0,4824 & 13,09 & 0,4316 \\
+Árvore de Decisão I    & 0,2409 & 0,4908 & 13,32 & 0,4117 \\
+Árvore de Decisão II   & 0,2403 & 0,4902 & 13,30 & 0,4130 \\
+Regressão Lin. c/ Reg. & 0,2594 & 0,5093 & 13,82 & 0,3665 \\
+GBoost Ótimo           & 0,2328 & 0,4825 & 13,09 & 0,4314 \\ \bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[htpb!]
+\centering
+\caption{Resultados dos modelos treinados utilizando apenas as imagens de persistência com variância
+$0.7$}
+\label{tab:pionly07}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+Modelo                 & MSE    & RMSE   & Erro Percentual (\%) & $R^2$  \\ \midrule
+Regressão Linear       & 0,2546 & 0,5046 & 13,69 & 0,3781 \\
+GBoost                 & 0,2342 & 0,4839 & 13,13 & 0,4281 \\
+Árvore de Decisão I    & 0,2379 & 0,4877 & 13,24 & 0,4190 \\
+Árvore de Decisão II   & 0,2376 & 0,4874 & 13,23 & 0,4197 \\
+Regressão Lin. c/ Reg. & 0,2535 & 0,5035 & 13,66 & 0,3809 \\
+GBoost Ótimo           & 0,2276 & 0,4770 & 12,95 & 0,4442 \\ \bottomrule
+\end{tabular}
+\end{table}
+Observamos que o melhor resultado é para o GBoost ótimo com variância $0,7$. Como o GBoost
+é um método de árvores de decisão, ele nos dá a importância de cada uma das propriedades
+dos vetores. Vamos fazer uma análise dessas propriedades. 
+
+Primeiro, precisamos selecionar um número significativo de propriedades, já que algumas são
+mais importantes que as outras. Cada propriedade tem um número associado a ela, dado pelo
+algoritmo GBoost. A soma de todas esses valores da 1. Na Figura~\ref{fig:knee_plot} temos 
+o logaritmo do valor da soma acumulada da propriedade com maior valor de importância até a última. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/plt_ankle.pdf}
+    \caption{Logaritmo da soma acumulada em relação à importância das propriedades dado pelo algoritmo
+    GBoost.}
+    \label{fig:knee_plot}
+    \fautor
+\end{figure}
+Note como o plot dobra ao redor do número 50. Isso significa que as 50 primeiras propriedades são
+as mais importantes, já contribuem mais para a soma acumulada. Pela construção das imagens
+de persistência, temos que cada propriedade está relacionada com uma certa região da vetorização
+do diagrama. Portanto, podemos localizar as regiões dos diagramas de persistência que 
+aparecem nas propriedades. Dentre as 50 propriedades mais importantes, temos que a maioria
+vem de pontos dos diagramas de dimensão 1 e correspondem a pontos com nascimentos logo
+no início da filtração e com persistência baixa, como pode ser visto nas Figuras~\ref{fig:count_pd}
+e~\ref{fig:count_pd2}
+\begin{figure}[htpb!]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.1\textwidth]{images/heatmap_1.pdf}
+        \caption{Heatmap das regiões dos diagramas de persistência de dimensão 1 que aparecem
+        nas primeiras 50 propriedades. Eixo x representa nascimento, enquanto que o eixo y 
+        representa a persistência.}
+        \label{fig:count_pd}
+        \fautor
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.1\textwidth]{images/heatmap_2.pdf}
+        \caption{Heatmap das regiões dos diagramas de persistência de dimensão 2 que aparecem
+        nas primeiras 50 propriedades. Eixo x representa nascimento, enquanto que o eixo y 
+        representa a persistência.}
+        \label{fig:count_pd2}
+        \fautor
+    \end{minipage}
+\end{figure}
+ 
+Dentre as propriedades mais importantes podemos analisar também a que conjunto de átomos elas estão 
+associadas quando os diagramas de persistência foram calculados. Observamos na Figura~\ref{fig:plt_dim}
+que os átomos associados aos ciclos que mais aparecem são os encontrados nos diagramas de persistência
+calculados utilizando apenas carbono e nitrogênio. Os autores de~\cite{Cang2018} afirmam que 
+ciclos associados a esses átomos representam propriedades hidrofóbicas e hidrofílicas, 
+características que influenciam diretamente na estabilidade da proteína.  
+
+\begin{figure}[htpb!]
+    \centering
+    \includegraphics[width=0.99\textwidth]{images/plt_dim.pdf}
+    \caption{Número de ciclos associados para as top 50 propriedades e seus respectivos 
+        diagramas de persistência.}
+    \label{fig:plt_dim}
+    \fautor
+\end{figure}
 
 \section{Analisando a energia total - Proteínas II}\label{sec:predrmsd}
 
@@ -51,6 +365,7 @@ geradas pelo software).
     \includegraphics[width=0.7\textwidth]{images/relatorio/1t2i_tunnel.png}
     \caption{Panorama de energia para decoys modeladas em relação à proteína 1T2I.}
     \label{fig:1t2iland}
+    \fautor
 \end{figure}
 
 Para cada decoy existe um score de energia associado, que é a função score minimizada pelo \textit{Rosetta}.
@@ -127,6 +442,7 @@ som na Figura~\ref{fig:cyc2qy7}.
     \caption{Soma dos átomos de carbono que compõem os ciclos do
             1º diagrama de persistência das decoys da 2QY7.}
     \label{fig:cyc2qy7}
+    \fautor
 \end{figure}
 
 Para cada decoy foi calculado dois diagramas de persistência, um para a dimensão 1 e outro para a dimensão 2.
@@ -145,6 +461,7 @@ ficam em um intervalo menor, enquanto outras moléculas estão espalhadas pelo i
     \includegraphics[width=0.99\textwidth]{images/relatorio/NOcyc.png}
     \caption{Sum of nitrogen (left) and oxygen (right) atoms composing the cycles of the 1st PD from 1T2I decoys.}
     \label{fig:nocyc}
+    \fautor
 \end{figure}
 
 É importante notar que os ciclos da proteína com um panorâma de energia bom (1T2I) foram melhor caracterizados
@@ -180,6 +497,7 @@ que contêm pelo menos um falso mínimo). O top 10 para ambas as proteínas pode
     \caption{Value of the RMSD for each decoy in the top 10. There are no false minima for the protein 1T2I,
             meanwhile there are 7 false minima for the protein 2NQW.}
     \label{fig:truermsd}
+    \fautor
 \end{figure}
 
 \subsubsection{Resultados}
@@ -204,6 +522,7 @@ os resultados para 2NQW.
     \caption{Proteína 1T2I. RMSD previsto x RMSD verdadeiro para o top 10 dados os 
              regressores treinados em outras proteínas.}
     \label{fig:res1t2i}
+    \fautor
 \end{figure}
 
 \begin{figure}[!htbp]
@@ -212,6 +531,7 @@ os resultados para 2NQW.
     \caption{Proteína 2NQW. RMSD previsto x RMSD verdadeiro para o top 10 dados os 
              regressores treinados em outras proteínas.}
     \label{fig:res2nqw}
+    \fautor
 \end{figure}
 
 Agora pode analisar os modelos usando imagens de persistênia no treinamento. Na Tabela~\ref{run_numb} temos
@@ -315,6 +635,7 @@ convolucionais para o treinamento.
     \caption{RMSD previsto x RMSD verdadeiro para o top 10 decoys da proteína 1T2I dados os 
              regressores com a melhor acurácia binária no conjunto de validação.}
     \label{fig:1t2i_binary}
+    \fautor
 \end{figure}
 
 \begin{figure}[!htbp]
@@ -323,6 +644,7 @@ convolucionais para o treinamento.
     \caption{RMSD previsto x RMSD verdadeiro para o top 10 decoys da proteína 2NQW dados os 
              regressores com a melhor acurácia binária no conjunto de validação.}
     \label{fig:2nqw_binary}
+    \fautor
 \end{figure}
 
 Este trabalho mostra que usar imagens de persistência é melhor para as tarefas de predição do RMSD

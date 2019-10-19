@@ -1,3 +1,4 @@
 .output/
 tex/dump_aplicacoes.tex
-images/*.kra~
+images/kritas_output/*.kra~
+images/*.png~
