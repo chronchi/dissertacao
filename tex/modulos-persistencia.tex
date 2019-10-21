@@ -769,7 +769,7 @@ prática, iremos construir a função de multiplicidade $m$ e definir a Eq. \eqr
 para $(p^*, q^*) \in \mathcal{D}^\times$. Observe que o mínimo é atingido, já que tomamos $(p^*, q^*) \in \mathcal{D}^\times$
 e $\mu$ é uma medida que assume valores inteiros. Utilizaremos uma definição alternativa, ao invés de minimizar sob 
 todos os retângulos, tomamos o limite de uma sequência de retângulos decrescentes.  
-\begin{lema}\label{teo:lem_med}
+\begin{lem}\label{teo:lem_med}
     Sejam $(\xi_i)$ e $(\eta_i)$ duas sequências não crescentes de números reais positivos
     que tendem a zero quando $i \to \infty$. Então
     \begin{equation*}
@@ -781,7 +781,7 @@ todos os retângulos, tomamos o limite de uma sequência de retângulos decresce
         & m(p^-, q^+) = \lim_{i\to\infty} \mu([p-\xi_i,p] \times [q, q+\eta_i]), \\
         & m(p^-, q^-) = \lim_{i\to\infty} \mu([p-\xi_i,p] \times [q-\eta_i,q]).
     \end{align*}
-\end{lema}
+\end{lem}
 \begin{proof}
     Note primeiro que a sequêncina de retângulos $R_i = [p, p+\xi_i] \times [q, q+\eta_i]$ é 
     cofinal no conjunto de retângulos $R$ contendo $(p^+, q^+)$, ou seja, para todo $R$ deste 
@@ -1189,7 +1189,7 @@ as \ref{item:wpersmod} informações extras do módulo de persistência $\frakw$
 Vamos anunciar o lema da interpolação, que será utilizado na 
 demonstração do teorema da estabilidade dos módulos de persistência.
 
-\begin{lema}{(Lema de interpolação)}\label{teo:lema_interp}
+\begin{lem}{(Lema de interpolação)}\label{teo:lema_interp}
 Suponha que $\mathfrak{U}$ e $\frakv$ são módulos de persistência
 $\delta$-interlaçados. Então existe uma família de módulos de 
 persistência $(\mathfrak{U}_x \mid x \in [0,\delta])$ tais que 
@@ -1198,7 +1198,7 @@ respectivamente e $\mathfrak{U}_x$, $\mathfrak{U}_y$ são
 $\abs{y-x}$-interlaçados para todo $x,y \in [0,\delta]$. Além disso,
 se $\mathfrak{U}$ e $\mathfrak{V}$ são \textit{q-tames}, então 
 $(\mathfrak{U}_x)$ são \textit{q-tames}.
-\end{lema}
+\end{lem}
 
 O Teorema~\ref{teo:lema_interpdois} é uma versão mais forte do 
 Lema~\ref{teo:lema_interp}. 

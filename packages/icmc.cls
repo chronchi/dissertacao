@@ -1038,7 +1038,6 @@
     }
 }
 
-
 %================================================================================
 % Resumo
 %================================================================================
@@ -1590,12 +1589,12 @@
     \ifthenelse{\boolean{opt-fichacatalografica}}{
         % (o * indica que havera a ficha bibliografica)
         \imprimirfolhaderosto*{}
-		\inserefichacatalografica
-		\newpage
+		    \inserefichacatalografica
+		    \newpage
     }{
         \imprimirfolhaderosto{}
     }
-
+    
     \setboolean{carimbo-folha-rosto}{false}
     \IfLangPortuguese{
         \begin{otherlanguage}{english}

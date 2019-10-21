@@ -1,0 +1,76 @@
+A topologia é a área da matemática que estuda formas e geometrias 
+dos objetos através de funções contínuas. Um exemplo clássico 
+é o da rosquinha e a caneca. Esses dois objetos tão distintos na vida
+real se tornam iguais do ponto de vista topológico, já que existem 
+tranformações que os torcem e entortam até o outro,
+mas não cortam e colam. Para um estudo mais sistemático e algébrico,
+a topologia algébrica foi desenvolvida. Com ela associamos
+grupos ou espaços vetoriais a espaços topológicos e assim podemos extrair
+informações como componentes conexas, buracos e cavidades, além
+de outros buracos n-dimensionais. 
+
+O estudo topológico dos objetos matemáticos com a álgebra é estudado 
+desde o início do século XX com Poincaré~\cite{Poincare1895}. Mas 
+apenas recentemente começou a se desenvolver algoritmos, devido ao
+advento dos dados e computadores para cálculos eficientes. 
+Essa nova área, chamada de análise topológica de dados, possui 
+várias ferramentas, como a homologia persistente~\cite{edelsbrunner2010computational}
+e o mapper~\cite{mapper}. 
+
+A homologia persistente estuda os invariantes topológicos de dados 
+através da topologia algébrica. Para cada conjunto de dados,
+podemos construir um complexo simplicial, objeto combinatório da 
+matemática que codifica informações do conjunto geometricamente. Com esse complexo,
+podemos construir uma filtração e então obter informações
+dos buracos n-dimensionais do conjunto de dados através dos
+grupos de homologia, que geralmente são espaços vetoriais, e que por fim
+são codificados no diagrama de persistência. Essa técnica
+pode ser considerada uma ferramenta de redução de dimensão, assim como
+para a extração de propriedades geométricas
+de dados em baixa dimensão, como no plano ou espaço 3D.
+
+Devido a natureza da ferramenta, nesta dissertação mostramos algumas
+aplicações em biologia. O problema de enovelamento de proteína
+pode ser resumido com a seguinte expressão:
+\begin{center}
+    Sequência de aminoacidos $\rightarrow$ Estrutura $\rightarrow$ Função.
+\end{center}
+A questão fundamental é como encontrar uma estrutura estável com uma específica
+função a partir de uma sequência de aminoácidos específica.\cite{Dill2008}
+Vários métodos foram desenvolvidos envolvendo propriedades físicas e estatísticas
+das proteínas para prever a estrutura de uma molécula dada uma sequência de aminoácidos.
+O mais conhecido é o software Rosetta, desenvolvido por um grupo da Universidade 
+de Washington em 1997.\cite{Simons1997}
+
+Este software tem tido muito sucesso na predição de proteínas pequenas, mas não é
+perfeito. Várias vezes ele apresenta proteínas não estáveis, o que em desenvolvimento
+de proteínas em larga escala pode acarretar em custos mais altos quando testes são realizados
+no laboratório. Em \cite{Rocklin2017} apenas algumas proteínas são escolhidas
+para a fase de testes em laboratório após seu modelamento no Rosetta. O método
+de escolha é dado por um algoritmo de machine learning, que prevê a estabilidade
+das moléculas baseado em 110 propriedades por proteína.
+
+Como aplicação nós desenvolvemos um novo método para a escolha
+de proteínas para a fase de testes que não apenas prevê a estabilidade em nível
+do estado da arte, mas também nos dá novas informações. Para cada proteína, temos
+alguns diagramas de persistência. Cada ponto desse diagrama de persistência
+está relacionado com alguma cadeia na classe de homologia que pode ser 
+visualizada na molécula. Temos então essa nova informação geométrica
+que pode auxiliar no design de novas proteínas. 
+
+Uma outra aplicação é o desenvolvimento de uma função de energia para o software 
+Rosetta baseado em outras proteínas. Essa nova função de energia foi treinada
+para prever a distância da molécula simulada em relação a original. Diversas proteínas
+do PDB (Protein Data Bank) foram usadas no treinamento.
+
+A dissertação está dividida nos seguintes capítulos. No Capítulo~\ref{chapter:hp101}
+temos uma introdução computacional de homologia persistente, apresentando as principais
+filtrações e como obter as informações topológicas através do algoritmo de redução. 
+No Capítulo~\ref{chapter:mph} temos a fundamentação teórica de homologia persistente,
+através de ideias inspiradas na teoria de medida e categorias. O Capítulo~\ref{chapter:miscel}
+contém algoritmos decorrentes da homologia persistente para a utilização no aprendizado
+de máquinas e também há uma introdução do mapper. Já no Capítulo~\ref{chapter:aplicacoes}
+apresentamos duas aplicações voltadas ao desenvolvimento de proteínas, mostrando resultados
+novos e similares aos do estado da arte. E o Capítulo~\ref{chapter:conclusao} fecha a dissertação
+com algumas conclusões.  
+
