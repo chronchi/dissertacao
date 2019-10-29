@@ -10,7 +10,7 @@ instalado e assim como outras dependências descritas no [manual](https://github
 Com isso instalado basta executar o seguinte comando no terminal
 ```bash
 mkdir .output # só é necessário rodar esse comando uma única vez. 
-bash bashtex.tex
+bash bashtex.sh
 ```
 e o pdf abrirá automaticamente (caso tenha o evince instalado). 
 
@@ -19,5 +19,5 @@ compiladas juntamente. Draft é o default. Caso queira compilar o modo normal
 execute o comando abaixo.
 
 ```bash
-bash bashtex.tex false
+bash bashtex.sh false
 ```
