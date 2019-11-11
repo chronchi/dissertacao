@@ -31,7 +31,7 @@ Neste capítulo descrevemos de forma ingênua a homologia persistente, começand
 filtrações, passando pelos espaços vetoriais associados
 aos complexos simpliciais e chegando ao algoritmo de homologia persistente.
 Mostraremos também como interpretar os resultados obtidos.
-A \autoref{fig:pipeline_hp} mostra os passos para utilizar esta ferramenta em um conjunto de dados.
+A Figura~\ref{fig:pipeline_hp} mostra os passos para utilizar esta ferramenta em um conjunto de dados.
 
 \begin{figure}[!htpb]
   \centering
@@ -45,7 +45,7 @@ A \autoref{fig:pipeline_hp} mostra os passos para utilizar esta ferramenta em um
 
 \section{Filtrações}
 A filtração de um conjunto de dados é o primeiro passo na nossa sequência apresentada
-na \autoref{fig:pipeline_hp}.
+na Figura~\ref{fig:pipeline_hp}.
 Dado um conjunto de dados precisamos construir um objeto combinatorial de forma
 que possa ser analisado do ponto de vista da topologia assim como computacionalmente.
 A filtração é este objeto que captura as mudanças do conjunto dada uma escala.
@@ -68,7 +68,7 @@ primeiro objeto combinatorial que é a base da filtração.
 
 Note que para $k = 0$, temos um único vértice. Para $k=1$, temos uma reta, já
 para $k=2$ temos um triângulo preenchido. E no caso $k=3$, um tetraedro. Os
-simplexos podem ser vistos na~\autoref{fig:ksimpl}. Além disso, dizemos que a dimensão
+simplexos podem ser vistos na Figura~\ref{fig:ksimpl}. Além disso, dizemos que a dimensão
 do $k$-simplexo é $k$. A envoltória convexa de qualquer subconjunto dos vértices
 de um simplexo $\sigma$ é chamado de face de $\sigma$.
 
@@ -95,7 +95,7 @@ Tendo definido os $k$-simplexos, podemos definir o complexo simplicial.
 Nessa definição utilizamos o símbolo $\subset$ para indicar que uma face.
 Usaremos esse símbolo com essa denotação quando falarmos sobre simplexos e
 faces. A segunda condição é necessária para evitar casos patológicos como
-mostrado na \autoref{fig:simp_path}. Dizemos que a dimensão do complexo
+mostrado na Figura~\ref{fig:simp_path}. Dizemos que a dimensão do complexo
 simplicial $K$ é a maior dimensão dentre os simplexos em $K$. Podemos definir
 agora a filtração de um complexo simplicial.
 \begin{figure}[!htpb]
@@ -113,7 +113,7 @@ agora a filtração de um complexo simplicial.
     K_1 \subset \dots \subset K_{n-1} \subset K_n = K.
   \end{equation*}
 \end{defi}
-Na~\autoref{fig:filtracao_exemplo} temos um exemplo de filtração para um complexo
+Na Figura~\ref{fig:filtracao_exemplo} temos um exemplo de filtração para um complexo
 simplicial.
 
 \begin{figure}[!htpb]
@@ -155,7 +155,7 @@ esses complexos em algum $\mathbb{R}^n$ e assim visualiza-los. Para obtermos
 o complexo simplicial \textit{geométrico}, associamos a cada simplexo abstrato $\sigma$
 um simplexo geométrico. Por exemplo, se adotarmos o complexo simplicial abstrato
 $F$ acima mostrado, teriamos que sua realização geométrica seria um triângulo
-sem preenchimento, como é mostrado na~\autoref{fig:abs_real}.
+sem preenchimento, como é mostrado na Figura~\ref{fig:abs_real}.
 
 \begin{figure}[!htpb]
   \centering
@@ -167,7 +167,7 @@ sem preenchimento, como é mostrado na~\autoref{fig:abs_real}.
 Observe que se o nosso conjunto $X$ for um subconjunto finito de $\mathbb{R}^d$,
 podemos ter simplexos de dimensão maiores do que $d$, ou seja, não podem ser
 realizados (ou visualizados) em $\mathbb{R}^d$ necessariamente. Um exemplo dessa
-situação pode ser visto no complexo simplicial final da \autoref{fig:filtracao_exemplo},
+situação pode ser visto no complexo simplicial final da Figura~\ref{fig:filtracao_exemplo},
 considerando que os pontos vermelhos são a realização geométrica dos pontos de $X$,
 onde $X$ é um subconjunto do $\mathbb{R}^2$.
 
@@ -188,7 +188,7 @@ A definição acima nos diz que quando temos $k$ pontos cujas bolas de raio $r$
 centradas neles se intersectam, adicionamos um $k$ simplexo no complexo simplicial
 abstrato, o que seria apenas o conjunto desses pontos. Geometricamente falando,
 se duas bolas se intersectam, adicionamos uma aresta. Se três bolas se intersectam,
-adicionamos um triângulo preenchido, e assim por diante. Na~\autoref{fig:cech_ex}
+adicionamos um triângulo preenchido, e assim por diante. Na Figura~\ref{fig:cech_ex}
 temos um exemplo do complexo simplicial de \v{C}ech.
 \begin{figure}[!htpb]
   \centering
@@ -214,14 +214,14 @@ entre pontos dois a dois.
     d(x_{i_k}, x_{i_j}) < r \ \forall j,l \in{1,\dots,k}.
   \end{equation*}
 \end{defi}
-A \autoref{fig:viet_ex} é um exemplo do complexo de Vietoris-Rips. Uma das diferenças
+A Figura~\ref{fig:viet_ex} é um exemplo do complexo de Vietoris-Rips. Uma das diferenças
 que a construção dos dois complexos já definidos nos dá é que no caso do complexo
 de \v{C}ech temos triângulos preenchidos, e isso não ocorre para Vietoris-Rips.
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.6\textwidth]{images/ComplexRips.png}
   \caption{Exemplo do complexo de Vietoris-Rips com os mesmos pontos utilizados
-  para a construção na \autoref{fig:cech_ex}.}
+  para a construção na Figura~\ref{fig:cech_ex}.}
   \label{fig:viet_ex}
   \fautor
 \end{figure}
@@ -251,7 +251,7 @@ definimos a célula de Voronoi associada ao ponto $x_i$ sendo o seguinte conjunt
 \begin{equation*}
   V_i = \Set{x\in \mathbb{R}^n | d(x_i, x) \leq d(x_j, x), \ \forall j \in {1,\dots,k}},
 \end{equation*}
-em que $d$ é a distância euclidiana usual. A \autoref{fig:vor_ex} mostra um
+em que $d$ é a distância euclidiana usual. A Figura~\ref{fig:vor_ex} mostra um
 exemplo de diagram de Voronoi para três pontos no $\mathbb{R}^2$. Podemos agora
 definir o complexo simplicial Alpha.
 
@@ -274,7 +274,7 @@ definir o complexo simplicial Alpha.
   onde $R(x_{i_j},r) = B(x_{i_j}, r) \cap V_{i_j}$, para todo $j \in \Set{1,\dots,k}$.
 \end{defi}
 
-Na \autoref{fig:alph_ex} temos o exemplo de um complexo Alpha. É interessante
+Na Figura~\ref{fig:alph_ex} temos o exemplo de um complexo Alpha. É interessante
 notar que o Alpha é um subcomplexo do complexo de \v{C}ech, ou seja,
 para $r > 0$, $A^r(X) \subset C^r(X)$. Além disso esse complexo herda uma propriedade
 importante dos diagramas de Voronoi, a realização geométrica no espaço em que os pontos
@@ -335,7 +335,7 @@ desenhe um ponto. Se $f_{i,i+1}(u)=0$, então desenhe um intervalo que termina
 em $i+1$. Se $f_{i,i+1}=v$, onde $v$ é um elemento da base de $H_p(K_{i+1})$,
 então desenhe uma reta que liga $u$ ao ponto que representa $v$ no próximo passo
 da filtração. Dessa forma vamos anotando os ciclos, que são os elementos da base,
-ao longo da filtração. Na \autoref{fig:ex_ciclos} temos um exemplo para uma filtração.
+ao longo da filtração. Na Figura~\ref{fig:ex_ciclos} temos um exemplo para uma filtração.
 
 Podemos falar também que $u\in H_p(K_i)$ nasceu no tempo $i$ da filtração se
 $u$ não é imagem de nenhum elemento de $H_p(K_{i-1})$ sobre $f_{i-1,i}$.
@@ -347,7 +347,7 @@ associado à essa informação como $[i, +\infty)$.
 Existem duas formas de visualizar esses intervalos, através dos
 \textit{barcodes} ou dos \textit{diagramas de persistência (PD)}. No barcode
 desenhamos uma barra do comprimento do intervalo $[i,j)$. Já no diagrama de
-persistência representamos com um ponto $(i,j)$ no plano. A \autoref{fig:ex_ciclos}
+persistência representamos com um ponto $(i,j)$ no plano. A Figura~\ref{fig:ex_ciclos}
 possui o barcode e o diagrama de persistência para o conjunto de dados associado.
 
 \begin{figure}[!htpb]
@@ -404,7 +404,7 @@ Dado $j \in \Set{1,\dots\,n}$, denotamos por $low(j)$ o maior inteiro
 $i \in \Set{1,\dots\,n} $ tal que $\delta(i,j)=1$. Note que $i < j$, pois segundo
 as regras de construção da matriz de bordo, temos que $\delta(i,j) = 1$ só
 quando $\sigma_i$ é face de codimensão $1$ de $\sigma_j$. Assim temos o
-\autoref{alg:red_bordo} para reduzir a matriz de bordo.
+Algoritmo~\ref{alg:red_bordo} para reduzir a matriz de bordo.
 
 \begin{algorithm}[!htpb]
   \caption{Redução da matriz bordo $\partial$.}
@@ -459,12 +459,12 @@ $a_i$ e $a_j$ são os menores índices tais que $\sigma_i \in K_{a_i}$ e $\sigma
 \in K_{a_j}$, por exemplo, se $\sigma_i$ é adicionado na filtração em $K_l$ e
 $\sigma_j$ é adicionado em $K_q$, então $a_i = l$ e $a_j = q$. Se tivermos um
 simplexo $\sigma_i$ de dimensão $p$ tal que $low(i)$ é indefinido, então
-adicionamos o ponto $(a_i, +\infty)$ à $Dgm_p$. Observe na~\autoref{fig:ex_dgm}
+adicionamos o ponto $(a_i, +\infty)$ à $Dgm_p$. Observe na Figura~\ref{fig:ex_dgm}
 os diagramas de persistência de dimensão $0$ e $1$ da respectiva filtração.
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/ex_dgm.png}
-  \caption{$0-$ e $1-$ Diagramas de Persistência da~\autoref{fig:filtracao_exemplo}.}
+  \caption{$0-$ e $1-$ Diagramas de Persistência da Figura~\ref{fig:filtracao_exemplo}.}
   \label{fig:ex_dgm}
   \fautor
 \end{figure}
@@ -474,7 +474,7 @@ Nesta seção iremos calcular a homologia persistente de uma filtração já dad
 além disso apresentaremos uma implementação para redução da matriz $\partial$
 em Julia.
 
-Considere a filtração da~\autoref{fig:fil_ph}. Observe que temos $4$ vértices
+Considere a filtração da Figura~\ref{fig:fil_ph}. Observe que temos $4$ vértices
 $(\sigma_1,\dots,\sigma_4)$, $5$ arestas $(\sigma_5,\dots,\sigma_9)$
 e $1$ triângulo $(\sigma_{10})$ ao total, temos ao total $10$ simplexos.
 \begin{figure}[bht]
@@ -492,7 +492,7 @@ $[1,+\infty)$ e $[1,3)$.
 
 Quando temos um intervalo infinito, geralmente se representa o acima dos
 índices da filtração no momento em que ele nasceu, como pode ser visto na
-~\autoref{fig:persdiag_ex}. Já para $p=1$, constatamos dois intervalos,
+Figura~\ref{fig:persdiag_ex}. Já para $p=1$, constatamos dois intervalos,
 que representam os dois buracos unidimensionais que surgiram. O primeiro buraco
 é o que aparece no passo $2$ da filtração com a introdução dos simplexos
 $\sigma_3$ e $\sigma_6$ e não morre, ou seja, se mantém até o final da filtração,
@@ -501,19 +501,19 @@ dos simplexos $\sigma_8$ e $\sigma_9$ e morre no passo $4$ com o nascimento
 do triângulo $\sigma_{10}$. Logo, nossos intervalos são $[2, +\infty)$ e $[3,4)$.
 
 Sendo assim, podemos construir os dois diagramas de persistência, que podem
-ser vistos na~\autoref{fig:persdiag_ex}.
+ser vistos na Figura~\ref{fig:persdiag_ex}.
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/persdiag_ex.png}
   \caption{$0-$ e $1-$ diagramas de persistência da filtração mostrada na
-  \autoref{fig:fil_ph}.}
+  Figura~\ref{fig:fil_ph}.}
   \label{fig:persdiag_ex}
   \fautor
 \end{figure}
 
 Agora que calculamos intituitivamente os diagramas de persistência, vamos
 construir a matriz de bordo $\partial$ da filtração mostrada na
-\autoref{fig:fil_ph} e utilizar implementações no \textit{Julia} para verificar
+Figura~\ref{fig:fil_ph} e utilizar implementações no \textit{Julia} para verificar
 os resultados. A matriz de bordo pode ser visualizada abaixo, note que as regras
 para construção da matriz são satisfeitas.
 
@@ -574,11 +574,11 @@ Portanto, temos os seguintes intervalos:
   \item $[a_2,a_5) = [1,1)$, que não seria adicionado ao diagrama,
   \item $[a_4,a_6) = [2,2)$, que não seria adicionado ao diagrama,
   \item $[a_3,a_8) = [1,3)$,
-  \item $[a_9,a_10) = [3,4)$,
+  \item $[a_9,a_{10}) = [3,4)$,
   \item $[a_1,+\infty) = [1,+\infty)$,
   \item $[a_7,+\infty) = [2,+\infty)$,
 \end{itemize}
 Logo, $Dgm_0 = \Set{(1,3), (1,+\infty)} \cup \Delta$ e $Dgm_1 = \Set{(3,4),
 (2,+\infty)} \cup \Delta$, onde $\Delta = \Set{(x,x) | x \in \mathbb{R}^+}$.
 Note que obtemos o mesmo resultado, como esperado! O algoritmo \textit{standard}
-está implementado e pode ser visto no \autoref{an:std_alg}.
+está implementado e pode ser visto no Apêndice~\ref{an:std_alg}.
