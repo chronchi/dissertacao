@@ -12,7 +12,6 @@
 \usepackage{MnSymbol}
 \newtheorem{teo}{\scshape Teorema}
 
-
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
 
@@ -38,35 +37,35 @@
 
 \section{Introdução à homologia persistente}
 
-\begin{frame}{Primeiros Passos}
+\begin{frame}{Dos dados à homologia persistente}
     \begin{figure}
         \centering
         \includegraphics[width=0.9\textwidth]{images/StepsHomPers.png}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Tipos de complexos}
+\begin{frame}{Primeira etapa - o complexo de \v{C}ech}
     \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{../images/ComplexCech.png}
     \end{figure}   
 \end{frame}
 
-\begin{frame}{Tipos de complexos}
+\begin{frame}{Primeira etapa - o complexo de Vietoris-Rips}
     \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{../images/ComplexRips.png}
     \end{figure}   
 \end{frame}
 
-\begin{frame}{Tipos de complexos}
+\begin{frame}{Primeira etapa - o complexo Alpha}
     \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{../images/ComplexAlpha.png}
     \end{figure}   
 \end{frame}
 
-\begin{frame}{Propriedades dos complexos}
+\begin{frame}{Como os complexos se relacionam?}
     Seja $r > 0$ fixado, então
     \begin{itemize}
         \item $C^r(X) \subset V^r(X) \subset C^{2r}(X)$
@@ -74,7 +73,7 @@
     \end{itemize} 
 \end{frame}
 
-\begin{frame}{Filtração}
+\begin{frame}{Dos complexos para a filtração}
     Para um complexo simplicial $K$ fixado, definimos sua filtração como 
     \begin{equation*}
         K_1 \subset K_2 \subset \dots \subset K_n = K,
@@ -82,19 +81,19 @@
     em que $K_i$ é um complexo simplicial, para todo $i \in \{1, \dots, n\}$. 
 \end{frame}
 
-\begin{frame}{Homologia Persistente}
+\begin{frame}{Extraindo informações topológicas da filtração}
     \centering
     {\Large Filtração $\rightarrow$ $(H_m(K_1) \to H_m(K_2) \to \dots \to H_m(K_n))$}
 \end{frame}
 
-\begin{frame}{Diagrama de persistência} 
+\begin{frame}{A representação gráfica da homologia persistente} 
      \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{../images/persdiag_ex.png}
     \end{figure}   
 \end{frame}
 
-\begin{frame}{Exemplo}
+\begin{frame}{Da filtração às propriedades topológicas}
     \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{../images/filt_bar_pd.png}
@@ -103,13 +102,13 @@
 
 \section{Módulos de persistência}
 
-\begin{frame}{Formalização}
+\begin{frame}[standout]
     \centering
     {\Large Como podemos formalizar esse processo e garantir a existência
     do diagrama de persistência?}
 \end{frame} 
 
-\begin{frame}{Definição}
+\begin{frame}{A formalização - O módulo de persistência}
     \begin{itemize}
         \item Seja $T = \mathbb{R}$ um poset e $(V_t)_{t \in T}$ uma sequência de espaços vetoriais
         \item Sejam $v_t^s \colon V_s \to V_t$, $s,t \in T$ tais que 
@@ -119,7 +118,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Módulos Intervalares}
+\begin{frame}{A base dos módulos de persistência - Módulos intervalares}
     Seja $J \subset T$ um intervalo, o módulo intervalar $\mathfrak{I} = \mathbf{k}^J$ 
     é o $\mathbf{T}$-módulo de persistência com os espaços vetoriais 
     \begin{equation*}
@@ -142,12 +141,12 @@ e as aplicações lineares
 
 \end{frame}
 
-\begin{frame}{Diagrama de persistência}
+\begin{frame}[standout]
     \centering
     {\Large Sob quais condições temos que o módulo de persistência é decomponível?} 
 \end{frame}
 
-\begin{frame}{Resposta}
+\begin{frame}{Da prática para a teoria - O teorema de Gabriel}
     \begin{teo}{(Gabriel, Auslander, Ringel-Tachikawa, Webb, Crawley-Boevey)}\label{teo:crawley}
     Seja $\mathfrak{V}$ um módulo de persistência sobre $\mathbf{T} \subset \mathbb{R}$. Então $\mathfrak{V}$
     pode ser decomposto como um soma direta de módulos intervalares sob as seguintes condições:
@@ -168,14 +167,26 @@ e as aplicações lineares
     \end{figure}
 \end{frame}
 
-\begin{frame}{Obtenção dos ciclos ótimos}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.8\textwidth]{images/gerotimo.png}
-    \end{figure}
+\begin{frame}{O algoritmo de ciclos ótimos}
+%\begin{equation*}
+%    \begin{split}
+%    & \textrm{1: \textbf{procedimento} OPTIMIZE\_CYCLE}(z_j = g_j) \\
+%    & \textrm{\hspace{13.5} 2: \hspace{20} Encontre uma solucao otima } \tilde{z_j} \textrm{ para} \\
+%    & \textrm{\hspace{120} minimize } \left \| x \right \|_1 \\
+%    & \textrm{\hspace{120} sujeito a } x +By + \sum_{i \epsilon \mathcal{L}_q(j), i<j} a_i \tilde{
+%    z_i} = z_j\\
+%    & \textrm{\hspace{13.5} 3: \hspace{20} \textbf{retorna }} \tilde{z_j} \\
+%    & \textrm{\hspace{13.5} 4: \textbf{fim procedimento}} 
+%\end{split}
+%\end{equation*}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/eqciclotimo.pdf}
+\end{figure}
+
 \end{frame}
 
-\begin{frame}{Geradores}
+\begin{frame}{Exemplo de geradores ótimos}
     \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{../images/nonoptcyc.png}
@@ -192,14 +203,14 @@ e as aplicações lineares
     \end{figure}  
 \end{frame}
 
-\begin{frame}{Enovelamento}
+\begin{frame}{Dos aminoácidos para as proteínas - O processo}
     \begin{figure}
         \centering
         \includegraphics[width=1.0\textwidth]{images/aminoplusprotein.pdf}
     \end{figure} 
 \end{frame}
 
-\begin{frame}{Proteínas simuladas}
+\begin{frame}{O desenvolvimento de proteínas através de softwares}
     \begin{figure}
         \centering
         \includegraphics[width=1.0\textwidth]{images/computationalprotein.pdf}
@@ -208,14 +219,14 @@ e as aplicações lineares
 
 \section{Experimentos - Rocklin}
 
-\begin{frame}{Estabilidade da proteína} 
+\begin{frame}{O que é a estabilidade da proteína?} 
    \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{../images/yeast_cell.png}
     \end{figure} 
 \end{frame}
 
-\begin{frame}{Prevendo a estabilidade}
+\begin{frame}{Prevendo a estabilidade - uma abordagem computacional}
   \begin{table}
       \begin{tabular}{@{}ccc@{}}
       \toprule
@@ -233,7 +244,7 @@ e as aplicações lineares
     \end{figure}
 \end{frame}
 
-\begin{frame}{Resultados}
+\begin{frame}{Homologia persistente prevê a estabilidade}
     \begin{table}[]
     \begin{tabular}{@{}cccc@{}}
     \toprule
@@ -251,7 +262,7 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
   \end{table}
 \end{frame}
 
-\begin{frame}{Análise}
+\begin{frame}{Ciclos unidimensionais de baixa persistência são importantes}
   \begin{figure}
     \centering
     \begin{minipage}{0.45\textwidth}
@@ -267,7 +278,7 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
   \end{figure}
 \end{frame}
 
-\begin{frame}{Ciclos e átomos}
+\begin{frame}{Átomos de carbono e nitrogênio são os que mais aparecem no top 50}
     \begin{figure}
         \centering
         \includegraphics[width=1.0\textwidth]{images/plt_dim.pdf}
@@ -276,7 +287,7 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
 
 \section{Experimentos - Sagar}
 
-\begin{frame}{Propriedades das proteínas}
+\begin{frame}{As propriedades das proteínas - Software Rosetta}
 
 \begin{block}{Rosetta}
     \begin{itemize}
@@ -295,7 +306,7 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
 \end{frame}
 
 
-\begin{frame}{Ranking de Energia}
+\begin{frame}{O ranking de energia de proteínas simuladas}
     \begin{figure}
         \centering
         \includegraphics[width=0.7\textwidth]{images/1t2i_tunnel.png}
@@ -306,7 +317,7 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
     \end{equation*}
 \end{frame}
 
-\begin{frame}{Ranking de Energia}
+\begin{frame}{Como classificar as proteínas em um ranking}
     \begin{table}[]
     \centering
     \caption{Rank mostrando as top 5 decoys dos experimentos com a proteína 1T2I.}
@@ -325,7 +336,7 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
 \end{table}
 \end{frame}
 
-\begin{frame}{VAE e ciclos ótimos}
+\begin{frame}{Ciclos ótimos e a análise de falsos mínimos}
     \begin{figure}
         \centering
         \begin{minipage}{0.45\textwidth}
@@ -339,15 +350,9 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
         \caption{Soma dos átomos de nitrogênio (esquerda) e oxigênio (direita) que compõe os ciclos do 
         $1^\circ$ diagrama de persistência das decoys da proteína 1T2I.}
     \end{figure}
-    %\begin{figure}
-    %\centering
-    %\includegraphics[width=0.8\textwidth]{../images/relatorio/NOcyc.png}
-    %\caption{Soma dos átomos de nitrogênio (esquerda) e oxigênio (direita) que compõe os ciclos do 
-    %$1^\circ$ diagrama de persistência das decoys da proteína 1T2I.}
-    %\end{figure}
 \end{frame}
 
-\begin{frame}{VAE e ciclos ótimos}
+\begin{frame}{Ciclos ótimos e a análise de falsos mínimos}
     \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/cyc2qy7.png}
@@ -366,7 +371,7 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
 \end{figure}
 \end{frame}
 
-\begin{frame}{Resultados}
+\begin{frame}{Homologia persistente na predição do RMSD}
     \begin{table}[!htbp]
      \centering
      \caption{Melhores parâmetros para cada métrica para os regressores treinados nas imagens de persistência.}
@@ -388,7 +393,7 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
 \end{table}
 \end{frame}
 
-\begin{frame}{Resultados}
+\begin{frame}{As propriedades das proteínas na predição do RMSD}
 \begin{table}[!htbp]
     \centering
     \caption{Melhores regressores treinados com as propriedades das proteínas}.
@@ -404,7 +409,7 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
 \end{table}
 \end{frame}
 
-\begin{frame}{Resultados}
+\begin{frame}{Um comparativo entre homologia persistente e as propriedades de proteínas}
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{images/1t2i_binary.png}
@@ -420,23 +425,20 @@ DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\
 
 \begin{frame}{Conclusão}
     \begin{itemize}
-        \item Análise topológica de dados é uma área flexível e que pode ser aplicada em proteínas;
-        \item Muitas propriedades biológicas das proteínas podem ser detectadas pelos respectivos ciclos
-         do diagrama de persistência.
+        \item Relação entre hidrofobicidade e as propriedades mais importantes do modelo;
+        \item Modelo proposto nos dá informações geométricas da proteína; 
+        \item O modelo pode ser expandido para outras condições da proteína, como outros conjuntos de átomos; 
+        \item É possível alterar a definição de ciclos ótimos para outros tipos de problemas. 
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Agradecimentos}
     \begin{itemize}
-        \pause
         \item Marcio Gameiro
-        \pause
         \item Konstantin Mischaikow
         \item Lun Zhang
-        \pause
         \item Priscila Cavassin
-        \pause
-        \item E a todos os amigos.
+        \item E a todos os amigos
     \end{itemize} 
 \end{frame}
 
