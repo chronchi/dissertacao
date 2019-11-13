@@ -7,7 +7,7 @@
 \bibliographystyle{plainnat}
 \usepackage{caption}
 
-\RequirePackage{algorithm, algpseudocode}  % Pacote para escrever algoritmos em pseudo-codigo
+\usepackage{algorithm, algpseudocode}  % Pacote para escrever algoritmos em pseudo-codigo
 
 \usepackage{MnSymbol}
 \newtheorem{teo}{\scshape Teorema}
@@ -69,7 +69,7 @@
 \begin{frame}{Propriedades dos complexos}
     Seja $r > 0$ fixado, então
     \begin{itemize}
-        \item $C^r(X) \subset V^r(X) \subset^{2r}(X)$
+        \item $C^r(X) \subset V^r(X) \subset C^{2r}(X)$
         \item $A^r(X) \subset C^r(X)$
     \end{itemize} 
 \end{frame}
@@ -111,12 +111,35 @@
 
 \begin{frame}{Definição}
     \begin{itemize}
-        \item Seja $T$ um poset e $(V_t)_{t \in T}$ uma sequência de espaços vetoriais
+        \item Seja $T = \mathbb{R}$ um poset e $(V_t)_{t \in T}$ uma sequência de espaços vetoriais
         \item Sejam $v_t^s \colon V_s \to V_t$, $s,t \in T$ tais que 
                 \begin{equation*}
                     v^t_r \circ v^s_t = v^s_r.
                 \end{equation*}
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Módulos Intervalares}
+    Seja $J \subset T$ um intervalo, o módulo intervalar $\mathfrak{I} = \mathbf{k}^J$ 
+    é o $\mathbf{T}$-módulo de persistência com os espaços vetoriais 
+    \begin{equation*}
+    I_t = \left\{
+    \begin{split}
+        & \mathbf{k} \text{ se } t \in J \\
+        & 0 \text{ caso contrário,}
+    \end{split}
+    \right.
+\end{equation*} 
+e as aplicações lineares
+\begin{equation*}
+    i_t^s = \left\{
+    \begin{split}
+        & id \text{ se } s,t \in J \\
+        & 0 \text{ caso contrário.}
+    \end{split}
+    \right.
+\end{equation*}
+
 \end{frame}
 
 \begin{frame}{Diagrama de persistência}
@@ -138,10 +161,10 @@
 
 \section{Geradores ótimos} 
 
-\begin{frame}{Geradores}
+\begin{frame}{Quando os ciclos são ótimos?}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\textwidth]{../images/nonoptcyc.png}
+        \includegraphics[width=0.6\textwidth]{images/ciclotimo}
     \end{figure}
 \end{frame}
 
@@ -149,6 +172,13 @@
     \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{images/gerotimo.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Geradores}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{../images/nonoptcyc.png}
     \end{figure}
 \end{frame}
 
@@ -212,7 +242,9 @@
     Random Forest I        & 0,4877 & 13,24              \\
     Random Forest II    & 0,4874 & 13,23              \\
     GBoost ótimo     & 0,4770 & 12,95              \\
-    Modelo Rocklin \cite{Rocklin2017} & 0,419 & 11,381 \\ 
+    Modelo Rocklin \footnote{Science  14 Jul 2017:\\
+Vol. 357, Issue 6347, pp. 168-175\\
+DOI: 10.1126/science.aan0693} & 0,419 & 11,381 \\ 
     \bottomrule
     \end{tabular}
     \caption{Variância: $0,7$, Grid: 5x4.}
@@ -238,16 +270,35 @@
 \begin{frame}{Ciclos e átomos}
     \begin{figure}
         \centering
-        \includegraphics[width=0.9\textwidth]{../images/plt_dim.pdf}
+        \includegraphics[width=1.0\textwidth]{images/plt_dim.pdf}
     \end{figure}
 \end{frame}
 
 \section{Experimentos - Sagar}
 
+\begin{frame}{Propriedades das proteínas}
+
+\begin{block}{Rosetta}
+    \begin{itemize}
+        \item gera proteínas
+        \item minimiza função de energia
+    \end{itemize}
+\end{block}
+
+\begin{center}
+    fa\_dun, fa\_elec, fa\_intra\_rep, hbond\_sc,
+
+    fa\_rep, fa\_sol, hbond\_bb\_sc, hbond\_lr\_bb,
+
+    hbond\_sr\_bb, omega, p\_aa\_pp, pro\_close, rama.
+\end{center} 
+\end{frame}
+
+
 \begin{frame}{Ranking de Energia}
     \begin{figure}
         \centering
-        \includegraphics[width=0.7\textwidth]{../images/relatorio/1t2i_tunnel.png}
+        \includegraphics[width=0.7\textwidth]{images/1t2i_tunnel.png}
     \end{figure}
     
     \begin{equation*}
@@ -276,17 +327,30 @@
 
 \begin{frame}{VAE e ciclos ótimos}
     \begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{../images/relatorio/NOcyc.png}
-    \caption{Soma dos átomos de nitrogênio (esquerda) e oxigênio (direita) que compõe os cyclos do 
-    $1^\circ$ diagrama de persistência das decoys da proteína 1T2I.}
+        \centering
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=1.1\textwidth]{images/cyc1t2iN.png} % first figure itself
+        \end{minipage}\hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=1.1\textwidth]{images/cyc1t2iO.png} % second figure itself
+        \end{minipage}
+        \caption{Soma dos átomos de nitrogênio (esquerda) e oxigênio (direita) que compõe os ciclos do 
+        $1^\circ$ diagrama de persistência das decoys da proteína 1T2I.}
     \end{figure}
+    %\begin{figure}
+    %\centering
+    %\includegraphics[width=0.8\textwidth]{../images/relatorio/NOcyc.png}
+    %\caption{Soma dos átomos de nitrogênio (esquerda) e oxigênio (direita) que compõe os ciclos do 
+    %$1^\circ$ diagrama de persistência das decoys da proteína 1T2I.}
+    %\end{figure}
 \end{frame}
 
 \begin{frame}{VAE e ciclos ótimos}
     \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{../images/relatorio/cyc2qy7.png}
+    \includegraphics[width=0.8\textwidth]{images/cyc2qy7.png}
     \caption{Soma dos átomos de carbono que compõem os ciclos do
             $1^\circ$ diagrama de persistência das decoys da 2QY7.}
     \end{figure}
@@ -295,21 +359,11 @@
 \begin{frame}{Prevendo o RMSD}
     \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{../images/relatorio/true_rmsd.png}
+    \includegraphics[width=0.8\textwidth]{images/true_rmsd.png}
     \caption{Valor do RMSD para cada decoy no top 10. Não existem falsos mínimos para a proteína 1T2I, enquanto
     isso existem 7 falsos mínimos para a proteína 2NQW.}
     \label{fig:truermsd}
 \end{figure}
-\end{frame}
-
-\begin{frame}{Propriedades das proteínas}
-\begin{center}
-    fa\_dun, fa\_elec, fa\_intra\_rep, hbond\_sc,
-
-    fa\_rep, fa\_sol, hbond\_bb\_sc, hbond\_lr\_bb,
-
-    hbond\_sr\_bb, omega, p\_aa\_pp, pro\_close, rama.
-\end{center} 
 \end{frame}
 
 \begin{frame}{Resultados}
@@ -353,7 +407,7 @@
 \begin{frame}{Resultados}
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\textwidth]{../images/relatorio/1t2i_binary.png}
+    \includegraphics[width=1.0\textwidth]{images/1t2i_binary.png}
     \caption{RMSD previsto x RMSD verdadeiro para o top 10 decoys da proteína 1T2I dados os
              regressores com a melhor acurácia binária no conjunto de validação. Na 
             esquerda os valores para regressores treinados com PI's, já na esquerda com propriedades
@@ -372,7 +426,19 @@
     \end{itemize}
 \end{frame}
 
-
+\begin{frame}{Agradecimentos}
+    \begin{itemize}
+        \pause
+        \item Marcio Gameiro
+        \pause
+        \item Konstantin Mischaikow
+        \item Lun Zhang
+        \pause
+        \item Priscila Cavassin
+        \pause
+        \item E a todos os amigos.
+    \end{itemize} 
+\end{frame}
 
 \section{Referências}
 

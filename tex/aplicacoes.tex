@@ -421,20 +421,22 @@ Por um lado ciclos ótimos codificam muita informação, por outro lado é muita
 de forma coesa. Portanto, nós propomos um método similar a \cite{Obayashi2018}. Primeiro vetorizamos
 os diagramas de persistência utilizando imagens de persistência \cite{Adams2017} e após isso treinamos
 um autoencoder variacional básico \cite{kingma2013} para extrair as regiões mais importantes
-do diagrama de persistência. Então realizamos uma análise inversa, em que para
-cada região existem pontos associados no diagrama de persistência e dessa forma seus
+da imagem de persistência. Então realizamos uma análise inversa, em que para
+cada região da imagem, existem pontos associados no diagrama de persistência e dessa forma seus
 respectivos ciclos. Então, para cada conjunto de ciclos, somamos todos os átomos correspondentes de
-cada ciclo, por xemplo, soma de todos os átomos de carbono de todos os ciclos. Nas próximas subseções
+cada ciclo, por xemplo, soma de todos os átomos de carbono de todos os ciclos. 
+
+Nas próximas subseções
 mostramos os resultados e parâmetros utilizados para gerar os diagramas de persistência, imagens
 de persistência e hiperparâmetros para o treinamento do VAE.
 
 \subsubsection{Resultados}
 
 Selecionamos as proteínas de ID 2QY7 e 1T2I para análise. A primeira contém vários falsos mínimos,
-enquanto o último não possuim nenhum falso mínimo.
+enquanto a última não possui falso mínimo.
 
-Para a proteína 2QY7 calculamos os diagramas de persistêcnai para os top 100 decoys e plotamos a
-som na Figura~\ref{fig:cyc2qy7}.
+Para a proteína 2QY7 calculamos os diagramas de persistência para os top 100 decoys e plotamos a
+soma na Figura~\ref{fig:cyc2qy7}.
 
 \begin{figure}[!htbp]
     \centering
