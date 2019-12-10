@@ -1,4 +1,4 @@
-O problema de enovalemento da proteína é a questão fundamental de como a sua sequência de aminoácidos
+O problema de enovelamento da proteína é a questão fundamental de como a sua sequência de aminoácidos
 no plano se transforma em uma estrutura atômica tridimensional. Esta questão é essencial, pois
 um melhor entendimento dessa situação pode levar ao desenvolvimento de novos remédios e também
 uma melhora no combate de doenças. No entanto, continua sendo um grande desafio obter
@@ -22,7 +22,7 @@ Para uma proteína específica, eles geraram milhares de moléculas similares e 
 a raíz do erro quadrático médio em relação a proteína original.
 Após isso, eles analisaram as móleculas de falso mínimo. Dada uma lista de proteínas
 simuladas, elas são ranqueadas de acordo com suas energias normalizadas. Uma molécula
-simulada é uma falsa mínima se está no top $10$ das moléculas no ranking a seu
+simulada é uma falsa mínima se está no top $10$ das moléculas no ranking e seu
 RMSD é maior do que $5$. Eles observaram que o software \textit{Rosetta} gerou mais
 proteínas de falso mínimo do que o \textit{Amber}. Na Seção \ref{sec:predrmsd}
 analisamos a estrutura das proteínas dadas pelo \textit{Rosetta} utilizando ciclos ótimos
@@ -108,7 +108,7 @@ seções descrevemos a metodologia utilizada, parâmetros e resultados.
 \subsection{Metodologia}
 Para cada proteína construímos sete subconjuntos, um para cada conjunto em $\mathcal{A} = \Set{\{C\}, \{O\}, \{N\}, 
 \{C, O\}, \{C, N\}, \{O,N\}, \{C,O,N\}}$. Para cada subconjunto calculamos os diagramas de persistência
-de dimensão 1 e 2 utilizando a filtração de Alpha. Os pesos utilizados para a filtração de Alpha foram os raios
+de dimensão 1 e 2 utilizando a filtração Alpha. Os pesos utilizados para a filtração Alpha foram os raios
 de Van der Waals para cada átomo. 
 
 Para vetorizar os diagramas de persistência utilizamos imagem de persistência com os seguintes parâmetros:
@@ -295,7 +295,7 @@ dos vetores. Vamos fazer uma análise dessas propriedades.
 
 Primeiro, precisamos selecionar um número significativo de propriedades, já que algumas são
 mais importantes que as outras. Cada propriedade tem um número associado a ela, dado pelo
-algoritmo GBoost. A soma de todas esses valores da 1. Na Figura~\ref{fig:knee_plot} temos 
+algoritmo GBoost. A soma de todas esses valores é 1. Na Figura~\ref{fig:knee_plot} temos 
 o logaritmo do valor da soma acumulada da propriedade com maior valor de importância até a última. 
 \begin{figure}
     \centering
@@ -362,7 +362,7 @@ geradas pelo software).
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/relatorio/1t2i_tunnel.png}
+    \includegraphics[width=0.7\textwidth]{beamer/images/1t2i_tunnel.png}
     \caption{Panorama de energia para decoys modeladas em relação à proteína 1T2I.}
     \label{fig:1t2iland}
     \fautor
@@ -372,7 +372,7 @@ Para cada decoy existe um score de energia associado, que é a função score mi
 Com esse valor podemos plotar o panorama de energia para cada proteína, como na Figura~\ref{fig:1t2iland}.
 O formato ideal seria o de um túnel, já que RMSD baixo corresponderia a uma energia normalizada baixa idealmente.
 
-O score de energia dado por \textit{Rosetta} é normlizado usando a seguinte fórmula
+O score de energia dado por \textit{Rosetta} é normalizado usando a seguinte fórmula
 \begin{equation}
     E_{i(norm)} = \frac{E_i - E_{\min}}{E_{95th} - E_{5th}},
 \end{equation}
@@ -417,11 +417,11 @@ verdadeiro tamanho do correspondente buraco $n$-dimensional, com respeito ao nú
 o problema de encontrar o ciclo ótimo em relação ao número de arestas é muito interessante, já que assim
 podemos representar as propriedades topológicas de maneira muito mais fiel \cite{Escolar2015}.
 
-Por um lado ciclos ótimos codificam muita informação, por outro lado é muitas vezes difícil analisa-los
+Por um lado, ciclos ótimos codificam muita informação, por outro lado é muitas vezes difícil analisa-los
 de forma coesa. Portanto, nós propomos um método similar a \cite{Obayashi2018}. Primeiro vetorizamos
 os diagramas de persistência utilizando imagens de persistência \cite{Adams2017} e após isso treinamos
 um autoencoder variacional básico \cite{kingma2013} para extrair as regiões mais importantes
-da imagem de persistência. Então realizamos uma análise inversa, em que para
+da imagem de persistência, em relação a esse autoenconder. Então realizamos uma análise inversa, em que para
 cada região da imagem, existem pontos associados no diagrama de persistência e dessa forma seus
 respectivos ciclos. Então, para cada conjunto de ciclos, somamos todos os átomos correspondentes de
 cada ciclo, por xemplo, soma de todos os átomos de carbono de todos os ciclos. 
@@ -440,7 +440,7 @@ soma na Figura~\ref{fig:cyc2qy7}.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/relatorio/cyc2qy7.png}
+    \includegraphics[width=0.7\textwidth]{beamer/images/cyc2qy7.png}
     \caption{Soma dos átomos de carbono que compõem os ciclos do
             $1^\circ$ diagrama de persistência das decoys da 2QY7.}
     \label{fig:cyc2qy7}
@@ -448,7 +448,7 @@ soma na Figura~\ref{fig:cyc2qy7}.
 \end{figure}
 
 Para cada decoy foi calculado dois diagramas de persistência, um para a dimensão 1 e outro para a dimensão 2.
-Em cada uma das dimensões usamos duas nuvens de pontos, a primeiro composta apenas pelos átomos C-$\alpha$
+Em cada uma das dimensões usamos duas nuvens de pontos, a primeira composta apenas pelos átomos C-$\alpha$
 das moléculas e a outra composta apenas pelos átomos de nitrogênio e oxigênio.
 
 Note que quando usamos apenas os átomos de carbono, a maioria dos falsos mínimos ficam agrupados em um intervalo
@@ -460,12 +460,19 @@ Já para a proteína 1T2I um fenômeno similar acontece, como pode ser visto na 
 ficam em um intervalo menor, enquanto outras moléculas estão espalhadas pelo intervalo.
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.99\textwidth]{images/relatorio/NOcyc.png}
-    \caption{Soma dos átomos de nitrogênio (esquerda) e oxigênio (direita) que compõe os cyclos do 
-    $1^\circ$ diagrama de persistência das decoys da proteína 1T2I.}    
-    \label{fig:nocyc}
-    \fautor
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1.1\textwidth]{beamer/images/cyc1t2iN.png} % first figure itself
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1.1\textwidth]{beamer/images/cyc1t2iO.png} % second figure itself
+    \end{minipage}
+    \caption{Soma dos átomos de nitrogênio (esquerda) e oxigênio (direita) que compõe os ciclos do 
+    $1^\circ$ diagrama de persistência das decoys da proteína 1T2I.}
+    \fautor    
 \end{figure}
+
 
 É importante notar que os ciclos da proteína com um panorâma de energia bom (1T2I) foram melhor caracterizados
 pelos átomos de nitrogênio e oxigênio, enquanto que para a outra proteína, os átomos C-$\alpha$ caracterizaram melhor.
@@ -478,7 +485,7 @@ de persistência foram criadas utilizando a linguagem python e o pacote persim \
 os seguintes parâmetros: tamanho da imagem (pixel) = $(10,10)$, variância $=1$, e a função peso é a padrão
 sugerida em \cite{Adams2017}.
 
-Para o treinamento do VAE, 75 imagens de persistência foram utilizadas para o trienamento e 25 para o test. O
+Para o treinamento do VAE, 75 imagens de persistência foram utilizadas para o treinamento e 25 para o teste. O
 número de épocas é 300 e taxa de aprendizado igual a $0.0001$. O algoritmo de otimização utilizado foi o Adam.
 
 O número de regiões das imagens de persistência selecionadas foi 5, ou seja, 5 regiões de 100 com
@@ -486,7 +493,7 @@ os maiores valores.
 
 \subsection{Prevendo o RMSD}
 
-Ao invés de usar a estrutura topologica dada pelos diagramas de persistência e os respectivos ciclos ótimos para
+Ao invés de usar a estrutura topológica dada pelos diagramas de persistência e os respectivos ciclos ótimos para
 estudar os falsos mínimos, utilizamos as imagens de persistência de várias decoys de diversas proteínas diferentes
 em algorimos de machine learning, como regressão linear, árvores de decisão, redes neurais e regressão linear
 com regularização.
@@ -496,7 +503,7 @@ que contêm pelo menos um falso mínimo). O top 10 para ambas as proteínas pode
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/relatorio/true_rmsd.png}
+    \includegraphics[width=0.5\textwidth]{beamer/images/true_rmsd.png}
     \caption{Valor do RMSD para cada decoy no top 10. Não existem falsos mínimos para a proteína 1T2I, enquanto
     isso existem 7 falsos mínimos para a proteína 2NQW.}
     \label{fig:truermsd}
@@ -521,7 +528,7 @@ os resultados para 2NQW.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.7\linewidth]{images/relatorio/res1t2i.png}
+    \includegraphics[width=.7\linewidth]{images/res1t2i.png}
     \caption{Proteína 1T2I. RMSD previsto x RMSD verdadeiro para o top 10 dados os 
              regressores treinados em outras proteínas.}
     \label{fig:res1t2i}
@@ -530,7 +537,7 @@ os resultados para 2NQW.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.7\linewidth]{images/relatorio/res2nqw.png}
+    \includegraphics[width=.7\linewidth]{images/res2nqw.png}
     \caption{Proteína 2NQW. RMSD previsto x RMSD verdadeiro para o top 10 dados os 
              regressores treinados em outras proteínas.}
     \label{fig:res2nqw}
@@ -581,7 +588,7 @@ menos os de hidrogênio.
 \end{tabular}
 \end{table}
 
-Treinamos os mesmos regressores como anterioemnte para varias proteínas. Definimos então $4$ métricas diferentes
+Treinamos os mesmos regressores como anteriormente para várias proteínas. Definimos então $4$ métricas diferentes
 para selecionar o melhor regressor com respeito a cada uma. As métricas são:
 \begin{itemize}
     \item $R^2$ score: medida estatística para medir o quão perto os dados estão da linha de regressão;
@@ -635,7 +642,7 @@ pode ser estendido. Devido a sua natureza e similaridade com imagens, pode-se ut
 convolucionais para o treinamento. 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.99\textwidth]{images/relatorio/1t2i_binary.png}
+    \includegraphics[width=0.99\textwidth]{beamer/images/1t2i_binary.png}
     \caption{RMSD previsto x RMSD verdadeiro para o top 10 decoys da proteína 1T2I dados os 
              regressores com a melhor acurácia binária no conjunto de validação.}
     \label{fig:1t2i_binary}
@@ -644,7 +651,7 @@ convolucionais para o treinamento.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.99\textwidth]{images/relatorio/2nqw_binary.png}
+    \includegraphics[width=0.99\textwidth]{beamer/images/2nqw_binary.png}
     \caption{RMSD previsto x RMSD verdadeiro para o top 10 decoys da proteína 2NQW dados os 
              regressores com a melhor acurácia binária no conjunto de validação.}
     \label{fig:2nqw_binary}

@@ -127,7 +127,7 @@ simplicial.
 
 \subsection{Complexo de \v{C}ech}
 Para construir complexos simpliciais a partir dos dados, precisamos abstrair
-a noção de um simplexo simplicial. Na definição dada anteriormente, temos uma
+a noção de um complexo simplicial. Na definição dada anteriormente, temos uma
 representação geométrica do que é um simplexo, mas podemos abstrair tal noção
 dando origem aos \textit{complexos simpliciais abstratos}. As definições para
 os complexos definidos nesta seção e nas próximas foram retiradas de~\cite{edelsbrunner2010computational}.
@@ -136,7 +136,7 @@ os complexos definidos nesta seção e nas próximas foram retiradas de~\cite{ed
   subconjuntos não-vazios de $X$. Dizemos que $F$ é um complexo simplicial abstrato de
   $X$ se a seguinte condição é satisfeita.
   \begin{itemize}
-    \item Se para todo $\sigma \in F$, temos que para todo subconjunto
+    \item Se para todo $\sigma \in F$, temos que todo subconjunto
           $\sigma' \subset \sigma$ está em $F$ também.
   \end{itemize}
   Cada elemento $\sigma \in F$ é chamado de simplexo. Denotamos um $k$-simplexo $\sigma$ por $\langle x_{i_0}, \dots, x_{i_k} \rangle$, onde $x_{i_j}$ são elementos de $X$.
@@ -144,7 +144,7 @@ os complexos definidos nesta seção e nas próximas foram retiradas de~\cite{ed
 
 \begin{ex}
   Seja $X=\Set{a,b,c}$ e considere $F=\Set{\lp a \rp, \lp b \rp, \lp c \rp,
-  \lp a,b \rp, \lp a,c \rp, \lp b,c \rp}$. Precisamos mostrar que F é um complexo
+  \lp a,b \rp, \lp a,c \rp, \lp b,c \rp}$. Precisamos mostrar que $F$ é um complexo
   simplicial abstrato. Seja $\sigma=\Set{a,c}$. Note que seus subconjuntos são
   $\Set{a}$ e $\Set{c}$, além disso ambos pertencem a $F$. De forma análoga, mostramos
   que para qualquer outro simplexo, suas faces (subconjuntos) estão em $F$.
@@ -154,7 +154,7 @@ apesar de trabalharmos com conjuntos de elementos quaiser, podemos incluir
 esses complexos em algum $\mathbb{R}^n$ e assim visualiza-los. Para obtermos
 o complexo simplicial \textit{geométrico}, associamos a cada simplexo abstrato $\sigma$
 um simplexo geométrico. Por exemplo, se adotarmos o complexo simplicial abstrato
-$F$ acima mostrado, teriamos que sua realização geométrica seria um triângulo
+$F$ acima mostrado, teríamos que sua realização geométrica seria um triângulo
 sem preenchimento, como é mostrado na Figura~\ref{fig:abs_real}.
 
 \begin{figure}[!htpb]
@@ -177,7 +177,7 @@ Uma vez tendo definido os complexos simpliciais abstratos, podemos definir o
 
 \begin{defi}
   Seja $X$ um conjunto de pontos $\Set{x_1, \dots, x_n}$ em $\mathbb{R}^d$. O complexo
-  de \v{C}ech de X para um valor real $r>0$ é o conjunto $C^r(X)$, onde
+  de \v{C}ech de $X$ para um valor real $r>0$ é o conjunto $C^r(X)$, onde
   $\sigma = \langle x_{i_1}, \dots, x_{i_k} \rangle \in C^r(X)$ se, e somente se vale a seguinte
   condição
   \begin{equation*}
@@ -207,7 +207,7 @@ porém computacionalmente é um método mais barato, já que analisa apenas dist
 entre pontos dois a dois.
 \begin{defi}
   Seja $X$ um conjunto de pontos $\Set{x_1, \dots, x_n}$ em $\mathbb{R}^d$. O complexo
-  de Vietoris-Rips de X para um valor real $r>0$ é o conjunto $V^r(X)$, onde o simplexo
+  de Vietoris-Rips de $X$ para um valor real $r>0$ é o conjunto $V^r(X)$, onde o simplexo
   $\sigma = \langle x_{i_1}, \dots, x_{i_k} \rangle \in V^r(X)$ se, e somente se vale a seguinte
   condição
   \begin{equation*}
@@ -216,7 +216,7 @@ entre pontos dois a dois.
 \end{defi}
 A Figura~\ref{fig:viet_ex} é um exemplo do complexo de Vietoris-Rips. Uma das diferenças
 que a construção dos dois complexos já definidos nos dá é que no caso do complexo
-de \v{C}ech temos triângulos preenchidos, e isso não ocorre para Vietoris-Rips.
+de \v{C}ech não temos triângulos preenchidos, e isso ocorre para Vietoris-Rips.
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.6\textwidth]{images/ComplexRips.png}
@@ -265,7 +265,7 @@ definir o complexo simplicial Alpha.
 
 \begin{defi}
   Seja $X$ um conjunto de pontos $\Set{x_1, \dots, x_n}$ em $\mathbb{R}^d$. O complexo
-  Alpha de X para um valor real $r>0$ é o conjunto $A^r(X)$, onde o simplexo
+  Alpha de $X$ para um valor real $r>0$ é o conjunto $A^r(X)$, onde o simplexo
   $\sigma = \langle x_{i_1}, \dots, x_{i_k} \rangle \in A^r(X)$ se, e somente se vale a seguinte
   condição
   \begin{equation*}
@@ -295,7 +295,7 @@ a complexidade dos cálculos e aumenta a velocidade para obtenção do complexo.
 Uma variação muito importante do complexo Alpha é a versão com peso. Ao invés
 de considerar um raio fixo para cada bola ao redor de um ponto, podemos dar
 um \textit{peso} para cada ponto. Seja $X=\Set{x_1, \dots, x_n}$ o nosso
-conjunto de pontos finitos e $\Set{w_1, \dots, w_n}$ conjunto de valores
+conjunto de pontos finito e $\Set{w_1, \dots, w_n}$ conjunto de valores
 maiores ou iguais a zero, que serão os pesos associados a cada ponto. Para
 cada $x_i$, ao invés de associar a bola usual do complexo Alpha, associamos
 a seguinte bola.
@@ -322,7 +322,7 @@ $p$ fixo, a $p$-ésima homologia persistente de $K$ é o par
 em que para todo $i,j \in \Set{1,\dots,m}$, $f_{i,j}$ são aplicações lineares
 entre os espaços vetoriais $H_p(K_i)$ e $H_p(K_j)$. Mais especificamente,
 os espaços vetoriais $H_p(K_i)$ são grupos de homologia com coeficientes
-em um espaço vetorial. No nosso caso usamos o espaço vetorial $\mathbb{Z}_2$.
+em um corpo. No nosso caso usamos o $\mathbb{Z}_2$.
 Consulte \cite{edelsbrunner2010computational} para uma introdução à teoria de homologia nesse contexto.
 
 A homologia persistente dá informações topológicas sobre a filtração do complexo simplicial.
@@ -331,7 +331,8 @@ podendo ser buracos. Ciclos são os nomes dados aos representantes dos elementos
 do espaço vetorial em questão. No caso $p=0$, temos que cada elemento da base corresponde
 à uma componente conexa, $p=1$ cada elemento corresponde a um buraco.
 Portanto, considere os elementos da base de $H_p(K_i)$. Para cada um deles,
-desenhe um ponto. Se $f_{i,i+1}(u)=0$, então desenhe um intervalo que termina
+desenhe um ponto em um papel. Para $u$ elemento da base de $H_p(K_i)$, se $f_{i,i+1}(u)=0$, 
+então desenhe um intervalo que começa no ponto anterior e termina
 em $i+1$. Se $f_{i,i+1}=v$, onde $v$ é um elemento da base de $H_p(K_{i+1})$,
 então desenhe uma reta que liga $u$ ao ponto que representa $v$ no próximo passo
 da filtração. Dessa forma vamos anotando os ciclos, que são os elementos da base,
@@ -414,7 +415,7 @@ Algoritmo~\ref{alg:red_bordo} para reduzir a matriz de bordo.
     $\partial$ correspondente.
     \For{$j \in \Set{1,\dots,n}$}
       \While{existe $i$ tal que $low(i) = low(j)$}
-        \State Some a coluna $i$ a coluna $j$.
+        \State Some a coluna $i$ à coluna $j$.
       \EndWhile
     \EndFor
   \end{algorithmic}
@@ -460,7 +461,7 @@ $a_i$ e $a_j$ são os menores índices tais que $\sigma_i \in K_{a_i}$ e $\sigma
 $\sigma_j$ é adicionado em $K_q$, então $a_i = l$ e $a_j = q$. Se tivermos um
 simplexo $\sigma_i$ de dimensão $p$ tal que $low(i)$ é indefinido, então
 adicionamos o ponto $(a_i, +\infty)$ à $Dgm_p$. Observe na Figura~\ref{fig:ex_dgm}
-os diagramas de persistência de dimensão $0$ e $1$ da respectiva filtração.
+os diagramas de persistência de dimensão $0$ e $1$ da filtração da Figura~\ref{fig:filtracao_exemplo}.
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/ex_dgm.png}
@@ -476,7 +477,7 @@ em Julia.
 
 Considere a filtração da Figura~\ref{fig:fil_ph}. Observe que temos $4$ vértices
 $(\sigma_1,\dots,\sigma_4)$, $5$ arestas $(\sigma_5,\dots,\sigma_9)$
-e $1$ triângulo $(\sigma_{10})$ ao total, temos ao total $10$ simplexos.
+e $1$ triângulo $(\sigma_{10})$ ao total, temos $10$ simplexos.
 \begin{figure}[bht]
   \centering
   \includegraphics[width=0.7\textwidth]{images/fil_ph.png}
@@ -511,7 +512,7 @@ ser vistos na Figura~\ref{fig:persdiag_ex}.
   \fautor
 \end{figure}
 
-Agora que calculamos intituitivamente os diagramas de persistência, vamos
+Agora que calculamos intuitivamente os diagramas de persistência, vamos
 construir a matriz de bordo $\partial$ da filtração mostrada na
 Figura~\ref{fig:fil_ph} e utilizar implementações no \textit{Julia} para verificar
 os resultados. A matriz de bordo pode ser visualizada abaixo, note que as regras

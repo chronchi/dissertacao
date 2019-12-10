@@ -10,14 +10,15 @@ persistência. Na segunda seção descrevemos a medida retangular, usada para ab
 de diagrama de persistência e poder estudar o quão \textit{tame} ele o é. Apresentamos na terceira seção
 alguns exemplos do comportamento dos módulos de persistência e exemplos. A quarta seção é fundamental,
 pois mostramos como comparar dois módulos de persistência, através do \textit{interleaving}. E finalmente,
-apresentamos o teoria de isometria e mostramos uma das implicações com a teoria desenvolvido neste capítulo. 
+apresentamos a teoria de isometria e mostramos uma das implicações com a teoria desenvolvida neste capítulo. 
 
 \section{Módulos de persistência e decomposições}
 Nesta seção iremos definir os módulos de persistência, apresentar teoremas de decomposição dos módulos 
 e introduzir a notação de quiver, que será utilizada para as próximas seções e demonstrações de 
 outros resultados. 
 
-Fixaremos aqui o corpo $\mathbf{k}$ para todos os espaços vetoriais apresentados neste texto. 
+Fixaremos aqui a notação $\mathbf{k}$ como corpo para todos os espaços vetoriais apresentados neste texto, 
+sem especificar necessariamente qual é o corpo. 
 
 \begin{defi}
     Um módulo de persistência $\mathfrak{V}$ sobre os números reais $\mathbb{R}$ é uma família indexada 
@@ -62,8 +63,8 @@ podemos definir o seguinte módulo de persistência $\mathfrak{V}$
 Podemos também escrever $\mathfrak{V} = H(\mathfrak{X}_{sub})$. 
 
 Um exemplo na análise topológica de dados é quando $X$ é um complexo simmplicial finito e $X^t$ é um 
-subcomplexo. Devido as propriedades dos complexos, existem finitos valores críticos onde há mudanças 
-em $X$. Suponha que os valores sejam $a_1 < \dots < a_n$. Entao toda a informação do módulo de 
+subcomplexo. Devido às propriedades dos complexos, existem finitos valores críticos onde há mudanças 
+em $X$. Suponha que os valores sejam $a_1 < \dots < a_n$. Então toda a informação do módulo de 
 persistência é dada pela seguinte sequência de espaços vetoriais de dimensão finita
 
 \begin{equation*}
@@ -71,7 +72,7 @@ persistência é dada pela seguinte sequência de espaços vetoriais de dimensã
 \end{equation*}
 
 Neste caso, $H(\mathfrak{X}_{sub})$ admite uma descrição compacta, existe um algoritmo eficiente para 
-o seu calculo e por último, a descrição é contínua com relação a $f$, ou seja, é estável sob uma 
+o seu cálculo e por último, a descrição é contínua com relação a $f$, ou seja, é estável sob uma 
 métrica. 
 
 A descrição mencionada acima é o diagrama de persistência ou barcode. A estrutura é dada por uma 
@@ -91,14 +92,14 @@ na Figura~\ref{fig:quad_finito}.
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/quad_finito.png}
-    \caption{Exemplo de um diagram de persistência de um módulo de 
+    \caption{Exemplo de um diagrama de persistência de um módulo de 
             persistência \textit{q-tame} com um quadrante em destaque.}
     \label{fig:quad_finito}
     \fautor
 \end{figure}
 
 \subsection{Indíces e posets} 
-No início desta seção definimos o módulo de persistência com o conjunto de indíces sendo os reais. No 
+No início desta seção definimos o módulo de persistência com o conjunto de índices sendo os reais. No 
 entanto, é possível definir utilizando quaisquer conjuntos parcialmente ordenados da mesma forma que 
 com os reais. Seja $\mathbf{T}$ um poset, a coleção de espaços vetoriais e aplicações lineares que 
 satisfazem as leis de composição e identidade é chamada de $\mathbf{T}$-módulo de persistência, ou 
@@ -176,20 +177,20 @@ do seguinte intervalo
 \begin{equation*}
     (-\infty^+, +\infty^-) = (-\infty, +\infty).
 \end{equation*}
-Quando queremos referenciar um ponto decorados mas não sabemos sua decoração, denotamos por $p^*$, podendo ser 
+Quando queremos referenciar um ponto decorado mas não sabemos sua decoração, denotamos por $p^*$, podendo ser 
 $p^-$ ou $p^+$. 
 
-Podemos extender os reais para os reais decorados, um conjunto totalmente ordenado com as seguintes relações
+Podemos estender os reais para os reais decorados, um conjunto totalmente ordenado com as seguintes relações
 \begin{equation*}
     p^- < p < p^+ < q^- < q < q^+,
 \end{equation*}
 para todo $p < q$. Definimos o semiplano diagonal superior em $\mathbb{R}^2$ como 
 \begin{equation*}
-    \mathcal{H} = \Set{(p,q) | p \leq q}
+    \mathcal{H} = \Set{(p,q) | p \leq q}.
 \end{equation*}
 O semiplano diagonal superior $\bar{\mathcal{H}}$ é a união de $\mathcal{H}$ com os pontos no infinito. 
 
-Portanto, um módulo intervalar pode ser representado de diversas formas, visualizados também na \autoref{fig:mod_int}
+Portanto, um módulo intervalar pode ser representado de diversas formas, visualizados também na Figura~\ref{fig:mod_int}.
 \begin{itemize}
     \item Como um intervalo na reta real;
     \item como uma função $\mathcal{H} \to \Set{0,1}$ definida por $(s,t) \mapsto \text{rank}(i^s_t)$; 
@@ -221,10 +222,10 @@ Os traços representando a decoração são dados por
     A \textbf{soma direta} $\mathfrak{W} = \mathfrak{U} \oplus \mathfrak{V}$ de dois módulos
     de persistência $\mathfrak{U}$ e $\mathfrak{V}$ é definida por
     \begin{equation*}
-        W_t = U_t \oplus V_t, \quad w^s_t = u_t^s \oplus v^s_t
+        W_t = U_t \oplus V_t, \quad w^s_t = u_t^s \oplus v^s_t.
     \end{equation*}
 \end{defi}
-Esta definição generaliza-se para somar arbitrárias, tanto finitas como infinitas. Vamos agora definir
+Esta definição generaliza-se para somas arbitrárias, tanto finitas como infinitas. Vamos agora definir
 a indecomponibilidade de um módulo de persistência.
 
 \begin{defi}
@@ -263,7 +264,7 @@ os módulos intervalares são indecomponíveis, como mostramos na Proposição \
     que o escalar definido é o mesmo para ambos os casos:
     \begin{align*}
         \Psi^{-1} \colon & \mathfrak{I} \to \mathbf{k} \\
-                         & \varphi \mapsto \alpha,
+                         & \varphi \mapsto \alpha.
     \end{align*}
     Vamos mostrar que a aplicação está bem definida.
     
@@ -297,7 +298,7 @@ os módulos intervalares são indecomponíveis, como mostramos na Proposição \
 \end{propo}
 \begin{proof}
     Suponha que exista uma decomposição $\mathfrak{I} = \mathfrak{U} \oplus \mathfrak{V}$. Considere agora
-    as projeções sob $\mathfrak{U}$ e $\mathfrak{V}$. Ambas são homomorfismos idempotentes. Mas como 
+    as projeções sobre $\mathfrak{U}$ e $\mathfrak{V}$. Ambas são homomorfismos idempotentes. Mas como 
     $\text{End}(\mathfrak{I})$ é isomorfo a $\mathbf{k}$ e os únicos idempotentes de $\mathbf{k}$ são 
     $0$ e $1$, segue que $\mathfrak{I}$ é indecomponível. 
 \end{proof}
@@ -312,9 +313,9 @@ os módulos intervalares são indecomponíveis, como mostramos na Proposição \
 \end{teo}
 \begin{proof}
     A demonstração segue do Teorema $1$~\cite{Azumaya1950} com a observação de que se $\mathbf{k}^J \cong 
-    \mathbf{k}^L$, então $J=K$. Só é necessário verificar uma condição de localidade para aplicarmos o teorema:
-    se $\psi, \phi \in \text{End}(\mathfrak{I})$ são não isomorfismos, então $\psi + \phi$ não é isomorfismo. 
-    Mas pela proposição anterior, isso segue do fato que a unica aplicação que não é isomorfismo em 
+    \mathbf{k}^L$, então $J=L$. Só é necessário verificar uma condição de localidade para aplicarmos o teorema:
+    se $\psi, \phi \in \text{End}(\mathfrak{I})$ não são isomorfismos, então $\psi + \phi$ não é isomorfismo. 
+    Mas pela proposição anterior, isso segue do fato que a única aplicação que não é isomorfismo em 
     $\text{End}(\mathfrak{I})$ é a aplicação nula.
 \end{proof}
 
@@ -347,7 +348,7 @@ onde $\Delta$ é a diagonal no plano.
 
 Note que ambos os diagramas definidos não dependem da escolha da decomposição, devido ao Teorema \ref{teo:krull}. 
 Além disso, o diagrama dgm é o diagrama de pontos não decorados e sem a diagonal, sendo encontrado com 
-frequência em exemplos práticos de análise de dados. Para a definição da distância bottleneck acaba sendo 
+frequência em exemplos práticos de análise de dados. Para a definição da distância \textit{bottleneck}, acaba sendo 
 mais importante. 
 
 \subsection{Cálculos com quivers}
@@ -361,7 +362,7 @@ Um módulo de persistência $\mathfrak{V}$ sobre um conjunto finito de índices
 da reta real pode ser visto como um diagrama de $n$ espaços vetoriais e $n-1$ aplicações lineares, como
 mostrado abaixo
 \begin{equation*}
-    \mathfrak{V} : \quad V_{a_1} \longrightarrow \dots \longrightarrow V_{a_n}.
+    \mathfrak{V} : \quad V_{a_1} \rightarrow \dots \rightarrow V_{a_n}.
 \end{equation*}
 O diagrama acima é a representação do seguinte \textbf{quiver}:
 \begin{equation*}
@@ -400,7 +401,7 @@ $\mathbf{k}[a_i,a_j]$ na decomposição de $\mathfrak{V}_{\mathbf{T}}$.
     \end{equation*}
     para representar a multiplicidade de $\qoff{a} \qem \qon{b} \qem \qon{c}$ no seguinte módulo de $3$ termos
     \begin{equation*}
-        \mathfrak{V} : \quad V_{a_1} \longrightarrow \dots \longrightarrow V_{a_n}.
+        \mathfrak{V} : \quad V_{a} \rightarrow V_{b} \rightarrow V_{c}.
     \end{equation*}
 \end{ex}
 
@@ -487,8 +488,8 @@ $\mathbf{k}[a_i,a_j]$ na decomposição de $\mathfrak{V}_{\mathbf{T}}$.
 \section{Medidas retangulares}
 Na seção anterior discutimos módulos de persistência decomponíveis e seus diagramas de persistência,
 Dgm e dgm. No entanto, nem sempre os módulos são decomponíveis, não sendo possível definir os 
-diagramas de persistência. Para definir-los, podemos nos guiar pela seguinte ideia: se soubermos 
-contar o número de pontos do Dgm pertence em cada retângulo do semiplano, então conhecemos Dgm.
+diagramas de persistência. Para os definir, podemos nos guiar pela seguinte ideia: se soubermos 
+contar o número de pontos do Dgm pertencente em cada retângulo do semiplano, então conhecemos Dgm.
 
 Iremos nos inspirar na teoria da medida para construir uma função que nos dá um valor inteiro ou 
 infinito e que podemos associar um diagrama de persistência com ela. A ideia é que para módulos 
@@ -528,24 +529,24 @@ Veremos como a medida tem uma relação com módulos decomponíveis. Abaixo um r
 \end{propo} 
 \begin{proof}
     Como $\mathbf{k}^J$ restrito a $\Set{a,b,c,d}$ é só um intervalo ou o módulo nulo, temos que $\mu_{\mathfrak{V}}(R)
-    \leq 1$, pois apenas teriamos a função identidade, cujo rank é um, ou a função nula, cujo rank é zero. 
+    \leq 1$, pois apenas teríamos a função identidade, cujo rank é um, ou a função nula, cujo rank é zero. 
 
     Como a medida tem valores em $\Set{0,1,\dots} \cup {\infty}$, vamos averiguar quando acontece $\mu_{\mathfrak{V}}(R)
     = 1$. Note que $\mu_{\mathfrak{V}}(R) = 1$ quando 
     \begin{equation*}    
         \mathbf{k}^J_{\{a,b,c,d\}} = \qoff{a} \qem \qon{b} \qem \qon{c} \qem \qoff{d}. 
     \end{equation*}
-    E esta restrição vale se e somente se $b,c \in J$ e $a,d \nin J$.
+    E esta restrição vale se, e somente se, $b,c \in J$ e $a,d \nin J$.
 \end{proof}
 
 A Proposição \ref{teo:int_meas} pode ser representada visualmente. Considere o módulo intervalar como um ponto
 decorado $(p^*, q^*)$ no semiplano diagonal superior. Então se o ponto estiver no interior do retângulo
 $R$, ele será detectado independente da decoração. Mas se estiver na borda, apenas aqueles cuja decoração
-apontem para dentro do retângulo serão detectados, como pode ser visto na \autoref{fig:dec_rect}
+apontem para dentro do retângulo serão detectados, como pode ser visto na Figura~\ref{fig:dec_rect}.
 \begin{figure}[htpb!]
     \centering
     \includegraphics[width=0.5\textwidth]{images/rect_points.png}
-    \caption{Pontos decorados que são detectados pela medida aplicada no retângulo R.}
+    \caption{Pontos decorados que são detectados pela medida aplicada no retângulo $R$.}
     \label{fig:dec_rect}
     \fdireta{Chazal2016}
 \end{figure}
@@ -557,13 +558,13 @@ apontem para dentro do retângulo serão detectados, como pode ser visto na \aut
         \item Se $p^* \in [a,b]$ e $q^* \in [c,d]$;
         \item Se $a < p^* < b$ e $c < q^* < d$ na ordem total definida anteriormente;
         \item Se $a^+ \leq p^* \leq b^-$ e $c^+ \leq q^* \leq d^-$;
-        \item Se o intervalo satisfaz: $[b,c] \subseteq (p^*, q^*) \subseteq (a,d)$;
+        \item Se o intervalo satisfaz $[b,c] \subseteq (p^*, q^*) \subseteq (a,d)$;
         \item O ponto com o traço $(p^*, q^*)$ está dentro do retângulo $R$.
     \end{itemize} 
 \end{defi}
 
 \begin{defi}
-    Definimos com o \textbf{r-interior} do retângulo $R$ o conjunto
+    Definimos como \textbf{$r$-interior} do retângulo $R$ o conjunto
     \begin{equation*}
         R^\times = \Set{(p^*, q^*) | (p^*, q^*) \in R}.
     \end{equation*} 
@@ -685,7 +686,7 @@ trabalhar de forma mais abstrata, sem mencionar os módulos.
     \end{equation*}
 \end{propo}
 \begin{proof}
-    Seja $a_1 < \dots < a_m$ sequência de todos os valores do eixo $x$ de cada vértice dos retângulos. 
+    Seja $a_1 < \dots < a_m$ sequência de todos as coordenadas $x$ de cada vértice dos retângulos. 
     Considere também $c_1 < \dots < c_n$ sequência de todos os valores do eixo $y$ de cada vértice dos retângulos.
     Então cada retângulo $R_k$ pode ser decomposto como união dos seguintes subretângulos
     \begin{equation*}
@@ -693,14 +694,6 @@ trabalhar de forma mais abstrata, sem mencionar os módulos.
     \end{equation*}
     que possuem interiores disjuntos por construção e sua medida é a soma das medidas de cada subretângulo. 
     Como cada subretângulo de $R$ pertence a um ou mais retângulos $R_i$, segue da aditividade o resultado.
-    %A Figura~\ref{fig:dem_subadd} mostra uma demonstração visual desta proposição. 
-    %\begin{figure}[htpb!]
-    %    \centering
-    %    \includegraphics[width=0.7\textwidth]{images/placeholder.png}
-    %    \caption{Demonstração da proposição através da figura.}
-    %    \label{fig:dem_subadd}
-    %    \fautor
-    %\end{figure}
 \end{proof}
 
 \subsection{Equivalência de medidas e diagramas}
@@ -749,7 +742,7 @@ onde para um retângulo $R = [a,b]\times[c,d]$, $R^\circ = (a,b)\times(c,d)$.
 \end{teo}
 \begin{proof}
 $(2) \to (1):$ para este passo, basta provar que a medida definida na Eq. \eqref{eq:med_dgm} é uma $r$-medida.
-De fato, é finita pois $A$ é localmente finito. Para verificar a aditivade, suponha que para um retângulo
+De fato, é finita pois $A$ é localmente finito. Para verificar a aditividade, suponha que para um retângulo
 $R$ qualquer, ele se divida horizontalmente ou verticalmente em $R_1$ e $R_2$. Note então que $(p^*,q^*)$
 pertence a exatamente $R_1$ ou $R_2$. Portanto, 
 \begin{equation*}
@@ -768,7 +761,7 @@ prática, iremos construir a função de multiplicidade $m$ e definir a Eq. \eqr
 \end{equation}  
 para $(p^*, q^*) \in \mathcal{D}^\times$. Observe que o mínimo é atingido, já que tomamos $(p^*, q^*) \in \mathcal{D}^\times$
 e $\mu$ é uma medida que assume valores inteiros. Utilizaremos uma definição alternativa, ao invés de minimizar sob 
-todos os retângulos, tomamos o limite de uma sequência de retângulos decrescentes.  
+todos os retângulos, tomamos o limite de uma sequência decrescente de retângulos.  
 \begin{lem}\label{teo:lem_med}
     Sejam $(\xi_i)$ e $(\eta_i)$ duas sequências não crescentes de números reais positivos
     que tendem a zero quando $i \to \infty$. Então
@@ -792,7 +785,7 @@ todos os retângulos, tomamos o limite de uma sequência de retângulos decresce
     \begin{equation*}
         m(p^+, q^+) \leq \min_i\mu(R_i) = \lim_{i\to\infty} \mu(R_i) \leq \mu(R)
     \end{equation*}
-    para todo $R$ contendo $(p^+, q^+)$. Tomando o mínimo de ambos os lados da inequalidade acima 
+    para todo $R$ contendo $(p^+, q^+)$. Tomando o mínimo de ambos os lados da desigualdade acima 
     sob todos os $R$, o lado direito se torna $m(p^+, q^+)$, logo
     \begin{equation*}
         m(p^+, q^+) = \lim_{i\to\infty}\mu(R_i).
@@ -803,9 +796,9 @@ todos os retângulos, tomamos o limite de uma sequência de retângulos decresce
 \textbf{Passo 2.} Uma vez com a função multiplicidade definida, mostraremos que ela está de acordo com a 
 Eq. \eqref{eq:med_mult}. Podemos definir uma medida baseada na função multiplicidade
 \begin{equation*}
-    \nu(R) = \sum_{(p^*, q^*)\in R} m(p^*, q^*),
+    \nu(R) = \sum_{(p^*, q^*)\in R} m(p^*, q^*).
 \end{equation*}
-nos resta mostrar então que $\mu = \nu$. Vamos utilizar indução sobre $k = \mu(R)$. 
+Nos resta mostrar então que $\mu = \nu$. Vamos utilizar indução sobre $k = \mu(R)$. 
 
 \noindent \textbf{Caso base.} Se $\mu(R) = 0$, então para todo $(p^*, q^*) \in R$ temos 
 \begin{equation*}
@@ -813,30 +806,31 @@ nos resta mostrar então que $\mu = \nu$. Vamos utilizar indução sobre $k = \m
 \end{equation*}
 Portanto, $\nu(R) = 0$. 
 
-\noindent \textbf{Passo indutivo.} Suponha qe $\mu(R) = \nu(R)$ para todo retângulo $R$ com 
+\noindent \textbf{Passo indutivo.} Suponha $\mu(R) = \nu(R)$ para todo retângulo $R$ com 
 $\mu(R) < k$. Seja agora um retângulo $R_0$ tal que $\mu(R_0) = k$. Vamos mostrar que $\nu(R_0)
-=0$. A ideia para este passo é em construir uma sequência decrescente de retângulos fechados 
+=0$. A ideia para este passo é construir uma sequência decrescente de retângulos fechados 
 de forma que haverá apenas um ponto na interseção destes retângulos (Teorema de Cantor). 
 
 Divida o retângulo em quatro quadrantes iguais, $S_1, \dots, S_4$. Pela aditividade finita
 \begin{align*}
-    \mu(R_0) & = \mu(S_1) + \dots + \mu(S_4) \\
+    \mu(R_0) & = \mu(S_1) + \dots + \mu(S_4), \\
     \nu(R_0) & = \nu(S_1) + \dots + \nu(S_4).
 \end{align*}
-Se todo quadrante satisfaz $\mu(S_i) < k$, segue então que $\mu(R_0) = \nu(R_0)$, concluindo
-a demonstração. Caso contrário, um dos quadrantes tem valor $k$, enquanto o resto será $0$. 
-Seja $R_1$ o quadrado especial, então $\mu(R_1) = k$. Resta mostrar que $\nu(R_1) = k$. 
+Se todo quadrante satisfaz $\mu(S_i) < k$, segue então que $\mu(R_0) = \nu(R_0)$, pelo passo indutivo,
+concluindo a demonstração. Caso contrário, um dos quadrantes tem medida igual a $k$, digamos $R_1$,
+enquanto o resto será $0$. Então $\mu(R_1) = k$. Resta mostrar que $\nu(R_1) = k$. 
 
-Repetindo o argumento acima, divida o retângulo $R_i$ em quatro quadrantes iguais. Temos dois
-casos: todos os quadrantes satisfazem a hipótese indutiva $\mu<k$ e teriamos terminado a situação.
+Repetindo o argumento acima, obtemos um retângulo $R_i$ tal que $\mu(R_i) = k$. 
+Divida o retângulo $R_i$ em quatro quadrantes iguais. Temos dois
+casos: todos os quadrantes satisfazem a hipótese indutiva $\mu<k$ e teríamos terminado a demonstração.
 Ou existe um quadrante $R_{i+1}$ com $\mu(R_{i+1})=k$ e temos que mostrar que $\nu(R_{i+1})$.
 
 No pior caso, temos uma sequência decrescente de retângulos fechados
 \begin{equation*}
-    R_0 \supset R_1 \supset R_2 \supset \dots
+    R_0 \supset R_1 \supset R_2 \supset \cdots
 \end{equation*}
-com cada quadrante sendo do mesmo tipo anterior, $\mu(R_i) = k$. Pelo teorema de cantor e o fato
-que o diâmetro dos conjuntos tende a $0$, temos que a interseção dos intervalos fechados possuem
+com cada quadrante sendo do mesmo tipo anterior, $\mu(R_i) = k$. Pelo teorema de Cantor e o fato
+de o diâmetro dos conjuntos tender a $0$, temos que a interseção dos intervalos fechados possuem
 apenas um ponto $(r,s)$.
 
 Vamos mostrar agora que $\nu(R_0) = k$ avaliando a soma explicitamente sob todos os pontos decorados
@@ -850,7 +844,7 @@ Portanto, pela fórmula de multiplicidade, $m(p^*, q^*) = 0$.
 Assim, os únicos pontos que contribuem para $\nu(R_0)$ são as variações decoradas de $(r,s)$, já 
 que é o único ponto não decorado na interseção. Agora a avaliação de $\nu(R_0)$ depende de como 
 este ponto decorado se encontra na intereseção. Existem 3 possíveis casos: as 4, 2, 1 decorações
-estão contidas nos retângulos, como podemos ver na Figura \ref{fig:proof_rect}
+estão contidas nos retângulos, como podemos ver na Figura~\ref{fig:proof_rect}
 
 \begin{figure}[htpb!]
     \centering
@@ -926,7 +920,7 @@ apenas com medidas finitas.
     \item Um módulo de persistência é \textbf{localmente finito} se é uma soma direta de módulos intervalares
     e satisfaz a seguinte propriedade: qualquer subconjunto de $\mathbb{R}$ intersecta um número finito de 
     módulos intervalares;
-    \item Um módulo de persistência $\frakv$ é \textbf{pontualmente de dimensão finita (pfd)} se cada espaço
+    \item Um módulo de persistência $\frakv$ é \textbf{pontualmente de dimensão finita (pdf)} se cada espaço
     vetorial $V_t$ tiver dimensão finita. 
 \end{itemize}
 
@@ -952,7 +946,12 @@ Precisamos mostrar que
 \begin{equation*}
     H(X^b) \to H(X^c) 
 \end{equation*}
-tem rank finito para qualquer $b < c$. Considere uma triangulação de $X$ e a subdivida de forma que 
+tem rank finito para qualquer $b < c$, já como visto anteriormente, o rank da função acima
+é igual a
+\begin{equation*}
+    \innerproduct{\qon{b} \qem \qon{c}}.
+\end{equation*}
+Considere uma triangulação de $X$ e a subdivida de forma que 
 nenhum simplexo intersecte $f^{-1}(b)$ e $f^{-1}(c)$ ao mesmo tempo. Defina agora $Y$ como a união
 de todos os simplexos que intersectam $X^b$. Portanto, 
 \begin{equation*}
@@ -968,12 +967,12 @@ tem rank finito.
 
 \begin{cor}\label{teo:tamedois}
 Seja $X$ um poliedro localmente compacto e $f \colon X \to \mathbb{R}$ uma função propriamente contínua
-que seja limitada por baixo. Então $H(\mathfrak{X}_{\text{sub}})$ é \textit{q-tame}.
+que seja limitada inferiormente. Então $H(\mathfrak{X}_{\text{sub}})$ é \textit{q-tame}.
 \end{cor}
 \begin{proof}
 Novamente, precisamos mostrar que $H(X^b) \to H(X^c)$ tem rank finito. Mas neste caso iremos aplicar
 o Teorema~\ref{teo:tameum}, para tanto precisamos de um subpoliedro compacto de $X$ que contenha $X^c$. 
-Seja uma triangulação local finita de $X$ e considere os simplexos fechados que intersectam $X^c$. 
+Seja uma triangulação localmente finita de $X$ e considere os simplexos fechados que intersectam $X^c$. 
 Como $X^c$ é compacto, já que $f$ é uma função própria, no sentido que a pre-imagem de compacto é compacto,
 temos que existe um número finito de conjuntos fechados que intersecta $X^c$. Considere agora a união
 desses conjuntos fechados como o subpoliedro desejado. 
@@ -981,7 +980,7 @@ desses conjuntos fechados como o subpoliedro desejado.
 
 \begin{cor}\label{teo:tametres} 
 Seja $A$ um subconjunto não vazio compacto de $X = \mathbb{R}^n$ e $f \colon X \to \mathbb{R}$, $f(x) =
-\min_{a\in A} \norm{x-a}$, para qualquer norma $\norm{.}$. Segue então do Corolário \ref{teo:tamedois}
+\min_{a\in A} \norm{x-a}$, para qualquer norma $\norm{\cdot}$. Segue então do Corolário \ref{teo:tamedois}
 que $H(\mathfrak{X}_{\text{sub}})$ é \textit{q-tame}.
 \end{cor}
 
@@ -998,15 +997,15 @@ tais que
 \end{equation*}
 
 No entanto, para trabalhar com módulos de persistência, a noção de isomorfismo é muito forte. 
-Para isso, podemos enfraquece-la definindo a $\delta$-intercalação entre dois módulos. 
+Para isso, podemos enfraquecê-la definindo a $\delta$-intercalação entre dois módulos. 
 Nesta subseção iremos definir o interlaçamento e demonstrar o lema de interpolação,
 como se define um \textit{caminho contínuo} entre dois módulos de persistência. 
 
 \subsection{Homomorfismos e módulos de persistência}
 
-Primeiro vamos considerar homomorfismo que mudam o índice de persistência dos módulos. 
+Primeiro vamos considerar homomorfismos que mudam o índice de persistência dos módulos. 
 Sejam $\fraku, \frakv$ módulos de persistência sobre $\mathbb{R}$ e $\delta \in \mathbb{R}$
-qualquer. Então um homomorfismo de grau $\delta$ é a coleção $\Phi$ de aplicações lineares
+qualquer. Então um homomorfismo de grau $\delta$ é uma coleção $\Phi$ de aplicações lineares
 \begin{equation*}
     \phi_t \colon U_t \to V_{t+\delta}
 \end{equation*}
@@ -1021,7 +1020,7 @@ comuta para todo $s \leq t$. Escrevemos
 \begin{align*}
     \text{Hom}^\delta(\mathfrak{U}, \mathfrak{V}) &= \Set{\text{homomorfismos } \mathfrak{U} \to \mathfrak{V}}
     \text{ de grau } \delta, \\
-    \text{End}(\mathfrak{V}) &= \Set{\text{homomorfismos } \mathfrak{V} \to \mathfrak{V}\text{ de grau } \delta}.
+    \text{End}^\delta(\mathfrak{V}) &= \Set{\text{homomorfismos } \mathfrak{V} \to \mathfrak{V}\text{ de grau } \delta}.
 \end{align*}
 A composição é definida de forma natural, nos dando a aplicação
 \begin{equation*}
@@ -1057,7 +1056,7 @@ para todo $a \in \mathbb{R}$.
 \end{obs}
 
 \begin{defi}
-    Seja $\delta \geq 0$. Dizemos que $\fraku, \frakv$ são $\delta$-interlaçados se
+    Seja $\delta \geq 0$. Dizemos que $\fraku, \frakv$ são $\delta$-intercalados se
     existem aplicações 
     \begin{equation*}
         \Phi \in \Hom^\delta(\fraku, \frakv), \Psi \in \Hom^\delta(\frakv, \fraku) 
@@ -1071,7 +1070,7 @@ para todo $a \in \mathbb{R}$.
 \begin{ex}
     Seja $X$ um espaço topológico e $f,g \colon X \to \mathbb{R}$. Suponha que $\norm{f-g}_\infty 
     < \delta$. Então os módulos de persistência $H(\mathfrak{X}^f_{\text{sub}}), H(\mathfrak{X}^g_{\text{sub}})$
-    são $\delta$-interlaçados.  
+    são $\delta$-intercalados.  
     
     De fato, note primeiro que 
     \begin{align*}
@@ -1081,7 +1080,7 @@ para todo $a \in \mathbb{R}$.
     já que para $x \in (X,f)^t$ temos que $f(x) \leq t$ e como 
     $\norm{f-g}_\infty < \delta$, $\abs{g(x) - f(x)} < \delta$ 
     e logo $g(x) < f(x) + \delta \leq t + \delta$, implicando 
-    $x \in (X,g)^{t+\delta}$. De forma análoga temos a segunda equação.  
+    $x \in (X,g)^{t+\delta}$. De forma análoga temos a segunda inclusão.  
 
     Pela funtorialidade de $H$, temos que para todo $t$, existem aplicações lineares induzidas das
     inclusões acima
@@ -1120,12 +1119,12 @@ de $\mathbb{R}^2$.
 \end{propo}
 \begin{proof}
 Suponha que $x < y$ sem perda de generalidade. Vamos mostrar que a informação
-\ref{item:persmod} extra dada pelas aplicações de $\abs{y-x}$-interlaçamento
+\ref{item:persmod} abaixo dada pelas aplicações de $\abs{y-x}$-interlaçamento
 são equivalentes
-as \ref{item:wpersmod} informações extras do módulo de persistência $\frakw$. 
+às informações abaixo (\ref{item:wpersmod}) do módulo de persistência $\frakw$. 
 \begin{enumerate}
     \item \label{item:persmod} Note que como $\fraku, \frakv$ são módulos 
-    $\abs{y-x}$-interlaçados, existem morfismos $\Phi, \Psi$ tais que 
+    $\abs{y-x}$-intercalados, existem morfismos $\Phi, \Psi$ tais que 
     \begin{equation*}
         \phi_t \colon U_t \to V_{t+y-x}, \qquad \psi_t \colon V_t \to U_{t+y-x},
     \end{equation*}
@@ -1191,11 +1190,11 @@ demonstração do teorema da estabilidade dos módulos de persistência.
 
 \begin{lem}{(Lema de interpolação)}\label{teo:lema_interp}
 Suponha que $\mathfrak{U}$ e $\frakv$ são módulos de persistência
-$\delta$-interlaçados. Então existe uma família de módulos de 
+$\delta$-intercalados. Então existe uma família de módulos de 
 persistência $(\mathfrak{U}_x \mid x \in [0,\delta])$ tais que 
 $U_0$ e $U_\delta$ são iguais a $\mathfrak{U}$ e $\frakv$ 
 respectivamente e $\mathfrak{U}_x$, $\mathfrak{U}_y$ são 
-$\abs{y-x}$-interlaçados para todo $x,y \in [0,\delta]$. Além disso,
+$\abs{y-x}$-intercalados para todo $x,y \in [0,\delta]$. Além disso,
 se $\mathfrak{U}$ e $\mathfrak{V}$ são \textit{q-tames}, então 
 $(\mathfrak{U}_x)$ são \textit{q-tames}.
 \end{lem}
@@ -1203,8 +1202,8 @@ $(\mathfrak{U}_x)$ são \textit{q-tames}.
 O Teorema~\ref{teo:lema_interpdois} é uma versão mais forte do 
 Lema~\ref{teo:lema_interp}. 
 \begin{teo}{(Lema de interpolação, versão 2)}\label{teo:lema_interpdois}
-Todo módulo de persistência sobre $\Delta_0 \cup 
-\Delta_\delta, \mathfrak{W}$, se extende a um módulo de persistência 
+Todo módulo de persistência, $\frakw$, sobre $\Delta_0 \cup 
+\Delta_\delta$, se extende a um módulo de persistência 
 $\bar{\mathfrak{W}}$ sobre a faixa diagonal
 \begin{equation*}
     \Delta_{[0, \delta]} = \Set{(p,q) | 0 \leq q - p \leq 2\delta}
@@ -1218,7 +1217,7 @@ pode ser escolhida de forma que cada $\left.\bar{\mathfrak{W}}
 \begin{proof}
     Sejam $\Delta_0 \cup \Delta_\delta$ e $\Delta_{[0,\delta]}$ duas 
     categorias no mesmo sentido definido no início deste capítulo para
-    o conjunto dos reais $\mathbb{R}$ ($s \to t \text{ sss } s \leq t$).
+    o conjunto dos reais $\mathbb{R}$ ($s \to t \text{ se, e somente se,  } s \leq t$).
     Então os módulos de persistência sobre esses posets podem ser vistos
     como funtores para a categoria dos espaços vetoriais. O teorema
     de extensão de Kan~\cite{MacLane1978} afirma que existe uma extensão
@@ -1233,7 +1232,7 @@ pode ser escolhida de forma que cada $\left.\bar{\mathfrak{W}}
     a demonstração. 
 \end{proof}
 
-Se $\mathfrak{U}$ e $\frakv$ são $\delta$-interlaçados, então 
+Se $\mathfrak{U}$ e $\frakv$ são $\delta$-intercalados, então 
 pela Proposição~\ref{teo:prop_inter} existe um módulo de 
 persistência $\mathfrak{W}$ sobre $\Delta_0 \cup \Delta_\delta$ tal
 que $\left.\mathfrak{W}\right|_{\Delta_0} = \mathfrak{U}$ e 
@@ -1242,7 +1241,7 @@ Teorema~\ref{teo:lema_interpdois}, este módulo se extende a
 $\bar{\mathfrak{W}}$ sobre a faixa $\Delta_{[0,\delta]}$.
 Defina então $\mathfrak{U}_x = \left.\bar{\mathfrak{W}}\right|_{
 \Delta_x}$, logo $\mathfrak{U}_x$ e $\mathfrak{U}_y$ são 
-$\abs{y-x}$-interlaçados para todo $x,y\in [0, \delta]$. 
+$\abs{y-x}$-intercalados para todo $x,y\in [0, \delta]$. 
 
 \section{O teorema de isometria}
 
@@ -1250,15 +1249,15 @@ Existe uma relação entre os módulos de persistência e seus respectivos diagr
 de persistência. Para módulos de persistência bem comportados, como os 
 \textit{q-tames}, existe uma isometria entre módulos e diagramas. Para mostrar 
 parcialmente este resultado, iremos definir a distância de interlaçamento entre
-módulos de persistência e também a distância bottleneck, que é calculada
+módulos de persistência e também a distância \textit{bottleneck}, que é calculada
 em multiconjuntos. 
 
 \subsection{A distância de interlaçamento}
 
 Para o primeiro passo, iremos definir a distância de interlaçamento entre
 módulos de persistência. Primeiro note que para módulos 
-$\fraku,  \frakv$ que são $\delta$-interlaçados, então eles
-são $(\delta+\epsilon)$-interlaçados para todo $\epsilon > 0$. Basta tomar
+$\fraku,  \frakv$ que são $\delta$-intercalados, então eles
+são $(\delta+\epsilon)$-intercalados para todo $\epsilon > 0$. Basta tomar
 os morfismos
 \begin{align*}
     & \Phi' = \Phi 1_\fraku^\epsilon = 1_\frakv^\epsilon \Phi \\
@@ -1267,19 +1266,19 @@ os morfismos
 que satisfazem a condição de interlaçamento. 
 
 Portanto, o desafio é obter o menor parâmetro possível de forma que módulos
-de persistência sejam interlaçados. O problema é que nem sempre é obtido, 
+de persistência sejam intercalados. O problema é que nem sempre é obtido, 
 sendo assim definimos o conceito de $\delta^+$-interlaçamento. Dizemos que 
-$\fraku, \frakv$ são $\delta^+$-interlaçados se eles são $(\delta + \epsilon)$
--interlaçados para todo $\epsilon > 0$. 
+$\fraku, \frakv$ são $\delta^+$-intercalados se eles são $(\delta + \epsilon)$
+-intercalados para todo $\epsilon > 0$. 
 
 \begin{defi}
     Sejam $\fraku, \frakv$ dois módulos de persistência. A \textbf{distância
     de interlaçamento} entre $\fraku, \frakv$ é dada por
     \begin{align*}
         \di(\fraku, \frakv) &= \inf\Set{\delta | \fraku, \frakv \text{ são }
-        \delta \text{-interlaçados}} \\
+        \delta \text{-intercalados}} \\
         &=\min\Set{\delta | \fraku, \frakv \text{ são } \delta^+ 
-        \text{-interlaçados}}.
+        \text{-intercalados}}.
     \end{align*}
     Se não existe nenhum $\delta$-interlaçamento entre $\fraku, \frakv$ para
     qualquer $\delta$, então $\di(\fraku, \frakv) = \infty$.
@@ -1323,7 +1322,7 @@ se os diagrams de persistência não decorados forem iguais.
     \begin{equation*}
         \kbf[p,q], \kbf[p,q), \kbf(p,q], \kbf(p,q)
     \end{equation*}
-    são $0^+$-interlaçados, mas não isomórfos. 
+    são $0^+$-intercalados, mas não isomórfos. 
 \end{ex}
 
 \begin{propo}\label{teo:direct_sum_dist}
@@ -1349,13 +1348,13 @@ se os diagrams de persistência não decorados forem iguais.
     de $\di(\fraku, \frakv)$, em particular, para o $\sup$. 
 \end{proof}
 
-\subsection{A distância bottleneck}
+\subsection{A distância \textit{bottleneck}}
 
-Com a primeira distância definida, vamos definir a segunda, a bottleneck. Denote por 
+Com a primeira distância definida, vamos definir a segunda, a \textit{bottleneck}. Denote por 
 \begin{equation*}
     \bar{\mathcal{H}}^\circ = \Set{(p,q) | -\infty \leq p < q \leq +\infty}
 \end{equation*}
-o semiplano extendido aberto (sem a diagonal). Para definirmos a distância bottleneck,
+o semiplano extendido aberto (sem a diagonal). Para definirmos a distância \textit{bottleneck},
 precisamos definir certas relações entre os pontos em $\hsp$.  
 \begin{itemize}
     \item \textbf{ponto a ponto}: A primeira ideia é que dois diagramas não decorados estão
@@ -1412,10 +1411,10 @@ Vamos mostrar agora duas proposições relacionadas com os dois itens acima.
     $0 = 1^{2\delta}_\fraku$. Isso vale quando $\delta > \frac{1}{2} (q-p)$ e falha 
     para $\delta < \frac{1}{2}(q-p)$. De fato, note que as aplicações $u^t_{t+2\delta} \colon
     U_t \to U_{t+2\delta}$ são nulas precisamente quando $t < p$ ou $t + 2\delta > q$, ou seja,
-    $\delta < \frac{1}{2}(q-t)$ e pela primeira condição $(-t > -p)$, teriamos a desigualdade desejada. 
+    $\delta < \frac{1}{2}(q-t)$ e pela primeira condição $(-t > -p)$, teríamos a desigualdade desejada. 
 \end{proof}
 
-Utilizando os resultados e definições acima, podemos definir a distância bottleneck entre 
+Utilizando os resultados e definições acima, podemos definir a distância \textit{bottleneck} entre 
 multiconjuntos no semiplano extendido. Neste contexto, iremos adaptar os multiconjuntos 
 a conjuntos onde cada elemento possui um índice, ou seja, se $\alpha$ é um elemento de 
 multiplicidade $k$, teremos os elementos $\alpha_1, \dots, \alpha_k$. 
@@ -1442,7 +1441,7 @@ multiplicidade $k$, teremos os elementos $\alpha_1, \dots, \alpha_k$.
 \end{defi}
 
 \begin{defi}
-    A \textbf{distância bottleneck} entre dois multiconjuntos $A,B$ em $\hsp$ é
+    A \textbf{distância \textit{bottleneck}} entre dois multiconjuntos $A,B$ em $\hsp$ é
     \begin{equation*}
         \db(A,B) = \inf \Set{\delta | \text{Existe um } \delta \text{-emparelhamento entre 
         } A \text{ e } B}.
@@ -1450,7 +1449,7 @@ multiplicidade $k$, teremos os elementos $\alpha_1, \dots, \alpha_k$.
 \end{defi}
 
 \begin{propo}
-    A distância bottleneck satisfaz a desigualdade triangular
+    A distância \textit{bottleneck} satisfaz a desigualdade triangular
     \begin{equation*}
         \dt_b(A,C) \leq \dt_b(A,B) + \dt_b(B,C)
     \end{equation*}
@@ -1732,19 +1731,19 @@ Agora podemos demontrar a inequação~\ref{eq:volta}.
 A Inequação~\ref{eq:ida} pode ser expressa da seguinte maneira
 \begin{teo}\label{teo:stabdif}
     Sejam $\fraku, \frakv$ módulos de persistência \textit{q-tames} que são 
-    $\delta^+$-interlaçados. Então existe um $\delta$-emparelhamento entre os 
+    $\delta^+$-intercalados. Então existe um $\delta$-emparelhamento entre os 
     multiconjuntos $\dgm{\fraku}$ e $\dgm{\frakv}$. 
 \end{teo}
 
 Podemos, no entando, provar a seguinte forma do teorema.
 \begin{teo}\label{teo:stabeasier}
     Sejam $\fraku, \frakv$ módulos de persistência \textit{q-tames} que são 
-    $\delta$-interlaçados. Então existe um $\delta$-emparelhamento entre os 
+    $\delta$-intercalados. Então existe um $\delta$-emparelhamento entre os 
     multiconjuntos $\dgm{\fraku}$ e $\dgm{\frakv}$. 
 \end{teo}
 
 Podemos deduzir o Teorema~\ref{teo:stabdif} de \ref{teo:stabeasier} pois se 
-$\fraku, \frakv$ são $\delta^+$-interlaçados, então existe um $\eta$-interlaçamento
+$\fraku, \frakv$ são $\delta^+$-intercalados, então existe um $\eta$-interlaçamento
 entre os respectivos diagramas para todo $\eta > \delta$, então existe um $\delta$-
 emparelhamento. O Teorema~\ref{teo:stabeasier} pode ser provado usando os seguintes
 resultados:
@@ -1767,7 +1766,7 @@ Não iremos apresentar a demonstração por completo aqui devido a sua dificulda
 \end{defi}
 
 \begin{lem}\label{teo:lema_box}
-    Sejam $\fraku, \frakv$ módulos de persistência $\delta$-interlaçados. Seja 
+    Sejam $\fraku, \frakv$ módulos de persistência $\delta$-intercalados. Seja 
     $R$ um retângulo cujo $\delta$-engrossamento $R^\delta$ fique acima da diagonal.
     Então $\mu_\fraku(R) \leq \mu_\frakv(R^\delta)$ e $\mu_\frakv(R) \leq \mu_\fraku(R^\delta)$.
 \end{lem}
